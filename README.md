@@ -1,10 +1,10 @@
-﻿# Hyacinth Kaye Bajuyo Portfolio
+# Hyacinth Kaye Bajuyo Portfolio
 
 A personal portfolio website for Virtual Assistant, Executive/Admin Support, Social Media Management, writing, workflow systems, and visual portfolio samples.
 
-## Live Website Entry
+## Live Site
 
-Open `index.html`.
+https://nikuhziuh.github.io/hyacinth-portfolio-ai-assisted-architecture/
 
 ## Highlights
 
@@ -14,6 +14,17 @@ Open `index.html`.
 - Published writing and technical writing proof
 - Graphic design portfolio samples
 - AI-assisted architecture documentation folder
+
+## Project Structure
+
+- `index.html` — main portfolio page
+- `social-strategy-*.html` — case study pages
+- `styles.css` — extracted stylesheet
+- `scripts.js` — extracted JavaScript
+- `assets/` — images organized by type
+  - `tool-logos/`, `profile/`, `accreditations/`
+  - `samples/` — `admin/`, `endorsements/`, `graphics/`, `published-work/`, `technical-writing/`, `workflows/`, `writing-awards/`
+- `ai-assisted-architecture/` — process documentation
 
 ## AI-Assisted Architecture
 
