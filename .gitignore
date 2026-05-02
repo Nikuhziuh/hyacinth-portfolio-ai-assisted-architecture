@@ -1,0 +1,7 @@
+﻿*.zip
+*.mp4
+*.mov
+*.cjs
+node_modules/
+.DS_Store
+Thumbs.db
