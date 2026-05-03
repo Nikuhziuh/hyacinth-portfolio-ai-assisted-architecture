@@ -1,0 +1,1952 @@
+FINAL MASTER BLUEPRINT WITH COMMENTARY
+Portfolio Website for Hyacinth Kaye Bajuyo
+
+Core Intent
+- Design a premium personal portfolio for Hyacinth Kaye Bajuyo with a soft, elegant, modern, feminine pearl-glass aesthetic.
+- The site should feel editorial, airy, polished, and premium, with cinematic motion and strong consistency from Hero to Footer.
+- The final result should feel cohesive across all sections, especially where real attachments, popups, PDFs, HTML samples, and image-based credential proof are involved.
+
+Master Commentary
+- Pages `1` to `6` are primarily design-system and layout-driven pages. They are important, but they are less risky because they are not heavily dependent on attachment logic.
+- Pages `6.5`, `7`, and `8` are the most implementation-sensitive parts of the site because they rely on actual files, popup behavior, slide counts, document frames, and viewer-type rules.
+- This blueprint is intentionally detailed so the final implementation does not drift into alternate naming systems, wrong popup models, or mismatched preview logic.
+
+I. Global Design DNA
+
+Palette Lock
+- Strict palette lock:
+  - blush pinks `#F6B1B1`, `#F8C6C6`
+  - dusty rose / burgundy `#D97C7C`, `#7A1E1E`
+  - peach / nude `#F3C7B5`, `#F5D5C8`
+  - text `#2B2B2B`, `#6E6E6E`
+- Use pearl white or warm off-white as the base background.
+- Do not introduce purple, blue, orange, or unrelated pinks.
+- Use `#F8C6C6` and `#F6B1B1` for translucent glass fills and highlights.
+- Use `#F3C7B5` and `#F5D5C8` for blobs, halos, and gradient blooms.
+- Use `#D97C7C` for borders, buttons, glow lines, interaction, and rose-tinted shadows.
+- Use `#7A1E1E` only for selective premium depth and emphasis.
+
+Typography DNA
+- Use elegant serif for headlines.
+- Use clean sans-serif for navigation, labels, pills, tabs, buttons, and body text.
+- Headings should feel editorial and premium, not corporate or generic.
+- Body text should feel refined but highly readable.
+
+Glass Treatment
+- Every glass element must use the site’s dual-edge treatment:
+  - `1px solid rgba(255,255,255,0.2)`
+  - `inset 0 0 10px rgba(255,255,255,0.1)`
+- Where needed, add a soft outer `#D97C7C` glow-line.
+- Keep glass elegant and luminous, but never so transparent that readability is damaged.
+
+Background Language
+- Backgrounds should be airy and minimal.
+- Use low-opacity organic blobs and diffused gradient blooms.
+- Keep them slightly blurred and atmospheric.
+- The background should support the content, not overpower it.
+
+Commentary
+- This global design DNA is the visual source of truth for the whole site.
+- Any future design refinement should stay inside this palette and material system unless the blueprint itself is intentionally revised.
+
+II. Layout Tokens
+
+Global Layout System
+- Use one consistent layout system across all sections.
+- Max content width:
+  - `1200px`
+- Standard horizontal content width:
+  - `min(1200px, calc(100vw - 48px))`
+- Section vertical padding on desktop:
+  - `96px to 120px`
+- Standard card gap:
+  - `24px`
+- Grid gap for larger layouts:
+  - `24px to 32px`
+- Mobile section padding:
+  - `64px to 80px`
+- Mobile horizontal padding:
+  - `20px to 24px`
+
+Border Radius System
+- Large cards:
+  - `32px to 40px`
+- Medium cards:
+  - `24px to 32px`
+- Pills / capsules:
+  - `999px`
+
+Layout Rhythm
+- Keep all sections aligned to the same content width and spacing rhythm.
+- The site should feel like one editorial system from Hero to Footer.
+- Do not let later pages drift into a different spacing language.
+
+Commentary
+- These layout tokens are important because they prevent the early pages from feeling premium while the later pages feel improvised.
+- The consistency here is what makes the site feel professionally art-directed.
+
+III. Navigation Architecture
+
+Main Navigation Structure
+- Build a narrow floating pill navigation centered near the top.
+- Width:
+  - `70% to 80%`
+- Fixed top offset:
+  - `20px`
+- Navigation height:
+  - `48px to 54px`
+- Border radius:
+  - `999px`
+- Use a warm off-white like `#FFFBF8` or a tinted pearl-glass fill based on `#F8C6C6 / #F6B1B1`.
+- Use `backdrop-filter: blur(12px)`.
+
+Left Side Content
+- Use a circular peach monogram badge with `HKB`.
+- Place the wordmark `Virtual Assistant` beside it.
+- Wordmark color:
+  - `#2B2B2B`
+
+Right Side Navigation Links
+- Links:
+  - `Home`
+  - `About`
+  - `Experience`
+  - `Services`
+  - `Skills`
+  - `Portfolio`
+- Navigation typography:
+  - clean sans-serif
+  - `14px to 16px`
+  - medium weight
+  - readable `#2B2B2B`
+
+Hover and Active Motion
+- On hover, reveal a soft blush capsule highlight behind each link using a spring transition.
+- Add a sliding pill active indicator behind the selected link.
+- Use spring motion around `0.4s` with high damping.
+- Tint the active indicator with `#F8C6C6`.
+
+Live Status
+- Add a Live Status indicator with a soft pulsing `#D97C7C` dot and current PHT time.
+
+Navigation Readability Revision
+- Make the navigation font sizes slightly bigger and more readable:
+  - `14px to 16px`
+- Keep the nav bar size within:
+  - `48px to 54px`
+- Make sure link contrast remains strong against the floating glass fill.
+
+Commentary
+- The navigation should feel refined and premium, not oversized or intrusive.
+- It is meant to float lightly over the page and quietly reinforce the design system.
+
+IV. Hero to About Transition
+
+Main Transition Concept
+- Treat the Hero-to-About transition as one continuous cinematic scroll scene.
+- Use a shared `180vh to 200vh` section with a `100vh` sticky viewport.
+- Keep the Hero portrait and aura composition in a single motion group so they travel together into the About layout.
+
+Scroll Phase 1
+- `0% to 25%` scroll:
+  - Hero text and CTA buttons fade, lift slightly, and soften out
+  - opacity: `1 -> 0`
+  - scale: `1 -> 0.96`
+  - y: `0 -> -20px`
+  - optional blur: `0 -> 4px`
+
+Scroll Phase 2
+- `25% to 65%` scroll:
+  - portrait and aura enlarge slightly and shift into the future left-side About position
+  - scale: `1 -> 1.18 to 1.25`
+  - x: `0 -> -18vw to -22vw`
+  - y: `0 -> 1vh to 2vh`
+
+Scroll Phase 3
+- `40% to 75%` scroll:
+  - About card forms behind the arriving portrait with a soft glass build-in
+  - opacity: `0 -> 1`
+  - scale: `0.97 -> 1`
+  - y: `36px -> 0`
+  - border radius remains soft and generous around `32px to 40px`
+
+Scroll Phase 4
+- `55% to 100%` scroll:
+  - About content glides in from the right in a staggered sequence
+  - headline first
+  - description second
+  - badge or supporting detail last
+  - x: `80px -> 0`
+  - opacity: `0 -> 1`
+
+Motion Style
+- Motion should feel soft, elegant, and premium rather than dramatic.
+- Use a smooth easing curve such as:
+  - `cubic-bezier(0.22, 0.84, 0.2, 1)`
+  - or a soft spring
+- Include a reduced-motion fallback where the Hero fades out and the About section appears with minimal transform.
+
+Commentary
+- This transition is one of the most signature moments of the site.
+- It should feel intentional and cinematic, but never at the expense of clarity or accessibility.
+
+V. Responsive Rules
+
+Responsive Layout
+- On mobile, collapse `3`-column sections into a clean single-column stack.
+- Preserve the glass aesthetic, spacing, and hover/tap polish.
+- Keep the Hero-to-About transition active on mobile, but optimize it for touch and reduced viewport height.
+- Maintain the same visual hierarchy, soft motion, and premium spacing at every breakpoint.
+- Do not let the mobile site feel like a stripped-down afterthought.
+
+Commentary
+- The mobile version must still feel art-directed.
+- Do not sacrifice polish just because the layout becomes simpler.
+
+VI. Accessibility & Motion Safeguards
+
+Touch Target Safety
+- Maintain minimum touch targets of `44px x 44px` for:
+  - buttons
+  - links
+  - arrows
+  - close buttons
+  - tabs
+  - pills
+  - interactive popup controls
+
+Keyboard and Focus Safety
+- Provide visible keyboard focus states for all interactive elements.
+- Use a clear on-brand focus ring or glow that remains easy to see against glass backgrounds.
+
+Contrast and Readability
+- Ensure strong text contrast across all sections.
+- Body text must remain clearly readable against glass, gradients, and blurred backgrounds.
+
+Motion Safeguards
+- Include reduced-motion fallbacks for:
+  - scroll-driven cinematic effects
+  - hover motion
+  - floating cards
+  - carousel movement
+  - popup transitions
+- When `prefers-reduced-motion` is enabled:
+  - replace complex transforms and parallax with minimal fade / opacity transitions or static layouts
+- Motion must never block usability, readability, or navigation.
+
+Commentary
+- Accessibility should not be treated as an afterthought.
+- This site can still feel premium and cinematic while remaining comfortable to use.
+
+Page 1: Hero Section
+
+Hero Layout
+- Use a two-column layout:
+  - left = text
+  - right = portrait
+- Keep the composition clean, premium, and airy.
+
+Hero Copy Lock
+- Use only:
+  - `Hello there!`
+  - `Hyacinth Kaye Bajuyo`
+  - `Administrative Support & Social Media Manager`
+  - short description
+  - CTA labels only
+- Do not add:
+  - metrics
+  - language list
+  - MUN mention
+  - extracurricular copy
+  - extra badges
+
+Text Sequence Lock
+- The cleanest Hero copy sequence is:
+  1. `Hello there!`
+  2. `Hyacinth`
+  3. `Kaye`
+  4. `Bajuyo`
+  5. `Administrative Support & Social Media Manager`
+  6. short thin divider
+  7. short description
+  8. CTA row
+
+Typography
+- `Hello there!`
+  - small
+  - light
+  - muted
+- Style `Hyacinth` only with a soft gradient:
+  - `#D97C7C -> #7A1E1E`
+- Keep `Kaye Bajuyo` in elegant serif `#2B2B2B`
+- Name size:
+  - `80px to 96px`
+- Name line-height:
+  - `0.9 to 1.0`
+- Role title:
+  - `14px to 16px`
+  - refined
+  - increased letter spacing
+  - `#6E6E6E`
+- Description:
+  - `18px to 20px`
+  - line-height `1.5 to 1.6`
+
+CTA Row
+- Add a short thin divider above the description and CTA area.
+- Use `2` CTAs:
+  - `Hire Me`
+  - `View Portfolio`
+- `Hire Me`:
+  - filled rose-to-burgundy pill
+- `View Portfolio`:
+  - transparent outlined pill
+
+Hero Portrait and Aura
+- Photo size:
+  - approximately `460px` wide by `610px` tall
+- Photo ratio:
+  - around `3:4` to `4:5`
+- Hero visual container:
+  - approximately `560px` wide by `700px` tall
+
+Graphic Behind the Photo
+- Build an aura composition behind the portrait using:
+  - one large asymmetrical peach/nude blob
+  - one pale halo circle behind the head
+  - one or two smaller layered inner blobs for depth
+- Main blob:
+  - `620px x 550px`
+  - gradient from `#F3C7B5` to `#F5D5C8`
+  - opacity `0.58 to 0.64`
+- Halo circle:
+  - `340px` diameter
+  - color `#F8C6C6`
+  - opacity `0.28 to 0.34`
+- Inner depth blob `1`:
+  - `240px x 190px`
+  - color `#F6B1B1`
+  - opacity `0.20 to 0.26`
+- Inner depth blob `2`:
+  - `170px x 135px`
+  - color `#F5D5C8`
+  - opacity `0.16 to 0.22`
+- Optional glow line:
+  - very soft `#D97C7C`
+  - opacity `0.12 to 0.18`
+
+Placement Lock
+- Main blob:
+  - behind the photo
+  - slightly left and lower
+  - `left: -35px`
+  - `top: 95px`
+- Halo circle:
+  - directly behind the head
+  - `left: 120px`
+  - `top: 35px`
+- Inner blob `1`:
+  - behind upper shoulder / torso
+  - `right: 18px`
+  - `top: 170px`
+- Inner blob `2`:
+  - lower opposite side for balance
+  - `left: 30px`
+  - `bottom: 88px`
+
+Blur and Atmosphere Finish
+- Blur on main blob:
+  - `18px to 24px`
+- Blur on halo:
+  - `28px to 36px`
+- Blur on inner blobs:
+  - `12px to 18px`
+- Add oversized blurred corner blooms at:
+  - bottom-left
+  - bottom-right
+  - top-center
+- Do not introduce purple, blue, or orange.
+- Use `#7A1E1E` only for tiny premium depth if needed, not for the blobs.
+
+Hero Portrait File Lock
+- Use the final Hero portrait asset:
+  - `hero-page-profile.png`
+- Do not substitute the About portrait in the Hero section.
+- Keep the Hero portrait and About portrait as separately mapped assets.
+- The Hero portrait must remain tied to the Hero aura composition and cinematic transition system.
+
+Commentary
+- Page `1` is already strong in concept.
+- The most important added fix here is the explicit hero file lock so the builder does not accidentally swap portrait roles later.
+
+Page 2: About Me
+
+Main About Structure
+- Build a large two-column pearl-glass card with soft translucency and generous padding.
+- Use `#D97C7C` at low opacity in the edge glow and rose-tinted shadow.
+- Do not use neutral gray or black shadow as the main visual effect.
+- Keep the card substantial enough that body copy remains readable and protected from the background.
+
+Left Column Portrait
+- Use the final About portrait asset:
+  - `about-me-page-profile.png`
+- Style the portrait with the same soft cutout treatment as the Hero.
+- Keep the bottom fade mask.
+- Add a smaller `#F3C7B5 / #F5D5C8` support blob behind the upper torso.
+
+Right Column Heading
+- Headline:
+  - `The person behind the work`
+- Use elegant serif styling consistent with the site.
+- Render `work` in white only if it sits over a subtle blush highlight for legibility.
+- Place a soft `#D97C7C` glow dot behind and slightly below the tail of the `k`.
+
+Body Copy
+- Keep the body copy exactly as provided.
+- Add a small glass badge at the bottom:
+  - `8+ Years Professional Writing Experience`
+
+Readability Lock
+- Body copy must prioritize readability over decoration.
+- Font size:
+  - `17px to 19px`
+- Ideal desktop size:
+  - `18px`
+- Line height:
+  - `1.7 to 1.85`
+- Text color:
+  - `#2B2B2B`
+- Secondary softened text may use `#6E6E6E`
+- Limit the text block width:
+  - `560px to 620px` max
+- Use `2` short paragraphs instead of one long block where possible.
+- Add `14px to 18px` spacing between paragraphs.
+- Left-align the text.
+- Do not place body text directly over blobs, highlights, or bright gradient areas.
+- Use a stronger pearl or warm off-white translucent fill behind the text rather than ultra-transparent glass.
+- Avoid white text for body copy.
+- Avoid overly thin font weights.
+
+About Photo Fit and Position Lock
+- The About portrait should adapt to the image’s natural crop and proportions, but only inside a controlled portrait frame.
+- Keep the photo container stable, polished, and aligned inside the left column.
+- Let the image adjust intelligently within that frame rather than forcing one rigid crop for every portrait.
+- Preserve the most important focal area:
+  - face
+  - head
+  - shoulders
+  - upper torso
+
+About Photo Framing Rule
+- Use a dedicated portrait container for `about-me-page-profile.png`.
+- Keep the container visually consistent with the About card layout.
+- Do not let the crop cut awkwardly through the forehead, chin, shoulders, or key facial features.
+- Keep enough breathing room around the subject.
+
+About Photo Positioning Behavior
+- Use intelligent focal positioning.
+- Default positioning should prioritize the face and upper torso rather than centering blindly.
+- If the image is taller, keep the subject slightly upper-centered.
+- If the image is wider, keep the subject centered without leaving too much empty space.
+
+About Photo Display Rule
+- Use `object-fit: cover` if needed to preserve a premium framed result.
+- Use controlled `object-position`.
+- If the source image already has ideal proportions, allow minimal adjustment rather than over-cropping.
+- Keep the bottom fade mask and soft cutout treatment.
+
+About Photo Layout Safety
+- The About portrait must remain fully contained inside its column.
+- It must not overlap awkwardly with the text column.
+- Keep consistent spacing between the portrait and the text content.
+- The support blob behind the upper torso should enhance the composition without interfering with the face or silhouette.
+
+About Photo Adaptation Scope
+- This adaptive portrait fitting applies only to the `About Me` image within its framed container.
+- It should not behave like the popup adaptive media system.
+
+About Me File and Copy Lock
+- Do not use:
+  - `profile.png`
+  - `about-profile.png`
+- Use only:
+  - `about-me-page-profile.png`
+- If the About body copy is split into `2` paragraphs for readability, keep the wording itself exactly the same.
+- Only paragraph breaks may change.
+- Do not rewrite or paraphrase the About body copy.
+
+Commentary
+- Page `2` is mostly stable already.
+- The main corrections here are the final portrait filename and preserving copy while still allowing cleaner paragraph breaks.
+
+Page 3: Relevant Experience
+
+Section Structure
+- Redesign this section as floating glass cards, not circles and not orb-shaped bubbles.
+- Use rounded rectangular cards with clear card proportions.
+- Use large radii:
+  - `32px to 40px`
+- Explicitly use:
+  - `#F8C6C6`
+  - `#F6B1B1`
+  - `#F3C7B5`
+  - `#F5D5C8`
+- Use strong blur, luminous inner highlight, and a soft `#D97C7C` border.
+
+Layout
+- Use a structured `2` to `3` column desktop grid.
+- Stack on mobile.
+- Allow a slight stagger only if the section still reads cleanly.
+- Keep spacing generous and breathable.
+
+Card Styling and Visibility
+- Transition from a highly transparent glass look to a more defined elevated-card design.
+- Increase card background opacity to approximately `rgba(255,255,255,0.95)` so the atmospheric page background does not muddy the text.
+- Add a soft drop shadow with a large blur radius and very low opacity.
+- Use a subtle `#D97C7C` glow-line and edge definition so the cards read as structured containers rather than fading shapes.
+
+Motion
+- Cards should float subtly at different intervals.
+- On hover, they lift slightly and cast a soft rose-tinted shadow using low-opacity `#D97C7C`.
+
+Text Treatment
+- Keep all original metrics and wording intact.
+- Keep text centered, deep charcoal, and readable.
+
+Number Badges
+- Add `01`, `02`, `03` badges.
+- Use small circular containers with low-opacity burgundy fill.
+
+Typography
+- Main section heading:
+  - bold serif
+  - `72px to 80px`
+  - line-height `0.95`
+  - keep the rendered `work` font and color treatment if present
+- Card titles:
+  - geometric sans
+  - `22px to 24px`
+  - line-height `1.2`
+- Body / description:
+  - geometric sans
+  - `16px to 18px`
+  - line-height `1.5 to 1.6`
+
+Commentary
+- Page `3` is one of the safer sections because it is not attachment-driven.
+- The key here is card clarity, spacing, and keeping the elevated-card look readable.
+
+Page 4: Services I Provide
+
+Section Structure
+- Use `3` floating glass cards in a horizontal grid.
+- These must remain clearly card-shaped rounded rectangles.
+- Do not use circular bubbles.
+- Do not make them fully pill-shaped.
+- Keep the background pearl-white with a soft top-right `#D97C7C` atmospheric bloom at low opacity.
+
+Service Card Styling
+- Use a semi-transparent fill from `#F8C6C6` or `#F5D5C8`, but increase visual solidity enough that the cards feel elevated and readable.
+- Recommended card body opacity should feel near-solid, approximately `rgba(255,255,255,0.95)`.
+- Add:
+  - strong blur
+  - luminous edge treatment
+  - soft `#D97C7C` glow border
+  - soft low-opacity floating shadow
+
+Motion
+- Use gentle breathing or floating motion at varied rhythms.
+- On hover:
+  - `scale 1.05`
+  - slightly stronger opacity
+  - subtle rose / peach lift
+
+Content Lock
+- Keep `Services I Provide` and the supporting intro text exact.
+- Keep all headings, bullet points, and descriptions exactly as shown in the reference.
+
+CTA Styling
+- Convert `Get Started` into rose-toned pill buttons.
+- Fill:
+  - `#D97C7C`
+- Text:
+  - white
+- Hover deepens toward:
+  - `#7A1E1E`
+
+Typography
+- Main heading:
+  - keep the rendered `provide` font and color treatment
+  - `72px to 80px`
+  - line-height `0.95`
+- Card / service titles:
+  - geometric sans
+  - `22px to 24px`
+  - line-height `1.2`
+- Body / description:
+  - geometric sans
+  - `16px to 18px`
+  - line-height `1.5 to 1.6`
+- Apply the same body sizing to the bullets inside each service description.
+
+Commentary
+- Page `4` is also mostly stable.
+- The biggest goal here is preventing the service cards from becoming too transparent or too bubble-like.
+
+Page 5: Core Skills
+
+Section Structure
+- Keep the `3`-column zone structure.
+- Replace static lists with floating glass capsules.
+- Use `3` diffused background blooms:
+  - bottom-left in `#F3C7B5`
+  - top-center in soft white
+  - bottom-right in low-opacity `#D97C7C`
+
+Zone Labels
+- Use:
+  - `ADMIN & EXECUTIVE`
+  - `WRITING & CONTENT`
+  - `SOCIAL MEDIA & DESIGN`
+- Center them.
+- Set them in bold serif `#2B2B2B`
+- Label size:
+  - `24px`
+- Add a short `2px` blush-peach divider below each.
+
+Skill Capsule Styling
+- Each skill lives inside its own elongated glass capsule, not a circle.
+- Capsule fill:
+  - semi-transparent `#F8C6C6`
+- Add:
+  - strong blur
+  - `1.5px` `#D97C7C` glow border
+- Use `#2B2B2B` for skill text.
+
+Motion and Interaction
+- On column hover, capsules in that zone should gently bob and subtly repel each other like controlled soft physics.
+- On individual hover:
+  - the capsule becomes slightly more opaque
+  - it pops slightly toward the viewer
+
+Typography
+- Main heading:
+  - `72px to 80px`
+  - line-height `0.95`
+- Description:
+  - `16px to 18px`
+  - line-height `1.5 to 1.6`
+
+Commentary
+- Page `5` is about rhythm and presentation rather than file logic.
+- The main risk here is over-styling the capsules so much that readability drops.
+
+Page 6: Tech Stack
+
+Section Title
+- Title: `Tools I use`
+- Keep the word `use` in the same rendered font treatment and color already established elsewhere.
+- Do not change the special styling of `use`.
+- Heading size:
+  - `72px to 80px`
+- Heading line-height:
+  - `0.95`
+
+Logo Assets
+- Use official full-color PNG logos with transparent backgrounds.
+- Do not use SVG substitutions.
+- Do not use monochrome replacements.
+- Do not use generic icon-set approximations.
+- Do not redraw or simplify the official brand shapes.
+
+Logo Presentation
+- Keep each logo framed inside its own white circular bubble.
+- Add a very soft outer `#F8C6C6` glow.
+- Keep the tool label below each logo.
+- Every logo must still have its corresponding text label underneath.
+- Tool label text should use deep charcoal `#2B2B2B`.
+
+Encapsulated Glassmorphic Dock
+- Add an elongated encapsulated glassmorphic dock behind the entire marquee row.
+- Use a pearl-white or warm off-white dock at low opacity so transparent PNG logos remain clearly visible.
+- The dock should feel like a floating glass shelf behind the logos.
+- Style the dock with:
+  - low-opacity pearl-white fill
+  - soft blur
+  - high border radius / elongated capsule shape
+  - subtle inner highlight
+  - gentle edge definition using the global glass treatment
+
+Marquee Behavior
+- Build an infinite seamless marquee loop.
+- The marquee must remain continuous and seamless regardless of logo order.
+- Do not allow visible jumps, gaps, harsh resets, or awkward stopping points.
+- Duplicate the logo sequence if needed.
+- On hover:
+  - slow the marquee
+  - scale the hovered logo bubble to `1.1`
+
+Fit and Spacing Safety
+- Make sure the PNG logos, labels, and circular bubbles all fit comfortably inside the dock.
+- The dock must be sized to support the full marquee row without clipping, crowding, or awkward vertical compression.
+- Keep enough internal padding.
+- Ensure the dock height accounts for both the logo bubble and the text label below it.
+- Do not let hover states overflow outside the dock in a broken way.
+
+Logo Spacing
+- Keep even spacing between logo bubbles:
+  - `20px to 28px`
+- Preserve enough vertical spacing between bubble and label:
+  - `10px to 14px`
+
+Typography
+- Tool labels:
+  - clean sans-serif
+  - `14px to 16px`
+  - line-height `1.4 to 1.5`
+
+Visual Clarity
+- Make sure the transparent PNG logos remain crisp and clearly visible against the pearl-white dock.
+- Do not remove the labels, marquee loop, hover behavior, or bubble framing when switching from SVGs to PNGs.
+
+Tech Stack Asset Lock
+- Use only the final attached transparent PNG logo assets.
+- Do not substitute SVG redraws, monochrome icons, icon-library replacements, or AI-generated approximations.
+- Preserve each official tool logo in full color inside its bubble.
+- Keep the text label under each logo even if the logo itself is recognizable.
+
+Commentary
+- Page `6` is still relatively safe, but because it uses real assets, the strictest thing here is asset integrity.
+- The builder should unify the presentation, not replace the source logos.
+
+Page 6.5: Professional Accreditations
+
+Section Heading
+- Title: `Professional Accreditations`
+- Place this section after `Tech Stack` and before `Sample Works`.
+- Use the same serif headline system as the rest of the site.
+- Heading size:
+  - `72px to 80px`
+- Heading line-height:
+  - `0.95`
+
+Section Purpose
+- This section presents real professional certification proof through polished premium accreditation cards and direct popup credential viewing.
+- The section should feel credible, clean, trust-building, and premium.
+- Prioritize clarity and legitimacy over decorative excess.
+
+Accreditation Count Lock
+- Current total accreditation cards:
+  - `3`
+- Do not keep or reuse the older `2 certification cards` rule anywhere.
+- The live accreditation section must be built around the actual `3` existing credentials.
+
+Section Layout
+- Use a balanced responsive accreditation grid.
+- On wide desktop:
+  - display `3` certification cards in one row if space allows
+- On medium desktop or tablet:
+  - allow the cards to wrap cleanly into a balanced layout
+- On mobile:
+  - stack into `1` card per row
+- Keep the section centered, airy, and premium.
+
+Layout Width and Sizing Safety
+- Because the site’s max content width is `1200px`, the accreditation cards must be sized to fit a clean `3`-card desktop composition.
+- Do not use the older oversized card width range of `560px to 660px` for the live `3`-card layout.
+- Recommended desktop card width:
+  - `360px to 390px`
+- Recommended desktop card height:
+  - `260px to 300px`
+- Gap between cards:
+  - `24px to 28px`
+
+Section Background
+- Use a pearl-white or warm off-white base background.
+- Recreate the soft glowing atmosphere using only the locked palette:
+  - `#F3C7B5`
+  - `#F5D5C8`
+  - low-opacity `#F8C6C6`
+  - interaction accents `#D97C7C`
+
+Typography Consistency
+- Certification titles:
+  - geometric sans-serif
+  - `22px to 24px`
+  - line-height `1.2`
+- Supporting credential text:
+  - `16px to 18px`
+  - line-height `1.5 to 1.6`
+- Button text:
+  - `14px to 16px`
+  - line-height `1`
+
+Certification Card Styling
+- Use large rounded rectangular cards.
+- Border radius:
+  - `32px to 40px`
+- Card fill:
+  - near-solid pearl white around `rgba(255,255,255,0.94)` to `0.97`
+- Apply the site’s global glass treatment:
+  - `1px solid rgba(255,255,255,0.2)`
+  - `inset 0 0 10px rgba(255,255,255,0.1)`
+- Add a very soft `#D97C7C` edge glow if needed.
+- Use a soft low-opacity rose-tinted shadow.
+
+Card Interior Structure
+- Each certification card should contain:
+  1. provider logo row
+  2. certification title
+  3. optional supporting credential detail line
+  4. one pill button labeled `View Credential`
+
+Provider Logo and Verification Row
+- Use real official PNG assets with transparent backgrounds.
+- Current final provider / verification row assets:
+  - `accreditation-provider-simplilearn-logo.png`
+  - `accreditation-verification-badge.png`
+- If all current live certifications come from the same provider, reuse this same logo row on all `3` cards.
+- Place the provider logo first.
+- Place the verification badge directly beside it on the same row.
+
+Logo Sizing and Spacing
+- Provider logo height:
+  - `42px to 56px`
+- Verification badge height:
+  - `28px to 36px`
+- Gap between provider logo and verification badge:
+  - `10px to 14px`
+- Gap between logo row and certification title:
+  - `20px to 28px`
+- Gap between certification title and optional supporting line:
+  - `10px to 14px`
+- Keep at least `28px to 36px` internal padding around the card content.
+
+Certification Card Mapping
+- Card `1`
+  - certification title: `Introduction to SEO`
+  - JPG credential source:
+    - `accreditation-01-introduction-to-seo.jpg`
+- Card `2`
+  - certification title: `Digital Marketing Tools and Techniques`
+  - JPG credential source:
+    - `accreditation-02-digital-marketing-tools-and-techniques.jpg`
+- Card `3`
+  - certification title: `Meta Business Suite for Beginners`
+  - JPG credential source:
+    - `accreditation-03-meta-business-suite-for-beginners.jpg`
+
+Supporting Credential Line
+- A supporting line may be included under each title if desired.
+- Example uses:
+  - provider name
+  - credential detail
+  - short descriptor
+- Keep this line secondary and subtle.
+
+Pill Button
+- Each certification card must have its own pill button labeled exactly:
+  - `View Credential`
+- Button fill:
+  - `#D97C7C -> #7A1E1E`
+- Button text:
+  - white
+- Button height:
+  - `48px to 54px`
+- Horizontal padding:
+  - `18px to 28px`
+
+Popup Behavior
+- When the user clicks `View Credential`, a popup must open immediately.
+- The popup must display the actual JPG credential image for that card.
+- Do not make the button a dead trigger.
+- Do not turn it into a PDF link.
+- Do not use an iframe.
+- Do not use a PDF viewer.
+- Use a real `<img>` element inside the popup.
+
+Popup Size and Image Display
+- Ideal popup size:
+  - around `900px x 720px`
+- Safe range:
+  - `860px to 960px` wide
+  - `680px to 760px` tall
+- Center the credential image inside the popup.
+- Use `object-fit: contain`
+- Maintain generous internal padding.
+
+Accreditation Popup Count and Navigation Lock
+- Each certification popup uses `1` image only.
+- Dots:
+  - `0`
+- Arrows:
+  - `0`
+- Scrollable media area:
+  - `no`
+- Entire popup scroll:
+  - `no`
+
+Fallback Rule
+- If the JPG file is missing or fails to load, show:
+  - `Credential image missing`
+
+Professional Accreditations Master Lock
+- This section must use the final attached credential images as the source of truth.
+- Do not substitute PDFs, screenshots of PDFs, or generated mockups.
+
+Commentary
+- Page `6.5` is one of the first attachment-heavy sections.
+- The main contradiction fixed here is the old `2-card` logic. The live version is now clearly locked to `3` real certifications.
+
+Page 7: Sample Works
+
+Section Heading
+- Title: `Sample Works`
+- Use the same serif heading system as the rest of the site.
+- Heading size:
+  - `72px to 80px`
+- Heading line-height:
+  - `0.95`
+- Keep the word `Works` in the same special rendered treatment already established in the design system.
+
+Section Purpose
+- This section presents selected proof-of-work samples through premium fixed bubble cards and controlled popup viewers.
+- Keep the outer bubble cards visually consistent.
+- Let only the popup viewer logic change depending on the type of sample.
+- Prioritize readability, structure, and premium presentation over decorative complexity.
+
+Current Live Sample Activation Lock
+- Do not show `AI-Assisted Architecture` in the live `Sample Works` section yet.
+- `AI-Assisted Architecture` must only be activated after the portfolio website itself is fully finalized and ready to be presented as the finished proof.
+- The current live `Sample Works` section should display only `5` active bubble cards:
+  - `Graphic Design`
+  - `Published Work`
+  - `Technical Writing`
+  - `Workflow Systems`
+  - `Social Media Strategy Mock-Up`
+- Current desktop layout should be:
+  - `3` cards on the first row
+  - `2` cards on the second row, visually centered
+- Once the website is finalized and the real proof assets for `AI-Assisted Architecture` are ready, add it back as the `6th` bubble card and return the desktop layout to:
+  - `3` cards on the first row
+  - `3` cards on the second row
+
+Bubble Card System
+- Present every sample category inside a fixed premium bubble glass card.
+- Keep all outer bubble cards visually locked and consistent.
+- Best default card ratio:
+  - `4:3`
+- Desktop card size:
+  - approximately `340px to 360px` wide by `270px to 290px` tall
+- Border radius:
+  - `24px to 30px`
+- Card padding:
+  - `12px to 16px`
+- Gap between cards:
+  - `20px to 28px`
+- Preview image area:
+  - `80% to 82%` of the card height
+- Title and short description area:
+  - `18% to 20%` of the card height
+- Keep the preview composition fixed and intentional.
+- Do not resize or reflow the outer bubble card based on the natural dimensions of the attached media.
+- If needed, crop the preview cover image intentionally so it fits the fixed card structure cleanly.
+- Use a soft blush-peach / pearl-glass fill with a `#D97C7C` glow edge and premium glass treatment.
+- Keep the outer bubble cards fixed even when popup content differs internally.
+
+Bubble Card Content
+- Each bubble card should show:
+  - preview cover image
+  - section label
+  - short general description
+  - small interaction cue pill labeled `View My Work`
+- Keep the longer explanation inside the popup only.
+
+Bubble Card Labels and Short Descriptions
+- `Graphic Design`
+  - `A curated collection of visual mock-ups, branded posters, and promotional layouts created for polished digital presentation.`
+- `Published Work`
+  - `A published creative work presented through its official cover, visual identity, and direct access to the reading platform.`
+- `Technical Writing`
+  - `Selected writing samples that demonstrate structured documentation, professional clarity, and organized thought across formal written outputs.`
+- `Workflow Systems`
+  - `Sample workflow setups that highlight task organization, content planning, scheduling, and system-based operational support.`
+- `Social Media Strategy Mock-Up`
+  - `Strategy-led brand samples that combine visual planning, platform thinking, and audience-focused content direction.`
+- `AI-Assisted Architecture`
+  - `A website-building case study showing how design, structure, and digital execution were developed through AI-assisted collaboration.`
+- Do not show `AI-Assisted Architecture` in the live build yet, but keep this copy ready for later activation.
+
+Sample Works Master Lock
+- `Page 7: Sample Works` is the single source of truth for all portfolio sample interaction behavior.
+- Do not introduce alternate popup systems outside the rules defined here.
+- Keep every outer bubble card fixed in size, ratio, spacing, and preview composition.
+- Only popup content may adapt to the natural dimensions of the active media.
+- Each sample bubble should open one stable popup shell.
+- Keep the popup shell visually controlled and aligned at all times.
+- Keep stable placement for:
+  - close button
+  - title
+  - short description
+  - tabs / selector pills
+  - CTA area
+  - arrow area
+  - dots area
+- Do not allow popup layouts to become messy, unstable, or overcrowded when switching between images, HTML, PDFs, videos, or long-scroll content.
+- The bubble card preview must always act as the visual cover for its popup experience.
+
+Shared Popup Shell
+- Use a premium glass popup shell with a dimmed blurred backdrop.
+- Popup expansion should feel like the bubble preview enlarges into a more immersive viewer.
+- Use soft spring motion or refined easing.
+- Clicking the backdrop or close icon should dismiss the popup cleanly.
+- Recommended general popup size:
+  - around `820px x 680px`
+- Safe range:
+  - `760px to 900px` wide
+  - `620px to 760px` tall
+- Max height:
+  - about `90vh`
+- Keep generous internal padding and stable structural alignment.
+
+Popup Adaptive Media Lock
+- Adaptive media behavior applies only inside popups.
+- Bubble card previews must remain fixed.
+- Inside the popup only, allow the active media frame to adapt to the content:
+  - portrait media = taller, narrower frame
+  - landscape media = wider, shorter frame
+  - square media = centered balanced frame
+  - long-scroll layouts = scrollable portrait-oriented viewer
+  - documents = embedded document-style scroll frame
+  - video = real playable video inside the popup
+- Keep all media fully contained within the popup shell.
+- Use `object-fit: contain` where needed to preserve visibility.
+- Keep generous spacing and breathable padding.
+- Adaptivity should improve readability, not create layout instability.
+
+Bubble Preview-to-Popup Logic
+- The preview image shown on the bubble card must also become the first popup item or first popup viewer state.
+- If a sample has only `1` item, the bubble preview and the popup image are the same asset.
+- If a sample has `2` or more items, the bubble preview still becomes the first popup item, and the remaining items follow after it.
+- This rule creates continuity between the bubble card and the popup.
+
+Carousel and Navigation Rule
+- Show only `1` primary media item or `1` primary viewer state at a time.
+- Use arrows and dots only when that sample type actually requires slide-based viewing.
+- If a sample has only `1` media item, do not show arrows or dots.
+- Dot styling:
+  - size: `10px`
+  - spacing: `8px to 10px`
+  - inactive opacity: `0.30`
+  - hover opacity: `0.60`
+  - active opacity: `0.95`
+
+Graphic Design Master Lock
+- `Graphic Design` must not behave like one simple flat image carousel.
+- Do not dump all graphics into one undifferentiated viewer.
+- When the user clicks the outer `Graphic Design` bubble card, open one large main popup shell.
+- Inside that main popup shell, show `2` inner glass viewer bubbles / selection panels on desktop:
+  - `Email Marketing Designs`
+  - `Graphic Mock-Ups`
+- On mobile, stack these `2` inner viewer bubbles vertically.
+- The outer `Graphic Design` bubble card preview should use a cropped hero section from:
+  - `graphic-email-01-romand-gloss-moderne-layout.jpg`
+- Keep this outer preview fixed and intentional.
+
+Graphic Design Main Popup Shell
+- Recommended desktop popup size:
+  - around `880px x 700px`
+- Safe range:
+  - `840px to 940px` wide
+  - `660px to 760px` tall
+- Keep the popup shell spacious because it first acts as a category-selection viewer.
+- The content order inside the main `Graphic Design` popup should be:
+  1. title
+  2. short description
+  3. two inner viewer bubbles side by side on desktop
+- These inner viewer bubbles are selection panels, not fully expanded viewers yet.
+
+Graphic Design Inner Selection Bubbles
+- Left inner viewer bubble:
+  - `Email Marketing Designs`
+- Right inner viewer bubble:
+  - `Graphic Mock-Ups`
+- Keep both aligned in height and visual weight.
+- Keep the gap between them at `24px to 32px`
+- Each inner viewer bubble should contain:
+  - a preview image
+  - a group label
+  - a small `View My Work` pill
+- Only the selected inner viewer should expand into its detailed viewer state.
+
+Email Marketing Designs Master Lock
+- This group should use:
+  - `graphic-email-01-romand-gloss-moderne-layout.jpg`
+- The left selection bubble should preview the strongest cropped hero section from this file.
+- Keep the preview focused on the branded top portion of the email.
+- Do not use a tiny full-email miniature.
+- This viewer should not use dots.
+- This viewer should not use image-slide arrows.
+- It must open as a tall portrait-oriented scrollable email design viewer.
+- The email frame itself should scroll vertically.
+- The popup shell must not scroll just to read the email design.
+
+Email Marketing Designs Detailed Viewer
+- Recommended viewer size:
+  - around `820px x 720px`
+- Keep the main content order:
+  1. title
+  2. short description
+  3. tall scrollable email frame
+- Treat the email as one continuous long-format design.
+- Do not cut it into artificial image slides.
+
+Email Marketing Designs Count and Navigation Lock
+- Total samples:
+  - `1`
+- Dots:
+  - `0`
+- Standard image arrows:
+  - `0`
+- Scrollable area:
+  - `email frame only`
+- Entire popup scroll:
+  - `no`
+
+Graphic Mock-Ups Master Lock
+- Keep the right-side group label locked as:
+  - `Graphic Mock-Ups`
+- Do not rename this group to `Standalone Graphic Designs`.
+- This group should behave as a static image-slide viewer.
+- Show one mock-up design at a time.
+- Keep the viewer non-scrollable.
+- Use centered static image presentation.
+
+Graphic Mock-Ups Active Sample Set
+- Keep the cleanest default active set at `5` stronger poster-style visuals:
+  - `graphic-mockup-01-boba-flavors-poster.png`
+  - `graphic-mockup-02-chocolate-chip-cookie-poster.png`
+  - `graphic-mockup-03-blackpink-drink-poster.png`
+  - `graphic-mockup-04-launch-poster.png`
+  - `graphic-mockup-06-combo-deals-poster.png`
+- `graphic-mockup-05-logo-mark.png` is weaker as a full default showcase slide because it functions more like a branding mark than a full poster-style graphic.
+- Keep `graphic-mockup-05-logo-mark.png` optional as a support asset only if needed later.
+- The right inner selection bubble should use:
+  - `graphic-mockup-04-launch-poster.png`
+
+Graphic Mock-Ups Detailed Viewer
+- Recommended viewer size:
+  - around `820px x 680px`
+- Best presentation:
+  - one image at a time
+  - centered
+  - not scrollable
+- Use a portrait-friendly media frame because the mock-up graphics are vertical.
+- Keep generous padding around the image.
+
+Graphic Mock-Ups Count and Dot Lock
+- Total active default slides:
+  - `5`
+- Dots:
+  - `5`
+- Arrows:
+  - `yes`
+- Scrollable media area:
+  - `no`
+- Entire popup scroll:
+  - `no`
+- If looping is enabled, allow the viewer to return to slide `1` after the last slide.
+- Keep transitions soft and premium.
+
+Published Work Master Lock
+- `Published Work` should remain a single-image popup.
+- Use the upright book display image as both the bubble card preview and popup image:
+  - `published-work-sorel-the-destined-mortal-book-display.png`
+- Do not refer to this image as a mockup.
+- Treat it as the main upright book display image for a real published work.
+- Recommended popup size:
+  - around `800px x 700px`
+
+Published Work Popup Content
+- Content order:
+  1. large book display image
+  2. title
+  3. short description
+  4. CTA button
+- Add a burgundy pill button directly under the description labeled exactly:
+  - `View Work`
+- Link it to:
+  - `https://www.webnovel.com/book/sorel-the-destined-mortal-10000-b.c-ago_18953646406857505`
+- Use a real clickable anchor element.
+- Open the link in a new tab.
+- Button fill:
+  - `#7A1E1E`
+- Button text:
+  - white
+- Add a subtle hover glow or tonal lift using `#D97C7C`
+
+Published Work Count and Dot Lock
+- Total samples:
+  - `1`
+- Dots:
+  - `0`
+- Arrows:
+  - `0`
+- Scrollable media area:
+  - `no`
+- Entire popup scroll:
+  - `no`
+
+Technical Writing Master Lock
+- `Technical Writing` must not behave like a normal image carousel.
+- Do not treat this section as a simple photo gallery with arrows and dots.
+- The main review experience must happen inside one polished popup modal with a document-style viewer.
+- Keep the popup shell fixed and premium while only the active document content changes.
+
+Technical Writing Sample Count and Navigation Lock
+- There are `2` technical writing samples.
+- Do not use carousel dots for this section.
+- Do not use the standard right-arrow image-switching system as the main navigation.
+- Instead, use `2` internal selector pills / tabs inside the popup:
+  - `UNESCO MUN Master Rapporteur Log`
+  - `Portfolio Case Study: Secure Client Onboarding`
+- Only `1` document should be visible at a time.
+- When a tab is selected, load that document inside the same viewer frame.
+
+Technical Writing Bubble Card Preview
+- The `Technical Writing` bubble card should use a clean editorial crop from the stronger first page between the two PDF samples.
+- Do not use a tiny full-page screenshot that becomes unreadable inside the bubble card.
+- The preview should feel like a professional document cover, title-page crop, or formal first-page header.
+- If the `Portfolio Case Study: Secure Client Onboarding` first page looks cleaner and more designed, use that as the bubble preview.
+- If the `UNESCO MUN Master Rapporteur Log` first page has the stronger formal header, use that instead.
+
+Technical Writing Popup Entry Behavior
+- When the user clicks the `Technical Writing` bubble card, open one large document-style popup modal.
+- The popup must not redirect the user to another tab, another app, or a direct file link as the primary experience.
+- The popup should open with the stronger default sample already visible inside the document frame.
+
+Technical Writing Popup Size
+- Use a wider, document-friendly popup rather than a portrait poster popup.
+- Best default popup size:
+  - around `820px x 680px`
+- Safe range:
+  - `800px to 900px` wide
+  - `640px to 760px` tall
+- Max height:
+  - about `90vh`
+
+Technical Writing Popup Layout Structure
+- Inside the popup, the content order should be:
+  1. title
+  2. short description
+  3. selector pills / tabs
+  4. scrollable document frame
+  5. optional secondary CTA such as `Open Full PDF`
+
+Technical Writing Selector Pills
+- Use `2` clean selector pills / tabs near the top of the popup content area.
+- Labels must be:
+  - `UNESCO MUN Master Rapporteur Log`
+  - `Portfolio Case Study: Secure Client Onboarding`
+
+Technical Writing Document Viewer
+- Show the active technical writing sample inside a tall embedded document-style frame.
+- The document frame itself should scroll vertically inside the popup.
+- Do not make the entire popup scroll just to read the document.
+- Keep the scrolling behavior contained inside the document preview area only.
+
+Technical Writing Document Frame Sizing
+- Best default document frame area:
+  - width: `520px to 620px`
+  - height: `420px to 520px`
+
+Technical Writing Document Display Behavior
+- Use the real PDF files as the source documents.
+- Render them inside the popup in an embedded preview frame.
+- Prioritize readability and clean containment.
+
+Technical Writing File Mapping
+- `UNESCO MUN Master Rapporteur Log` should load:
+  - `technical-writing-01-unesco-mun-master-rapporteur-log.pdf`
+- `Portfolio Case Study: Secure Client Onboarding` should load:
+  - `technical-writing-02-secure-client-onboarding-case-study.pdf`
+
+Technical Writing Content Switching Logic
+- When the `UNESCO MUN Master Rapporteur Log` tab is active, load that PDF inside the scrollable document frame.
+- When the `Portfolio Case Study: Secure Client Onboarding` tab is active, load that PDF inside the same frame.
+- When switching between samples:
+  - keep the popup shell fixed
+  - keep the title and description aligned
+  - keep the selector pills in the same place
+  - only replace the active document content
+
+Technical Writing Controls Lock
+- Do not show image-carousel dots for this section.
+- Do not show the standard image-style right arrow as the main navigation.
+- The primary navigation is the `2` selector pills / tabs.
+
+Technical Writing Readability Lock
+- Prioritize readability above visual effect.
+- Keep the viewer clean, aligned, and high-contrast.
+- Do not over-style the document frame with heavy glass effects that reduce legibility.
+
+Technical Writing Fallback Rule
+- If a PDF fails to load, show:
+  - `Document preview unavailable`
+- If needed, provide a secondary fallback button such as:
+  - `Open Full PDF`
+
+Technical Writing Responsive Behavior
+- On mobile, keep the same one-popup document-style experience.
+- Stack the title, description, tabs, and document frame cleanly.
+- Reduce the popup width and frame height appropriately, but keep the document frame scrollable inside the popup.
+
+Workflow Systems Master Lock
+- `Workflow Systems` must be presented as real operational proof, not decorative productivity styling.
+- Prioritize clarity, organization, and professional system structure.
+- Use actual workflow screenshots such as Trello boards, calendars, dashboards, checklists, and trackers when available.
+- Do not promise a multi-slide workflow carousel unless multiple real assets actually exist.
+
+Workflow Systems Current Asset Lock
+- The currently locked real workflow asset is:
+  - `workflow-01-trello-board-overview.png`
+- This is the current lead and primary proof image for `Workflow Systems`.
+- If no second real workflow screenshot exists yet, keep this section as a single-image workflow popup.
+- Do not force dots or arrows if there is only one real workflow sample.
+
+Workflow Systems Bubble Card Preview
+- The `Workflow Systems` bubble card should use a clean cropped section from:
+  - `workflow-01-trello-board-overview.png`
+- The crop should prioritize the main board columns, not the sidebar and not the top navigation.
+- Ideal crop focus:
+  - `Weekly Schedule`
+  - `In Production`
+  - `Content Review`
+  - `Priority Tasks`
+  - `Launch Timeline`
+
+Workflow Systems Popup Entry
+- When the user clicks the `Workflow Systems` bubble card, open one stable workflow viewer popup.
+- Recommended popup size:
+  - around `860px x 620px`
+- Safe range:
+  - `840px to 920px` wide
+  - `600px to 700px` tall
+
+Workflow Systems Popup Layout
+- Inside the popup, the content order should be:
+  1. title
+  2. short description
+  3. workflow screenshot frame
+- Keep the screenshot centered and readable.
+- Use `object-fit: contain` where needed.
+
+Workflow Systems Current Count and Dot Lock
+- Current total samples:
+  - `1`
+- Dots:
+  - `0`
+- Arrows:
+  - `0`
+- Scrollable media area:
+  - `no`
+- Entire popup scroll:
+  - `no`
+
+Workflow Systems Future Expansion Lock
+- Only if a second real workflow screenshot is later added, such as a calendar management view, may this section become a multi-slide workflow popup.
+- If a second workflow sample is added later, then:
+  - total samples: `2`
+  - dots: `2`
+  - arrows: `yes`
+
+Workflow Systems Future Sample Order
+- If expanded later, the ideal future sequence is:
+  1. Trello board overview
+  2. calendar management view
+
+Workflow Systems Readability Lock
+- Keep text overlays, UI chrome, and decorative effects minimal.
+- Let the screenshot communicate the system clearly.
+- If any sensitive information is visible in workflow screenshots, blur or redact it cleanly.
+
+Social Media Strategy Mock-Up Master Lock
+- `Social Media Strategy Mock-Up` must not be reduced to a simple image-only carousel if the main samples exist in HTML.
+- HTML is the primary viewing format for this section whenever an HTML version exists.
+- This section must be organized by `project / brand` first, not just by file type.
+- Keep one stable popup shell for the full section.
+- Use internal project pills / tabs to switch between brand contexts.
+
+Social Media Strategy Mock-Up Bubble Card Preview
+- The outer `Social Media Strategy Mock-Up` bubble card should use a strong still cover rendered from the main HTML strategy sample.
+- Best default preview source:
+  - the Lily dashboard-style sample
+- The preview should feel like a mini digital strategy board or brand dashboard cover.
+
+Social Media Strategy Mock-Up Popup Shell
+- When the user clicks the `Social Media Strategy Mock-Up` bubble card, open one large popup shell.
+- Recommended desktop popup size:
+  - around `920px x 740px`
+- Safe range:
+  - `880px to 980px` wide
+  - `700px to 800px` tall
+
+Social Media Strategy Mock-Up Main Structure
+- The main content order inside the popup should be:
+  1. title
+  2. short description
+  3. project / brand pills
+  4. active project’s internal viewer tabs if needed
+  5. embedded HTML frame or supporting visual frame
+
+Social Media Strategy Mock-Up Project Navigation
+- Use `2` project / brand pills:
+  - `Lily Pstick`
+  - `Sweet SerendipiTea`
+
+Lily Pstick Project Lock
+- The `Lily Pstick` project should remain one grouped project context.
+- Use the following HTML files:
+  - `social-strategy-lily-pstick-dashboard.html`
+  - `social-strategy-lily-pstick-brand-voice.html`
+
+Lily Pstick Internal Viewer Tabs
+- Inside the active `Lily Pstick` project, use `2` internal viewer tabs:
+  - `Strategy Dashboard`
+  - `Brand Voice`
+- `Strategy Dashboard` should load:
+  - `social-strategy-lily-pstick-dashboard.html`
+- `Brand Voice` should load:
+  - `social-strategy-lily-pstick-brand-voice.html`
+
+Lily Pstick HTML Viewer Behavior
+- Keep the HTML sample embedded as a mini website or dashboard-style preview inside the popup.
+- The HTML frame itself should scroll vertically when needed.
+- Do not make the entire popup scroll just to read the HTML sample.
+
+Lily Pstick Count and Navigation Lock
+- Total project-level views:
+  - `2`
+- Main navigation method:
+  - `2` internal viewer tabs
+- Dots:
+  - `0`
+- Standard image arrows:
+  - `0`
+- Scrollable area:
+  - `HTML frame only`
+- Entire popup scroll:
+  - `no`
+
+Sweet SerendipiTea Project Lock
+- The `Sweet SerendipiTea` project should also remain one grouped project context.
+- Use the following primary HTML file:
+  - `social-strategy-sweet-serendipitea-case-study.html`
+- This should be the main default viewer state for the project.
+- Supporting visuals may be included separately only as secondary proof material if needed.
+
+Sweet SerendipiTea Internal Viewer Structure
+- Inside the active `Sweet SerendipiTea` project, use the following internal tabs:
+  - `Case Study`
+  - `Instagram Preview`
+- `Case Study` should load:
+  - `social-strategy-sweet-serendipitea-case-study.html`
+- `Instagram Preview` should load the following support visuals:
+  - `social-strategy-sweet-serendipitea-instagram-preview-01.png`
+  - `social-strategy-sweet-serendipitea-instagram-preview-02.png`
+
+Sweet SerendipiTea Case Study Behavior
+- The `Case Study` tab should behave as the main HTML-first viewer.
+- Use an embedded scrollable HTML frame.
+- Keep the HTML readable and contained.
+
+Sweet SerendipiTea Instagram Preview Behavior
+- The `Instagram Preview` tab may behave as a small internal support image viewer.
+- Show one preview image at a time.
+- Use arrow navigation and dots only inside this support preview mode.
+- Do not use those dots as the navigation for the whole section.
+
+Sweet SerendipiTea Instagram Preview Count and Dot Lock
+- Total support preview images:
+  - `2`
+- Dots inside the `Instagram Preview` subviewer:
+  - `2`
+- Arrows:
+  - `yes`
+- Scrollable:
+  - `no`
+- Entire popup scroll:
+  - `no`
+
+Social Media Strategy Mock-Up Overall Navigation Lock
+- Main project navigation:
+  - `2` project pills
+- Lily project navigation:
+  - `2` internal HTML tabs
+- Sweet SerendipiTea project navigation:
+  - `2` internal tabs
+- Only the `Instagram Preview` support subviewer may use image dots.
+- Do not use one universal `3`-dot image carousel for this entire section.
+
+AI-Assisted Architecture Deferred Activation Lock
+- `AI-Assisted Architecture` must not appear in the live `Sample Works` grid until the website is fully finalized.
+- Do not activate this bubble card early.
+- Do not show a placeholder version in the live build.
+- Activate this sample only when all real proof assets are ready:
+  - final website video
+  - Codex / Claude process screenshot
+  - GitHub repository screenshot
+  - GitHub Pages publishing proof
+
+AI-Assisted Architecture Future Bubble Card Preview
+- When activated later, the outer bubble card should use a strong still frame taken from the finished website video.
+- Do not use a collage as the main bubble preview.
+
+AI-Assisted Architecture Future Popup Sequence
+- When activated later, the popup sequence should be:
+  1. finished website video
+  2. Codex / Claude process screenshot
+  3. GitHub repository screenshot
+  4. GitHub Pages publishing proof
+
+AI-Assisted Architecture Future Viewer Behavior
+- The first popup item must be a real playable video inside the popup.
+- Use a real `<video>` element.
+- Do not autoplay with sound.
+- Keep playback controls available.
+- If the video fails to load, show:
+  - `Website preview video unavailable`
+- Recommended future popup size:
+  - around `860px x 660px`
+
+Sample Works Count, Dot, and Scroll Master Map
+- `Graphic Design`
+- main chooser popup = `0` dots, not scrollable
+- `Email Marketing Designs` = `1` sample, `0` dots, scrollable inside the email frame only
+- `Graphic Mock-Ups` = `5` active slides, `5` dots, not scrollable
+
+- `Published Work`
+- `1` image, `0` dots, not scrollable
+
+- `Technical Writing`
+- `2` PDF samples
+- main navigation = `2` selector pills / tabs
+- dots = `0`
+- standard image arrows = `0`
+- scrollable area = `document frame only`
+
+- `Workflow Systems`
+- current live version = `1` screenshot, `0` dots, not scrollable
+- future expanded version only after a second asset exists = `2` screenshots, `2` dots, not scrollable
+
+- `Social Media Strategy Mock-Up`
+- main popup shell = `0` dots
+- project navigation = `2` project pills
+- `Lily Pstick` = `2` HTML viewer tabs, `0` dots, scrollable inside HTML frame only
+- `Sweet SerendipiTea Case Study` = `1` HTML viewer, `0` dots, scrollable inside HTML frame only
+- `Sweet SerendipiTea Instagram Preview` = `2` support images, `2` dots, not scrollable
+
+- `AI-Assisted Architecture`
+- not active in the live build yet
+- future activated version = `4` popup items, `4` dots, not scrollable as a shell
+
+Final Remaining Sample Source Locks
+
+Technical Writing Default Preview Lock
+- The default `Technical Writing` bubble card preview source is locked to the first-page crop from:
+  - `technical-writing-02-secure-client-onboarding-case-study.pdf`
+- Do not leave the preview choice open-ended in the live implementation.
+
+Social Media Strategy Mock-Up Default Preview Lock
+- The outer `Social Media Strategy Mock-Up` bubble preview source is locked to a still captured from:
+  - `social-strategy-lily-pstick-dashboard.html`
+- If a separate exported still image is created for implementation convenience, name it exactly:
+  - `social-strategy-lily-pstick-dashboard-preview.png`
+
+Workflow Systems Live Asset Lock
+- The current live `Workflow Systems` section is locked to:
+  - `workflow-01-trello-board-overview.png`
+- Do not render carousel dots or arrows for `Workflow Systems` unless a second real workflow asset is actually added later.
+
+AI-Assisted Architecture Future File Naming Lock
+- `AI-Assisted Architecture` remains hidden from the live build until the website is fully finalized.
+- When this sample is activated later, use the following future asset names:
+  - `ai-architecture-01-final-website-video.mp4`
+  - `ai-architecture-02-codex-claude-process.png`
+  - `ai-architecture-03-github-repository.png`
+  - `ai-architecture-04-github-pages-proof.png`
+
+File Source Lock
+- Use only the final renamed file system for implementation inside this section.
+- Do not mix old raw filenames, temporary filenames, placeholder names, or duplicate naming systems.
+
+Commentary
+- Page `7` is the most complex section in the whole blueprint.
+- It contains the highest chance of contradiction because it mixes image slides, scrollable email, embedded PDFs, embedded HTML, and future video.
+- That is why the rules here are intentionally more detailed than the earlier pages.
+
+Page 8: Executive Endorsement
+
+Section Purpose
+- This section presents an executive endorsement through one premium testimonial-focused glass card and a dedicated credential-letter popup experience.
+- The section should feel credible, warm, and high-trust.
+- It should read as a strong professional endorsement, not as a casual gallery item.
+
+Main Section Structure
+- Transform this section into one tall floating glass column/card.
+- Use:
+  - high corner rounding
+  - pearl-blush translucency
+  - heavy blur
+  - a soft `#D97C7C` edge glow
+  - subtle slow floating motion
+
+Main Card Layout
+- Use a vertical layout with strong spacing between content groups.
+- Interior structure:
+  - top = IMUN event photo
+  - middle = testimonial text
+  - bottom = CTA button
+- Use `justify-content: space-between`
+- Keep at least `40px` internal padding throughout the main card.
+
+Main Image Source Lock
+- Use the final main event image:
+  - `endorsement-imun-event-photo.jpg`
+
+Main Image Framing
+- Frame the IMUN image inside a rounded digital-window container.
+- Use a fixed aspect ratio.
+- Use `object-fit: cover`
+- Keep the subject centered.
+- Keep at least `20px` spacing between the image frame and the card edge.
+
+Testimonial Copy Treatment
+- Keep the endorsement copy exactly as provided.
+- Use a clean readable body style.
+- Prioritize legibility over decorative text effects.
+- Do not over-stylize the endorsement paragraph.
+
+CTA Label Lock
+- Replace any old `View Full Letter` wording.
+- The CTA button label must be exactly:
+  - `View Full Credential Letter`
+
+CTA Styling
+- Use a premium rose-to-burgundy pill button.
+- Fill:
+  - `#D97C7C -> #7A1E1E`
+- Text:
+  - white
+
+Credential Letter Popup Master Lock
+- The endorsement popup must no longer use a PDF as the main preview experience.
+- Replace all direct-PDF or embedded-PDF behavior with a larger image-based popup modal.
+- When the user clicks the CTA, open a real popup immediately.
+- The popup must display the credential letter using `2` real JPG image slides.
+- Do not open the PDF directly.
+
+Credential Letter Image Source Lock
+- Use these final renamed image assets as the source of truth:
+  - `endorsement-credential-letter-01.jpg`
+  - `endorsement-credential-letter-02.jpg`
+- Render them with real `<img>` elements.
+- Do not use:
+  - an iframe
+  - a PDF embed
+  - a background-only image block
+  - a placeholder shell without the real image files
+
+Popup Interaction Structure
+- Show `1` credential letter page at a time.
+- Add arrow-based navigation so the user can move between the two pages.
+- Add `2` dots below the image.
+- The active dot must always match the visible page.
+- Keep the popup elegant and focused on the letter preview.
+
+Popup Size
+- Make this endorsement popup slightly larger than the standard sample popups.
+- Ideal desktop popup size:
+  - around `900px x 760px`
+- Safe range:
+  - `860px to 960px` wide
+  - `720px to 820px` tall
+
+Image Frame Sizing
+- Use a portrait-friendly image frame because the credential letter pages are vertical.
+- Ideal image frame inside the popup:
+  - around `500px x 640px`
+
+Image Display Behavior
+- Use `object-fit: contain`
+- Keep the full credential letter page visible.
+- Keep the images centered.
+- Do not crop the letter page aggressively.
+
+Popup Layout Stability
+- Keep the popup shell visually stable while the user moves between letter page `1` and letter page `2`.
+- Stable popup shell elements should include:
+  - close button
+  - title area if used
+  - supporting text area if used
+  - arrow area
+  - dot area
+
+Credential Letter Count and Dot Lock
+- Total credential-letter images:
+  - `2`
+- Dots:
+  - `2`
+- Arrows:
+  - `yes`
+- Scrollable media area:
+  - `no`
+- Entire popup scroll:
+  - `no`
+
+Fallback Rule
+- If one of the credential-letter images is missing or fails to load, show:
+  - `Credential letter image missing`
+
+Executive Endorsement Master Lock
+- This section must use the final JPG credential-letter files as the source of truth for the popup preview.
+- Do not revert to direct PDF viewing once the image files exist.
+
+Commentary
+- Page `8` is another attachment-heavy section.
+- The main contradiction fixed here is removing older PDF behavior and fully committing to the `2`-image JPG popup system.
+
+Page 9: Footer / Let’s Connect
+
+Section Base
+- Use a deep burgundy footer with `#7A1E1E` as the dominant base.
+- Do not introduce off-palette reds.
+- Text should remain white or warm white for strong contrast.
+- Add a subtle top divider or glow line using low-opacity `#D97C7C`.
+
+Layout
+- Use a clean multi-column layout on desktop:
+  - column `1` = branding + short bio
+  - column `2` = navigation links
+  - column `3` = contact details + social icons
+- Stack the columns vertically on mobile with generous spacing.
+
+Spacing
+- Use generous vertical padding:
+  - `64px to 88px`
+- Use horizontal padding:
+  - `32px to 48px`
+- Keep at least `24px to 32px` gap between footer columns.
+- Keep `12px to 16px` spacing between stacked links and items.
+
+Typography
+- Title:
+  - `Let’s Connect!`
+  - bold white serif
+  - `40px to 52px`
+- Branding and important contact lines:
+  - white at high contrast
+- Supporting bio and secondary details:
+  - white at reduced opacity around `0.72 to 0.82`
+- Navigation and contact text should use a clean sans-serif.
+
+Content
+- Include branding and bio exactly as provided.
+- Include navigation links exactly as provided.
+- Include contact details exactly as provided.
+- Keep the navigation vertical and easy to scan.
+- Make the email or primary contact method slightly more prominent than the rest.
+
+Social Icons
+- Social icons should use a subtle magnetic-pull interaction toward the cursor.
+- Keep the effect soft and elegant.
+- On hover:
+  - gentle lift
+  - slight scale increase
+  - faint `#D97C7C` glow or border response
+
+Visual Finish
+- Keep the background solid or softly graded within the palette, centered on `#7A1E1E`.
+- Avoid noisy textures or excessive blur in the footer.
+- Let the footer feel polished, intimate, and premium.
+
+Commentary
+- Page `9` is comparatively straightforward.
+- It is not one of the high-risk sections. The main goal is simply to keep it visually rich, readable, and tonally consistent with the rest of the site.
+
+VII. Final Attachment and Source-of-Truth Lock
+
+Purpose
+- The portfolio contains multiple attachment-driven sections that rely on real images, PDFs, HTML files, and future media assets.
+- These file-based sections must not drift into alternate naming systems, duplicate references, placeholder assets, or mismatched popup behavior.
+- This final lock exists to keep the entire blueprint implementation-safe from first build through future revisions.
+
+Final Source-of-Truth Rule
+- The final renamed file system is the only valid implementation source for this portfolio.
+- Do not mix:
+  - old raw filenames
+  - temporary filenames
+  - placeholder filenames
+  - alternate duplicate naming systems
+  - casually renamed exports that are not reflected in this blueprint
+- If a file is renamed later, update the blueprint section that maps that file before implementation changes are made.
+
+Attachment-Based Sections Covered by This Lock
+- `Page 1: Hero`
+- `Page 2: About Me`
+- `Page 6: Tech Stack`
+- `Page 6.5: Professional Accreditations`
+- `Page 7: Sample Works`
+- `Page 8: Executive Endorsement`
+
+Hero and About Image Source Lock
+- Hero portrait source:
+  - `hero-page-profile.png`
+- About portrait source:
+  - `about-me-page-profile.png`
+- Do not swap these two image roles unless the blueprint itself is intentionally revised.
+
+Tech Stack Asset Source Lock
+- Use final attached transparent PNG logo assets only.
+- Do not substitute:
+  - SVG redraws
+  - monochrome icons
+  - icon-library replacements
+  - AI-generated logo approximations
+
+Professional Accreditations Source Lock
+- Provider / verification row assets:
+  - `accreditation-provider-simplilearn-logo.png`
+  - `accreditation-verification-badge.png`
+- Credential image sources:
+  - `accreditation-01-introduction-to-seo.jpg`
+  - `accreditation-02-digital-marketing-tools-and-techniques.jpg`
+  - `accreditation-03-meta-business-suite-for-beginners.jpg`
+
+Sample Works Source Lock
+- `Graphic Design`
+  - outer bubble preview source:
+    - cropped hero section from `graphic-email-01-romand-gloss-moderne-layout.jpg`
+  - email group source:
+    - `graphic-email-01-romand-gloss-moderne-layout.jpg`
+  - mock-up group sources:
+    - `graphic-mockup-01-boba-flavors-poster.png`
+    - `graphic-mockup-02-chocolate-chip-cookie-poster.png`
+    - `graphic-mockup-03-blackpink-drink-poster.png`
+    - `graphic-mockup-04-launch-poster.png`
+    - `graphic-mockup-06-combo-deals-poster.png`
+  - optional support-only asset:
+    - `graphic-mockup-05-logo-mark.png`
+
+- `Published Work`
+  - popup and bubble preview source:
+    - `published-work-sorel-the-destined-mortal-book-display.png`
+
+- `Technical Writing`
+  - PDF sources:
+    - `technical-writing-01-unesco-mun-master-rapporteur-log.pdf`
+    - `technical-writing-02-secure-client-onboarding-case-study.pdf`
+  - default bubble preview source:
+    - first-page crop from `technical-writing-02-secure-client-onboarding-case-study.pdf`
+
+- `Workflow Systems`
+  - current live asset source:
+    - `workflow-01-trello-board-overview.png`
+
+- `Social Media Strategy Mock-Up`
+  - Lily project HTML sources:
+    - `social-strategy-lily-pstick-dashboard.html`
+    - `social-strategy-lily-pstick-brand-voice.html`
+  - Sweet SerendipiTea HTML source:
+    - `social-strategy-sweet-serendipitea-case-study.html`
+  - Sweet SerendipiTea support preview sources:
+    - `social-strategy-sweet-serendipitea-instagram-preview-01.png`
+    - `social-strategy-sweet-serendipitea-instagram-preview-02.png`
+  - outer bubble preview source:
+    - still captured from `social-strategy-lily-pstick-dashboard.html`
+  - if separately exported, preview still filename must be:
+    - `social-strategy-lily-pstick-dashboard-preview.png`
+
+- `AI-Assisted Architecture`
+  - not active in live build yet
+  - future asset mapping:
+    - `ai-architecture-01-final-website-video.mp4`
+    - `ai-architecture-02-codex-claude-process.png`
+    - `ai-architecture-03-github-repository.png`
+    - `ai-architecture-04-github-pages-proof.png`
+
+Executive Endorsement Source Lock
+- Main event image:
+  - `endorsement-imun-event-photo.jpg`
+- Credential-letter popup sources:
+  - `endorsement-credential-letter-01.jpg`
+  - `endorsement-credential-letter-02.jpg`
+
+Viewer-Type Integrity Lock
+- Do not force all attachment-driven sections into the same popup system.
+- The viewer type must match the content type.
+- Required viewer-type rules:
+  - standard still image = image viewer
+  - long email layout = scrollable image viewer
+  - PDF writing sample = embedded document-style viewer
+  - HTML strategy sample = embedded HTML viewer
+  - credential image = contained popup image viewer
+  - credential letter = limited image-slide popup
+  - future website demo = real video viewer
+
+Popup Structure Integrity Lock
+- Every popup must use one stable shell with controlled internal spacing and alignment.
+- Popup shell elements that must remain structurally stable:
+  - close button
+  - title
+  - short description
+  - tabs or selector pills if present
+  - CTA area if present
+  - arrow area if present
+  - dot area if present
+- Only the active media or active internal viewer state should change.
+
+Bubble Card Integrity Lock
+- Outer bubble cards in `Sample Works` must remain fixed and visually consistent.
+- Bubble cards must not resize or reflow based on the natural dimensions of media.
+- Bubble cards must always function as intentional visual covers for their popup experiences.
+
+Live vs Future Activation Lock
+- Do not activate future-only sections before their proof assets are complete.
+- Current live deferred section:
+  - `AI-Assisted Architecture`
+- Future-only assets should remain documented in the blueprint but hidden from the live UI until ready.
+
+Contradiction Prevention Lock
+- If two lines in the blueprint conflict, the more section-specific file-mapped rule overrides the older generic rule.
+- This is especially important in:
+  - `Page 6.5: Professional Accreditations`
+  - `Page 7: Sample Works`
+  - `Page 8: Executive Endorsement`
+
+Naming Consistency Lock
+- Use:
+  - `UNESCO`, not `NESCO`
+  - `Graphic Mock-Ups`, not `Standalone Graphic Designs`
+  - `upright book display image`, not `book mockup`
+- Keep wording and file mapping consistent across the entire blueprint.
+
+Revision Discipline Rule
+- If a future design revision changes:
+  - file names
+  - popup counts
+  - sample counts
+  - card labels
+  - viewer types
+  - preview sources
+- then update the matching section in the blueprint immediately.
+- Do not allow implementation changes to drift ahead of the blueprint.
+
+Final Build Intent
+- The final website should feel cohesive from Hero to Footer.
+- The site should not feel like one style for the early pages and a separate style for the sample / credential pages.
+- The attachment-heavy sections must still feel part of the same premium pearl-glass design system while preserving the correct viewer behavior for each media type.
+- The final result should feel editorial, polished, soft, modern, feminine, readable, and professionally credible.
+
+End of Blueprint
+- This blueprint should now be treated as the final master specification unless a later revision explicitly replaces part of it.

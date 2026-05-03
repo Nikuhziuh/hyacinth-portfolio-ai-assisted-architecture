@@ -969,14 +969,15 @@ window.addEventListener('DOMContentLoaded', () => {
       .repair-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0 14px;color:#777;font-family:var(--font-sans)}
       .repair-meta strong{font-family:var(--font-serif);font-size:20px;color:#302929}
       .repair-scroll-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-height:62vh;overflow:auto;padding:4px 6px 8px}
-      .repair-scroll-card{background:#fff;border:1px solid rgba(217,124,124,.16);border-radius:16px;padding:12px;box-shadow:0 10px 28px rgba(80,40,40,.08)}
-      .repair-scroll-card img{width:100%;height:auto;display:block;border-radius:10px}
-      .repair-spotlight{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px;background:#fffaf8;border:1px solid rgba(217,124,124,.16);border-radius:18px;padding:26px 54px;overflow:hidden}
-      .repair-spotlight img{max-width:100%;max-height:68vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 10px 32px rgba(80,40,40,.12)}
+      .repair-scroll-card{background:transparent;border:0;border-radius:0;padding:0;box-shadow:none}
+      .repair-scroll-card img{width:100%;height:auto;display:block;border-radius:0}
+      .repair-spotlight{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px;background:transparent;border:0;border-radius:0;padding:18px 54px;overflow:visible}
+      .repair-spotlight img{max-width:100%;max-height:68vh;width:auto;height:auto;object-fit:contain;border-radius:0;box-shadow:none;filter:contrast(1.02) saturate(1.02)}
+      .repair-spotlight .popup-arrow{background:transparent!important;border:0!important;box-shadow:none!important}
       .repair-workflow{min-height:360px}
-      .repair-page-stack{max-height:66vh;overflow-y:auto;background:#fffaf8;border:1px solid rgba(217,124,124,.16);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:18px}
-      .repair-page{margin:0 auto;width:min(760px,100%);background:white;border-radius:12px;padding:10px;box-shadow:0 8px 24px rgba(80,40,40,.08)}
-      .repair-page img{width:100%;height:auto;display:block;border-radius:8px}
+      .repair-page-stack{max-height:66vh;overflow-y:auto;background:transparent;border:0;border-radius:0;padding:0;display:flex;flex-direction:column;gap:18px}
+      .repair-page{margin:0 auto;width:min(760px,100%);background:transparent;border-radius:0;padding:0;box-shadow:none}
+      .repair-page img{width:100%;height:auto;display:block;border-radius:0}
       .repair-page figcaption{text-align:center;margin-top:8px;color:#8a7474;font:600 12px/1 var(--font-sans)}
       .repair-doc-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fffaf8;border:1px solid rgba(217,124,124,.16);border-radius:14px 14px 0 0;padding:13px 16px;font-family:var(--font-sans)}
       .repair-iframe-frame{height:min(72vh,760px);background:#16151d;border-radius:16px;overflow:hidden;border:1px solid rgba(217,124,124,.16)}
@@ -1022,7 +1023,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const assetExists = {};
   const safeText = value => String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const byId = id => document.getElementById(id);
-  const pageRange = (prefix, count, ext = 'jpg') => Array.from({ length: count }, (_, i) => `${prefix}${String(i + 1).padStart(2, '0')}.${ext}`);
+  const pageRange = (basePath, prefix, count, ext = 'jpg') => Array.from({ length: count }, (_, i) => `${basePath}/${prefix}${String(i + 1).padStart(2, '0')}.${ext}`);
 
   const links = {
     email: 'https://docs.google.com/document/d/1kv3jln53RQT5lhusy8FmujWrNwqOy0c6Fi9iHB8mgGI/edit?usp=sharing',
@@ -1070,9 +1071,19 @@ window.addEventListener('DOMContentLoaded', () => {
       type: 'mixed',
       carouselOnly: true,
       items: [
-        { src: 'assets/samples/graphics/graphic-food-01-smokehouse-rib-platter.png', alt: 'Smokehouse rib platter food poster', shape: 'wide' },
-        { src: 'assets/samples/graphics/graphic-food-02-boba-flavors-poster.png', alt: 'Boba flavors poster', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-food-03-chocolate-chip-cookie-poster.png', alt: 'Chocolate chip cookie poster', shape: 'vertical' }
+        {
+          layout: 'single',
+          items: [
+            { src: 'assets/samples/graphics/graphic-food-01-smokehouse-rib-platter.png', alt: 'Smokehouse rib platter food poster', shape: 'wide' }
+          ]
+        },
+        {
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-food-02-boba-flavors-poster.png', alt: 'Boba flavors poster', shape: 'vertical' },
+            { src: 'assets/samples/graphics/graphic-food-03-chocolate-chip-cookie-poster.png', alt: 'Chocolate chip cookie poster', shape: 'vertical' }
+          ]
+        }
       ]
     },
     sst: {
@@ -1082,20 +1093,55 @@ window.addEventListener('DOMContentLoaded', () => {
       type: 'mixed',
       carouselOnly: true,
       items: [
-        { src: 'assets/samples/graphics/graphic-sst-01-menu-board.png', alt: 'Sweet SerendipiTea gourmet menu board', shape: 'wide' },
-        { src: 'assets/samples/graphics/graphic-sst-02-menu-poster.png', alt: 'Sweet SerendipiTea menu poster', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-03-holiday-treats-promo.png', alt: 'Holiday treats promotional poster', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-04-wintermelon-milktea-poster.png', alt: 'Wintermelon milktea poster', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-05-crowd-favorites-poster.png', alt: 'Crowd favorites poster', shape: 'wide' },
-        { src: 'assets/samples/graphics/graphic-sst-06-brand-stationery-mockup.png', alt: 'Brand stationery mockup', shape: 'wide' },
-        { src: 'assets/samples/graphics/graphic-sst-07-paper-bag-mockup.png', alt: 'Paper bag mockup', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-08-limited-mugs-promo.png', alt: 'Limited mugs promotion', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-09-tumbler-promo.png', alt: 'Tumbler promo poster', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-10-packaging-teaser.png', alt: 'Packaging teaser', shape: 'wide' },
-        { src: 'assets/samples/graphics/graphic-sst-11-limited-mugs-model-promo.png', alt: 'Limited mugs model promo', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-12-calendar-journal-promo.png', alt: 'Calendar journal promo', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-13-combo-deals-poster.png', alt: 'Combo deals poster', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-sst-14-launch-poster.png', alt: 'Launch poster', shape: 'vertical' }
+        {
+          layout: 'single',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-01-menu-board.png', alt: 'Sweet SerendipiTea gourmet menu board', shape: 'wide' }
+          ]
+        },
+        {
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-02-menu-poster.png', alt: 'Sweet SerendipiTea menu poster', shape: 'vertical' },
+            { src: 'assets/samples/graphics/graphic-sst-05-crowd-favorites-poster.png', alt: 'Crowd favorites poster', shape: 'wide' }
+          ]
+        },
+        {
+          layout: 'trio',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-04-wintermelon-milktea-poster.png', alt: 'Wintermelon milktea poster', shape: 'vertical' },
+            { src: 'assets/samples/graphics/graphic-sst-03-holiday-treats-promo.png', alt: 'Holiday treats promotional poster', shape: 'vertical' },
+            { src: 'assets/samples/graphics/graphic-sst-13-combo-deals-poster.png', alt: 'Holiday bundle deals poster', shape: 'vertical' }
+          ]
+        },
+        {
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-06-brand-stationery-mockup.png', alt: 'Business card and letterhead design mock-up', shape: 'wide' },
+            { src: 'assets/samples/graphics/graphic-sst-14-launch-poster.png', alt: 'Sweet SerendipiTea launch poster', shape: 'vertical' }
+          ]
+        },
+        {
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-07-paper-bag-mockup.png', alt: 'Paper bag branding mock-up', shape: 'vertical' },
+            { src: 'assets/samples/graphics/graphic-sst-11-limited-mugs-model-promo.png', alt: 'Sweet SerendipiTea limited mugs model promo', shape: 'vertical' }
+          ]
+        },
+        {
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-10-packaging-teaser.png', alt: 'Eco-friendly bag and cup teaser', shape: 'square' },
+            { src: 'assets/samples/graphics/graphic-sst-12-calendar-journal-promo.png', alt: 'Calendar and journal planning promo', shape: 'square' }
+          ]
+        },
+        {
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-sst-08-limited-mugs-promo.png', alt: 'Limited mugs promotion without model', shape: 'vertical' },
+            { src: 'assets/samples/graphics/graphic-sst-09-tumbler-promo.png', alt: 'Tumbler model promo poster', shape: 'vertical' }
+          ]
+        },
       ]
     },
     logos: {
@@ -1146,21 +1192,21 @@ window.addEventListener('DOMContentLoaded', () => {
       count: '18 client-ready email template pages',
       link: links.email,
       linkText: 'View Source Doc',
-      items: pageRange('admin-email-templates-page-', 18).map((src, i) => ({ src, alt: `Email templates page ${i + 1}` }))
+      items: pageRange('assets/samples/admin', 'admin-email-templates-page-', 18).map((src, i) => ({ src, alt: `Email templates page ${i + 1}` }))
     },
     event: {
       label: 'Event Planning',
       count: '10 event dashboard and planning pages',
       link: links.event,
       linkText: 'View Source Sheet',
-      items: pageRange('admin-event-planning-page-', 10).map((src, i) => ({ src, alt: `Event planning page ${i + 1}` }))
+      items: pageRange('assets/samples/admin', 'admin-event-planning-page-', 10).map((src, i) => ({ src, alt: `Event planning page ${i + 1}` }))
     },
     content: {
       label: 'Content Calendar & Strategy',
       count: '7 content planning and strategy pages',
       link: links.content,
       linkText: 'View Source Sheet',
-      items: pageRange('admin-content-calendar-strategy-page-', 7).map((src, i) => ({ src, alt: `Content calendar strategy page ${i + 1}` }))
+      items: pageRange('assets/samples/admin', 'admin-content-calendar-strategy-page-', 7).map((src, i) => ({ src, alt: `Content calendar strategy page ${i + 1}` }))
     },
     onboarding: {
       label: 'Client Onboarding',
@@ -1201,6 +1247,91 @@ window.addEventListener('DOMContentLoaded', () => {
     { title: 'Meta Business Suite for Beginners', src: 'assets/accreditations/accreditation-03-meta-business-suite-for-beginners.jpg' }
   ];
 
+  const aiArchitectureProofs = [
+    {
+      label: 'Final Website Hero Page',
+      src: 'assets/samples/ai-architecture/ai-architecture-00-final-hero-page.png',
+      caption: 'Published hero page from the final portfolio website.'
+    },
+    {
+      label: 'Before Version: Prompt + First Draft',
+      src: 'assets/samples/ai-architecture/ai-architecture-01-before-draft-with-prompt.png',
+      caption: 'Original prompt and first visible AI-generated website draft.'
+    },
+    {
+      label: 'Before Version: Hero Page',
+      src: 'assets/samples/ai-architecture/ai-architecture-02-before-hero-page.png',
+      caption: 'Early hero-page direction before the final visual system was refined.'
+    },
+    {
+      label: 'Before Version: HTML Code',
+      src: 'assets/samples/ai-architecture/ai-architecture-03-before-html-code.png',
+      caption: 'Early one-page HTML code generated during the first build direction.'
+    },
+    {
+      label: 'Before Version: AI File History',
+      src: 'assets/samples/ai-architecture/ai-architecture-04-before-ai-file-history.png',
+      caption: 'Multiple AI-generated versions that were reviewed before the final direction.'
+    },
+    {
+      label: 'After Version: Final HTML Code',
+      src: 'assets/samples/ai-architecture/ai-architecture-05-after-final-html-code.png',
+      caption: 'Final GitHub-ready HTML source after revision, cleanup, and organization.'
+    },
+    {
+      label: 'Final Master Blueprint',
+      src: 'assets/samples/ai-architecture/ai-architecture-02-blueprint-design-dna.png',
+      caption: 'Design DNA from the final master blueprint: palette, typography, glass treatment, and consistency.'
+    },
+    {
+      label: 'Final Master Blueprint: Layout Tokens',
+      src: 'assets/samples/ai-architecture/ai-architecture-03-blueprint-layout-tokens.png',
+      caption: 'Source-of-truth spacing, width, radius, and layout rhythm.'
+    },
+    {
+      label: 'Final Master Blueprint: Navigation + Motion',
+      src: 'assets/samples/ai-architecture/ai-architecture-04-blueprint-navigation-motion.png',
+      caption: 'Navigation behavior and motion direction before implementation.'
+    },
+    {
+      label: 'Final Master Blueprint: Accessibility + Motion',
+      src: 'assets/samples/ai-architecture/ai-architecture-05-blueprint-accessibility.png',
+      caption: 'Focus, contrast, touch-target, and reduced-motion requirements.'
+    },
+    {
+      label: 'GitHub Repository Structure',
+      src: 'assets/samples/ai-architecture/ai-architecture-06-github-repository.png',
+      caption: 'Final organized repository with separated code and asset folders.'
+    },
+    {
+      label: 'Revision Direction Log',
+      src: 'assets/samples/ai-architecture/ai-architecture-07-codex-revision-log.png',
+      caption: 'Curated proof of annotation-based revision direction.'
+    },
+    {
+      label: 'Annotation Log: Asset + Reference Check',
+      src: 'assets/samples/ai-architecture/ai-architecture-08-codex-asset-check.png',
+      caption: 'Annotation-driven verification pass confirming organized asset references.'
+    }
+  ];
+
+  const aiArchitectureCodeExcerpt = `<!-- Sample Works card -->
+<div class="work-card fade-up"
+     onclick="openAIArchitecture()"
+     role="button"
+     tabindex="0"
+     aria-label="View AI-Assisted Architecture case study">
+  <div class="work-thumb ai-architecture-thumb">
+    <img src="assets/samples/ai-architecture/ai-architecture-06-github-repository.png"
+         alt="GitHub repository structure for AI-assisted portfolio architecture">
+    <div class="work-card-badge">Case Study</div>
+  </div>
+  <div class="work-info">
+    <p class="work-category">AI Architecture</p>
+    <h3 class="work-title">AI-Assisted Architecture</h3>
+  </div>
+</div>`;
+
   function ensureModal() {
     let modal = byId('phase2Modal');
     if (modal) return modal;
@@ -1234,6 +1365,18 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  function updatePhase2Content(html) {
+    const target = byId('phase2ModalContent');
+    if (!target) return;
+    const currentHeight = target.getBoundingClientRect().height;
+    if (currentHeight > 0) target.style.minHeight = `${currentHeight}px`;
+    target.innerHTML = html;
+    window.clearTimeout(window.phase2ContentSettleTimer);
+    window.phase2ContentSettleTimer = window.setTimeout(() => {
+      target.style.minHeight = '';
+    }, 140);
+  }
+
   function header(kicker, title, desc, count) {
     return `<div class="phase2-head">
       <div>
@@ -1263,29 +1406,58 @@ window.addEventListener('DOMContentLoaded', () => {
     return `<div class="phase2-grid phase2-desktop-grid ${cls}">${config.items.map(imageTag).join('')}</div>`;
   }
 
+  function isPhase2Mobile() {
+    return window.matchMedia && window.matchMedia('(max-width: 860px)').matches;
+  }
+
+  function getGraphicSlides(config) {
+    if (!isPhase2Mobile() || !config.carouselOnly) return config.items;
+    return config.items.flatMap((slide) => Array.isArray(slide.items)
+      ? slide.items.map((item) => ({ layout: 'single', items: [item] }))
+      : [slide]);
+  }
+
   function renderMobileCarousel(config, active = 0, fnName = 'phase2GraphicMove') {
-    const item = config.items[active] || config.items[0];
-    return `<div class="phase2-carousel phase2-mobile-carousel">
+    const slides = getGraphicSlides(config);
+    const slide = slides[active] || slides[0];
+    const slideItems = Array.isArray(slide.items) ? slide.items : [slide];
+    const layout = slide.layout || (slideItems.length === 3 ? 'trio' : slideItems.length === 2 ? 'pair' : 'single');
+    const group = slideItems.map((item) => `<figure class="phase2-slide-item ${safeText(item.shape || '')}">
+        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager">
+      </figure>`).join('');
+    return `<div class="phase2-carousel phase2-mobile-carousel phase2-carousel-${layout}">
       <button class="phase2-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous">←</button>
-      <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="lazy">
+      <div class="phase2-slide-group ${layout}">${group}</div>
       <button class="phase2-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next">→</button>
-      <div class="phase2-dots">${config.items.map((_, i) => `<button class="phase2-dot ${i === active ? 'active' : ''}" type="button" onclick="${fnName}(${i - active})" aria-label="View ${i + 1}"></button>`).join('')}</div>
+      <div class="phase2-dots">${slides.map((_, i) => `<button class="phase2-dot ${i === active ? 'active' : ''}" type="button" onclick="${fnName}(${i - active})" aria-label="View ${i + 1}"></button>`).join('')}</div>
+    </div>`;
+  }
+
+  function renderPageViewer(items, active = 0, fnName = 'phase2PageMove') {
+    const item = items[active] || items[0];
+    return `<div class="phase2-page-viewer">
+      <button class="phase2-page-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous page">‹</button>
+      <figure class="phase2-page-frame">
+        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager">
+      </figure>
+      <button class="phase2-page-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next page">›</button>
     </div>`;
   }
 
   function renderGraphicBody(key) {
     const config = graphics[key];
     const current = window.phase2GraphicIndex || 0;
+    const graphicSlides = getGraphicSlides(config);
     const note = config.note ? `<p class="phase2-proof">${safeText(config.note)}</p>` : '';
-    const carousel = renderMobileCarousel(config, Math.min(current, config.items.length - 1), 'phase2GraphicMove');
+    const carousel = renderMobileCarousel(config, Math.min(current, graphicSlides.length - 1), 'phase2GraphicMove');
     const content = config.mode === 'scroll'
-      ? `<div class="phase2-doc-stack">${config.items.map((item, i) => `<figure class="phase2-doc-page"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="lazy"></figure>`).join('')}</div>`
+      ? renderPageViewer(config.items, Math.min(current, config.items.length - 1), 'phase2GraphicMove')
       : config.carouselOnly
         ? `<div class="phase2-carousel-only">${carousel}</div>`
         : `${renderDesktopGrid(config)}${carousel}`;
-    return `${header('Graphic Design', config.label, 'Categorized visual samples grouped by context so the work reads intentional instead of random.', config.count)}
+    return `${header('Graphic Design', config.label, 'Portfolio visuals focused on layout, hierarchy, color balance, and brand-ready presentation.', config.count)}
       ${tabs(graphics, key, 'phase2SwitchGraphic')}
-      <div class="phase2-gallery-shell is-graphic">${content}${note}</div>`;
+      <div class="phase2-gallery-shell is-graphic is-${safeText(key)}">${content}${note}</div>`;
   }
 
   window.openGraphicDesign = function () {
@@ -1297,35 +1469,44 @@ window.addEventListener('DOMContentLoaded', () => {
   window.phase2SwitchGraphic = function (key) {
     window.phase2GraphicKey = key;
     window.phase2GraphicIndex = 0;
-    byId('phase2ModalContent').innerHTML = renderGraphicBody(key);
+    updatePhase2Content(renderGraphicBody(key));
   };
 
   window.phase2GraphicMove = function (delta) {
     const key = window.phase2GraphicKey || 'email';
     const config = graphics[key];
-    window.phase2GraphicIndex = (window.phase2GraphicIndex + delta + config.items.length) % config.items.length;
-    byId('phase2ModalContent').innerHTML = renderGraphicBody(key);
+    const graphicSlides = getGraphicSlides(config);
+    window.phase2GraphicIndex = (window.phase2GraphicIndex + delta + graphicSlides.length) % graphicSlides.length;
+    updatePhase2Content(renderGraphicBody(key));
   };
 
   function renderAdminBody(key) {
     const config = admin[key];
+    const current = window.phase2AdminIndex || 0;
     const link = config.link ? `<div class="phase2-link-row"><a class="phase2-source-link" href="${safeText(config.link)}" target="_blank" rel="noopener">${safeText(config.linkText || 'View Source')}</a></div>` : '';
     return `${header('Admin & Workflow Systems', config.label, 'Operational samples showing dashboards, templates, planning systems, and client-ready workflow structure.', config.count)}
       ${tabs(admin, key, 'phase2SwitchAdmin')}
       ${link}
-      <div class="phase2-gallery-shell">
-        <div class="phase2-doc-stack">${config.items.map((item) => `<figure class="phase2-doc-page"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="lazy"></figure>`).join('')}</div>
-      </div>`;
+      <div class="phase2-gallery-shell">${renderPageViewer(config.items, Math.min(current, config.items.length - 1), 'phase2AdminMove')}</div>`;
   }
 
   window.openWorkflow = function () {
-    window.phase2AdminKey = 'workflow';
-    openPhase2Modal(renderAdminBody('workflow'));
+    window.phase2AdminKey = 'weekly';
+    window.phase2AdminIndex = 0;
+    openPhase2Modal(renderAdminBody('weekly'));
   };
 
   window.phase2SwitchAdmin = function (key) {
     window.phase2AdminKey = key;
-    byId('phase2ModalContent').innerHTML = renderAdminBody(key);
+    window.phase2AdminIndex = 0;
+    updatePhase2Content(renderAdminBody(key));
+  };
+
+  window.phase2AdminMove = function (delta) {
+    const key = window.phase2AdminKey || 'weekly';
+    const config = admin[key];
+    window.phase2AdminIndex = (window.phase2AdminIndex + delta + config.items.length) % config.items.length;
+    updatePhase2Content(renderAdminBody(key));
   };
 
   window.openSocialStrategy = function () {
@@ -1342,38 +1523,96 @@ window.addEventListener('DOMContentLoaded', () => {
 
   window.phase2SwitchSocial = function (key) {
     window.phase2SocialKey = key;
-    byId('phase2ModalContent').innerHTML = renderSocialBody(key);
+    updatePhase2Content(renderSocialBody(key));
   };
 
   window.openTechnicalWriting = function () {
     window.phase2TechKey = 'unesco';
+    window.phase2TechIndex = 0;
     openPhase2Modal(renderTechBody('unesco'));
   };
 
   const techDocs = {
     unesco: {
       label: 'UNESCO MUN Rapporteur Log',
-      count: '10 scrollable JPG pages',
-      pages: pageRange('technical-writing-01-unesco-mun-master-rapporteur-log-page-', 10)
+      count: '10 pages',
+      pages: pageRange('assets/samples/technical-writing', 'technical-writing-01-unesco-mun-master-rapporteur-log-page-', 10)
     },
     onboarding: {
       label: 'Secure Client Onboarding',
-      count: '3 scrollable JPG pages',
-      pages: pageRange('technical-writing-02-secure-client-onboarding-case-study-page-', 3)
+      count: '3 pages',
+      pages: pageRange('assets/samples/technical-writing', 'technical-writing-02-secure-client-onboarding-case-study-page-', 3)
     }
   };
 
+  function collectSampleSources() {
+    const sources = new Set();
+    const add = src => {
+      if (src && /\.(png|jpe?g|webp|gif)$/i.test(src)) sources.add(src);
+    };
+    const visit = value => {
+      if (!value) return;
+      if (typeof value === 'string') {
+        add(value);
+      } else if (Array.isArray(value)) {
+        value.forEach(visit);
+      } else if (typeof value === 'object') {
+        add(value.src);
+        visit(value.items);
+        visit(value.pages);
+      }
+    };
+    [graphics, admin, credentials, aiArchitectureProofs, techDocs].forEach(visit);
+    [
+      'assets/samples/endorsements/endorsement-certificate-recognition-01.jpg',
+      'assets/samples/endorsements/endorsement-certificate-recognition-02.jpg',
+      'assets/samples/endorsements/endorsement-behind-scenes-philippines-02.jpg',
+      'assets/samples/endorsements/endorsement-behind-scenes-vietnam-01.jpg',
+      'assets/samples/endorsements/endorsement-behind-scenes-philippines-01.jpg',
+      'assets/samples/endorsements/endorsement-credential-letter-01.jpg',
+      'assets/samples/endorsements/endorsement-credential-letter-02.jpg'
+    ].forEach(add);
+    return [...sources];
+  }
+
+  function preloadSampleWorksAssets() {
+    const load = () => {
+      collectSampleSources().forEach((src, index) => {
+        window.setTimeout(() => {
+          const img = new Image();
+          img.decoding = 'async';
+          img.src = src;
+        }, Math.min(index * 10, 700));
+      });
+    };
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(load, { timeout: 1200 });
+    } else {
+      window.setTimeout(load, 250);
+    }
+  }
+
   function renderTechBody(key) {
     const config = techDocs[key];
-    return `${header('Documentation Sample', 'Technical Writing', 'Scrollable JPG page stacks for easier reading. No PDF viewer and no arrow-based navigation.', config.count)}
+    const current = window.phase2TechIndex || 0;
+    const pages = config.pages.map((src, i) => ({ src, alt: `${config.label} page ${i + 1}` }));
+    return `${header('Documentation Sample', 'Technical Writing', '', config.count)}
       ${tabs(techDocs, key, 'phase2SwitchTech')}
-      <div class="phase2-gallery-shell">
-        <div class="phase2-doc-stack">${config.pages.map((src, i) => `<figure class="phase2-doc-page"><img src="${safeText(src)}" alt="${safeText(config.label)} page ${i + 1}" loading="lazy"></figure>`).join('')}</div>
-      </div>`;
+      <div class="phase2-gallery-shell">${renderPageViewer(pages, Math.min(current, pages.length - 1), 'phase2TechMove')}</div>`;
   }
 
   window.phase2SwitchTech = function (key) {
-    byId('phase2ModalContent').innerHTML = renderTechBody(key);
+    window.phase2TechKey = key;
+    window.phase2TechIndex = 0;
+    updatePhase2Content(renderTechBody(key));
+  };
+
+  window.phase2TechMove = function (delta) {
+    const key = window.phase2TechKey || 'unesco';
+    const config = techDocs[key];
+    const current = window.phase2TechIndex || 0;
+    window.phase2TechIndex = (current + delta + config.pages.length) % config.pages.length;
+    updatePhase2Content(renderTechBody(key));
   };
 
   window.openCredential = function (src, title) {
@@ -1399,9 +1638,81 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   window.openLetterPopup = function () {
-    const pages = ['assets/samples/endorsements/endorsement-credential-letter-01.jpg', 'assets/samples/endorsements/endorsement-credential-letter-02.jpg'];
+    const pages = ['assets/samples/endorsements/endorsement-credential-letter-01.jpg', 'assets/samples/endorsements/endorsement-credential-letter-02.jpg'].map((src, i) => ({ src, alt: `Credential letter page ${i + 1}` }));
+    window.phase2LetterIndex = 0;
     openPhase2Modal(`${header('Executive Endorsement', 'Credential Letter', 'Full two-page executive credential letter.', '2 pages')}
-      <div class="phase2-gallery-shell"><div class="phase2-doc-stack">${pages.map((src, i) => `<figure class="phase2-doc-page"><img src="${src}" alt="Credential letter page ${i + 1}" loading="lazy"></figure>`).join('')}</div></div>`);
+      <div class="phase2-gallery-shell">${renderPageViewer(pages, 0, 'phase2LetterMove')}</div>`);
+  };
+
+  window.phase2LetterMove = function (delta) {
+    const pages = ['assets/samples/endorsements/endorsement-credential-letter-01.jpg', 'assets/samples/endorsements/endorsement-credential-letter-02.jpg'].map((src, i) => ({ src, alt: `Credential letter page ${i + 1}` }));
+    window.phase2LetterIndex = (window.phase2LetterIndex + delta + pages.length) % pages.length;
+    updatePhase2Content(`${header('Executive Endorsement', 'Credential Letter', 'Full two-page executive credential letter.', '2 pages')}
+      <div class="phase2-gallery-shell">${renderPageViewer(pages, window.phase2LetterIndex, 'phase2LetterMove')}</div>`);
+  };
+
+  window.openAIArchitecture = function () {
+    window.aiArchitectureInlineIndex = 0;
+    openPhase2Modal(renderAIArchitectureBody(), { htmlWide: true });
+  };
+
+  function renderAIArchitectureBody() {
+    const current = window.aiArchitectureInlineIndex || 0;
+    const item = aiArchitectureProofs[current] || aiArchitectureProofs[0];
+    return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '13 proof assets')}
+      <div class="phase2-gallery-shell">
+        <div class="ai-architecture-carousel">
+          <button class="ai-architecture-inline-arrow prev" type="button" onclick="moveAIArchitectureInline(-1)" aria-label="Previous proof">‹</button>
+          <figure class="ai-architecture-hero-proof">
+            <button class="ai-architecture-image-button" type="button" onclick="openAIArchitectureViewer(${current})" aria-label="View ${safeText(item.label)} clearly">
+              <img src="${safeText(item.src)}" alt="${safeText(item.label)}" loading="eager">
+            </button>
+            <figcaption>${safeText(current + 1)} of ${safeText(aiArchitectureProofs.length)} - ${safeText(item.label)} - ${safeText(item.caption)}</figcaption>
+          </figure>
+          <button class="ai-architecture-inline-arrow next" type="button" onclick="moveAIArchitectureInline(1)" aria-label="Next proof">›</button>
+        </div>
+        ${current === 3 || current === 5 ? `<div class="ai-architecture-code-panel"><div><h4>HTML Code Excerpt</h4><p>Representative code from the live Sample Works card. The full source is stored in the repository.</p></div><pre><code>${safeText(aiArchitectureCodeExcerpt)}</code></pre></div>` : ''}
+      </div>`;
+  }
+
+  window.moveAIArchitectureInline = function (delta) {
+    window.aiArchitectureInlineIndex = (window.aiArchitectureInlineIndex + delta + aiArchitectureProofs.length) % aiArchitectureProofs.length;
+    updatePhase2Content(renderAIArchitectureBody());
+  };
+
+  window.openAIArchitectureViewer = function (index) {
+    const existing = byId('aiArchitectureViewer');
+    if (existing) existing.remove();
+    window.aiArchitectureViewerIndex = index;
+    const viewer = document.createElement('div');
+    viewer.id = 'aiArchitectureViewer';
+    viewer.className = 'ai-architecture-viewer';
+    viewer.innerHTML = '<button class="ai-architecture-viewer-close" type="button" aria-label="Close image viewer" onclick="closeAIArchitectureViewer()">×</button><button class="ai-architecture-viewer-arrow prev" type="button" aria-label="Previous image" onclick="moveAIArchitectureViewer(-1)">‹</button><figure><img id="aiArchitectureViewerImg" alt=""><figcaption id="aiArchitectureViewerCaption"></figcaption></figure><button class="ai-architecture-viewer-arrow next" type="button" aria-label="Next image" onclick="moveAIArchitectureViewer(1)">›</button>';
+    viewer.addEventListener('click', event => {
+      if (event.target === viewer) closeAIArchitectureViewer();
+    });
+    document.body.appendChild(viewer);
+    renderAIArchitectureViewer();
+  };
+
+  function renderAIArchitectureViewer() {
+    const item = aiArchitectureProofs[window.aiArchitectureViewerIndex] || aiArchitectureProofs[0];
+    const img = byId('aiArchitectureViewerImg');
+    const caption = byId('aiArchitectureViewerCaption');
+    if (!img || !caption) return;
+    img.src = item.src;
+    img.alt = item.label;
+    caption.textContent = `${item.label} - ${item.caption}`;
+  }
+
+  window.moveAIArchitectureViewer = function (delta) {
+    window.aiArchitectureViewerIndex = (window.aiArchitectureViewerIndex + delta + aiArchitectureProofs.length) % aiArchitectureProofs.length;
+    renderAIArchitectureViewer();
+  };
+
+  window.closeAIArchitectureViewer = function () {
+    const viewer = byId('aiArchitectureViewer');
+    if (viewer) viewer.remove();
   };
 
   function updateCards() {
@@ -1588,6 +1899,7 @@ window.addEventListener('DOMContentLoaded', () => {
     updateTools();
     updateProfileImages();
     wireEndorsementButtons();
+    preloadSampleWorksAssets();
     fixMojibake();
   });
 })();

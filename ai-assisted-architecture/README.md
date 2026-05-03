@@ -1,19 +1,21 @@
-﻿# AI-Assisted Architecture
+# AI-Assisted Architecture
 
-This folder documents how the portfolio was planned, structured, revised, and polished with AI-assisted development support.
+This folder documents how the Hyacinth Kaye Bajuyo portfolio website was planned, structured, revised, and prepared for GitHub Pages with AI-assisted development support.
 
-Suggested contents:
+The sample is organized around proof of process rather than raw chat history. It shows the first AI-generated draft, the blueprint direction, the revision log, and the final repository structure.
 
-- `screenshots/` - final website screenshots and section captures
-- `before-after/` - visual comparisons showing improvements
-- `process-notes/` - notes on structure, design decisions, prompt direction, and implementation logic
+## Contents
 
-Recommended proof sequence:
+- `04-before-after-revisions.md` - concise before/after development summary
+- `05-ai-direction-log.md` - short AI direction log for the case study
+- `source-documents/` - source prompt, final description, and master blueprint files
+- `../assets/samples/ai-architecture/` - cropped visual proof used in the live portfolio popup
 
-1. Final website hero
-2. Before / after collage
-3. Short walkthrough or screenshots
-4. Final blueprint
-5. Claude / Codex development notes
-6. Repo structure
-7. Final pages gallery
+## Proof Sequence
+
+1. Final website hero page
+2. Multiple before versions
+3. Final master blueprint excerpts
+4. HTML code excerpt
+5. Annotation logs
+6. Final GitHub repository structure

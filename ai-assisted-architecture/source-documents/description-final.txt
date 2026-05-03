@@ -1,0 +1,261 @@
+I. Source Materials
+
+- Resume: factual source for roles, dates, experience, skills, and achievements.
+- Executive Endorsement assets: source for endorsement wording and supporting visuals.
+- Sample files listed below: final asset naming reference for the website build.
+
+
+II. Final Website Copy
+
+Hero
+- Short description:
+Detail-oriented virtual assistant with a passion for streamlining workflows, crafting compelling content, and keeping operations running seamlessly so you can focus on what matters most.
+
+About Me
+- Body copy:
+I'm Hyacinth, an Administrative & Content Strategist who helps business owners stay organized and on track. Drawing from nearly a decade of professional writing and international event coordination experience, I focus on making day-to-day operations more manageable. I am detail-oriented, reliable, and committed to providing the strategic support that allows your business to grow.
+
+From coordinating international conferences across Asia to managing content pipelines and building brand presence online, I bring a rare blend of administrative precision and creative communication to every project I take on. I thrive in environments where accuracy, clarity, and professionalism are non-negotiable.
+
+Relevant Experience
+- Operations & Logistics Coordination
+Coordinated multi-country logistics and communications for international Model United Nations conferences across Vietnam and the Philippines, supporting 400+ delegates from across Asia. Managed multi-country administrative workflows, scheduling, and event documentation.
+
+- Social Media & Operations Assistant
+Managed content creation, scheduling, and engagement for a food and beverage brand, driving 200+ followers within one month and handling 50+ weekly inquiries with a sub-2-hour response time.
+
+- Professional Writer & Content Strategist
+Over 8 years managing end-to-end digital publishing cycles with 100% compliance to editorial guidelines. Created promotional content and social media assets for academic organizations, performed structural editing, and adapted writing styles to diverse brand voices and audiences.
+
+Services
+- Executive & Admin Support
+Comprehensive virtual assistance so your operations stay smooth and your calendar stays clear.
+- Inbox and email management
+- Scheduling and calendar coordination
+- Stakeholder communication
+- Documentation and reporting
+- Task and project tracking
+
+- Writing & Content Creation
+Polished written content tailored precisely to your brand voice and target audience.
+- Blog posts and articles
+- Technical and business writing
+- Proofreading and structural editing
+- Copywriting and brand content
+- Professional reports
+
+- Social Media Management
+Strategic social media that builds real visibility and grows your online presence consistently.
+- Content calendars and scheduling
+- Caption writing and engagement
+- Canva graphics and visuals
+- Brand identity development
+- Digital outreach and growth
+
+Core Skills
+- Intro:
+A versatile skill set honed across writing, administration, and digital operations.
+
+- Admin & Executive
+Calendar Management
+Email and Inbox Management
+Digital Operations
+Stakeholder Communication
+Workflow Automation
+Technical Reporting
+Event Logistics
+
+- Writing & Content
+Technical Writing
+Copywriting
+SEO Content Foundations
+AI-Augmented Development
+Professional Writing
+Proofreading and Editing
+Brand Voice Adaptation
+
+- Social Media & Design
+Platform Management
+Content Calendars
+Canva Design
+Community Engagement
+Digital Brand Strategy
+Caption Writing
+
+Tools I Use
+- Google Docs
+- Google Sheets
+- Microsoft Excel
+- Microsoft Word
+- Google Drive
+- Gmail
+- Google Calendar
+- Canva
+- CapCut
+- Trello
+- Google Meet
+- Zoom
+- ChatGPT
+- Claude
+- Codex
+- Gemini
+- GitHub
+- Grammarly
+- Discord
+- WhatsApp
+
+Platform Familiarity
+- Instagram
+- Facebook
+- LinkedIn
+- YouTube
+- Pinterest
+
+Professional Accreditations
+- Introduction to SEO | Simplilearn | Certified 2026
+- Meta Business Suite for Beginners | Simplilearn | Certified 2026
+- Digital Marketing Tools and Techniques | Simplilearn | Certified 2026
+
+Sample Works Popup Descriptions
+- Graphic Design
+A curated collection of visual mock-ups, branded posters, and promotional layouts created for polished digital presentation.
+
+- Published Work
+A published creative work presented through its official cover, visual identity, and direct access to the reading platform.
+
+- Technical Writing
+Selected writing samples that demonstrate structured documentation, professional clarity, and organized thought across formal written outputs.
+
+- Workflow Systems
+Sample workflow setups that highlight task organization, content planning, scheduling, and system-based operational support.
+
+- Social Media Strategy Mock-Up
+Strategy-led brand samples that combine visual planning, platform thinking, and audience-focused content direction.
+
+- AI-Assisted Architecture
+A website-building case study showing how design, structure, and digital execution were developed through AI-assisted collaboration.
+
+Inner Graphic Design Viewer Descriptions
+- Email Marketing Designs
+Scrollable email campaign layouts designed for readable, conversion-focused branded presentation.
+
+- Graphic Mock-Ups
+Static poster-style concept graphics created to showcase visual styling, branding, and promotional design direction.
+
+Executive Endorsement
+- Use the exact wording from the endorsement letter files as the source text.
+- Supporting visual assets:
+  - endorsement-imun-event-photo.jpg
+  - endorsement-credential-letter-01.jpg
+  - endorsement-credential-letter-02.jpg
+
+Footer
+- Header:
+Let's Connect!
+
+- Description:
+I'm Hyacinth, your virtual assistant. Need help managing your tasks, content, and day-to-day operations? I'm here to support you with organized, reliable, and strategic assistance.
+
+- Details:
+Location: Based in the Philippines (GMT+8)
+Clients: Open to international clients
+Response: Prompt within 24 hours
+
+Navigation
+- Home
+- Services
+- About Me
+- Portfolio
+- Endorsement
+- Contact
+
+Contact Details
+- Phone: +63 9361124564
+- Email: hyacinthkaye.work@gmail.com
+- LinkedIn: linkedin.com/in/hyacinth-kaye-bajuyo-8b6890405
+
+Copyright
+- Copyright 2026 Hyacinth Kaye Bajuyo. All rights reserved.
+
+
+III. Final File Naming System
+
+Hero / About / Endorsement
+- hero-page-profile.png
+- about-me-page-profile.png
+- endorsement-imun-event-photo.jpg
+- endorsement-credential-letter-01.jpg
+- endorsement-credential-letter-02.jpg
+
+Published Work
+- published-work-sorel-the-destined-mortal-cover-art.png
+- published-work-sorel-the-destined-mortal-book-display.png
+
+Graphic Design
+- graphic-email-01-romand-gloss-moderne-layout.jpg
+- graphic-mockup-01-boba-flavors-poster.png
+- graphic-mockup-02-chocolate-chip-cookie-poster.png
+- graphic-mockup-03-blackpink-drink-poster.png
+- graphic-mockup-04-launch-poster.png
+- graphic-mockup-05-logo-mark.png
+- graphic-mockup-06-combo-deals-poster.png
+
+Social Media Strategy Mock-Up
+- social-strategy-lily-pstick-dashboard.html
+- social-strategy-lily-pstick-brand-voice.html
+- social-strategy-sweet-serendipitea-case-study.html
+- social-strategy-sweet-serendipitea-instagram-preview-01.png
+- social-strategy-sweet-serendipitea-instagram-preview-02.png
+
+Technical Writing
+- technical-writing-01-unesco-mun-master-rapporteur-log.pdf
+- technical-writing-02-secure-client-onboarding-case-study.pdf
+
+Workflow Systems
+- workflow-01-trello-board-overview.png
+- workflow-02-google-callendar-overview.png
+
+Professional Accreditations
+- accreditation-provider-simplilearn-logo.png
+- accreditation-verification-badge.png
+- accreditation-01-introduction-to-seo.jpg
+- accreditation-02-digital-marketing-tools-and-techniques.jpg
+- accreditation-03-meta-business-suite-for-beginners.jpg
+
+Tech Stack Logos
+- tool-logo-canva.png
+- tool-logo-capcut.png
+- tool-logo-chatgpt.png
+- tool-logo-claude.png
+- tool-logo-codex.png
+- tool-logo-gemini.png
+- tool-logo-github.png
+- tool-logo-google-calendar.png
+- tool-logo-google-docs.png
+- tool-logo-google-drive.png
+- tool-logo-google-meet.png
+- tool-logo-google-sheets.png
+- tool-logo-grammarly.png
+- tool-logo-microsoft-excel.png
+- tool-logo-microsoft-word.png
+- tool-logo-trello.png
+- tool-logo-zoom.png
+- tool-logo-discord.png
+
+Social / Contact Logos
+- social-logo-facebook.png
+- social-logo-instagram.png
+- social-logo-linkedin.png
+- social-logo-youtube.png
+- social-logo-pinterest.png
+- contact-logo-gmail.png
+- contact-logo-whatsapp.png
+
+
+IV. Final Notes
+
+- Keep only the final filenames listed above in the build notes.
+- Remove old raw filenames after renaming the files.
+- Remove duplicate extensions such as .png.png and .jpeg.jpeg.
+- Do not keep editor notes such as "I changed this" inside the final description file.
+- Do not keep placeholder filenames for assets that do not exist yet.
