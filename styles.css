@@ -87,6 +87,14 @@ body {
   flex-shrink: 0;
 }
 
+.nav-logo-img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 .nav-wordmark {
   font-family: var(--font-sans);
   font-size: 13px;
@@ -3286,7 +3294,8 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
   }
   @media (max-width: 540px) {
     #navbar { top: 10px; height: 48px; width: calc(100vw - 12px); }
-    .nav-monogram { width: 32px; height: 32px; font-size: 12px; }
+    .nav-monogram,
+    .nav-logo-img { width: 32px; height: 32px; font-size: 12px; }
     .nav-links li a { padding: 6px 8px; font-size: 12px; }
     .phase2-modal { width: 98vw; padding: 14px; }
     .phase2-head { margin-right: 46px; }

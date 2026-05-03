@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">HKB logo</title>
+  <desc id="desc">Hyacinth Kaye Bajuyo monogram inside a blush peach circle.</desc>
+  <defs>
+    <linearGradient id="hkbGradient" x1="18" y1="18" x2="102" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F3C7B5"/>
+      <stop offset="1" stop-color="#F6B1B1"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#hkbGradient)"/>
+  <text x="60" y="66" text-anchor="middle"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="39"
+        font-weight="600"
+        letter-spacing=".5"
+        fill="#7A1E1E">HKB</text>
+</svg>
