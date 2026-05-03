@@ -4,7 +4,7 @@ A personal portfolio website for Virtual Assistant, Executive/Admin Support, Soc
 
 ## Live Site
 
-https://nikuhziuh.github.io/hyacinth-portfolio-ai-assisted-architecture/
+
 
 ## Highlights
 
