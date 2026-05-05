@@ -108,17 +108,30 @@ const tools = [
   { file: 'assets/tool-logos/tool-logo-pinterest.png', label: 'Pinterest' },
 ];
 
+function preloadToolLogos() {
+  tools.forEach(tool => {
+    const img = new Image();
+    img.decoding = 'async';
+    img.loading = 'eager';
+    if ('fetchPriority' in img) img.fetchPriority = 'high';
+    img.src = tool.file;
+  });
+}
+
 function buildMarquee() {
   const track = document.getElementById('marqueeTrack');
+  if (!track || track.dataset.toolsReady === 'true') return;
   const doubled = [...tools, ...tools];
   doubled.forEach(tool => {
     const bubble = document.createElement('div');
     bubble.className = 'tool-bubble';
     bubble.setAttribute('role', 'listitem');
-    bubble.innerHTML = `<div class="tool-logo-wrap"><img src="${tool.file}" alt="${tool.label} logo" loading="lazy"></div><span class="tool-label">${tool.label}</span>`;
+    bubble.innerHTML = `<div class="tool-logo-wrap"><img src="${tool.file}" alt="${tool.label} logo" loading="eager" decoding="async" fetchpriority="high"></div><span class="tool-label">${tool.label}</span>`;
     track.appendChild(bubble);
   });
+  track.dataset.toolsReady = 'true';
 }
+preloadToolLogos();
 buildMarquee();
 
 // --- Popup Helpers -------------------------------------------
@@ -1889,6 +1902,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function updateTools() {
     const track = document.getElementById('marqueeTrack') || document.querySelector('#tools .marquee-track');
     if (!track) return;
+    if (track.dataset.toolsReady === 'true') return;
     track.classList.add('marquee-track');
     const tools = [
       ['assets/tool-logos/tool-logo-google-docs.png', 'Google Docs'],
@@ -1917,7 +1931,8 @@ window.addEventListener('DOMContentLoaded', () => {
       ['assets/tool-logos/tool-logo-google-meet.png', 'Google Meet'],
       ['assets/tool-logos/tool-logo-zoom.png', 'Zoom']
     ];
-    track.innerHTML = [...tools, ...tools].map(([file, label]) => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${file}" alt="${label} logo" loading="lazy"></div><span class="tool-label">${label}</span></div>`).join('');
+    track.innerHTML = [...tools, ...tools].map(([file, label]) => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${file}" alt="${label} logo" loading="eager" decoding="async" fetchpriority="high"></div><span class="tool-label">${label}</span></div>`).join('');
+    track.dataset.toolsReady = 'true';
   }
 
   function fixMojibake() {
