@@ -581,10 +581,18 @@ body {
 
 .about-body p + p { margin-top: 11px; }
 
+.about-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 720px;
+}
+
 .about-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  max-width: 100%;
   background: var(--glass-fill-light);
   border: 1px solid rgba(217,124,124,0.2);
   border-radius: 999px;
@@ -594,6 +602,7 @@ body {
   font-weight: 500;
   color: var(--burgundy);
   box-shadow: var(--rose-glow);
+  white-space: normal;
 }
 
 .about-badge::before {
