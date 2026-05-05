@@ -1697,14 +1697,14 @@ window.addEventListener('DOMContentLoaded', () => {
     const pages = ['assets/samples/endorsements/endorsement-credential-letter-01.jpg', 'assets/samples/endorsements/endorsement-credential-letter-02.jpg'].map((src, i) => ({ src, alt: `Credential letter page ${i + 1}` }));
     window.phase2LetterIndex = 0;
     openPhase2Modal(`${header('Executive Endorsement', 'Credential Letter', 'Full two-page executive credential letter.', '2 pages')}
-      <div class="phase2-gallery-shell">${renderPageViewer(pages, 0, 'phase2LetterMove')}</div>`);
+      <div class="phase2-gallery-shell">${renderZoomablePageViewer(pages, 0, 'phase2LetterMove')}</div>`);
   };
 
   window.phase2LetterMove = function (delta) {
     const pages = ['assets/samples/endorsements/endorsement-credential-letter-01.jpg', 'assets/samples/endorsements/endorsement-credential-letter-02.jpg'].map((src, i) => ({ src, alt: `Credential letter page ${i + 1}` }));
     window.phase2LetterIndex = (window.phase2LetterIndex + delta + pages.length) % pages.length;
     updatePhase2Content(`${header('Executive Endorsement', 'Credential Letter', 'Full two-page executive credential letter.', '2 pages')}
-      <div class="phase2-gallery-shell">${renderPageViewer(pages, window.phase2LetterIndex, 'phase2LetterMove')}</div>`);
+      <div class="phase2-gallery-shell">${renderZoomablePageViewer(pages, window.phase2LetterIndex, 'phase2LetterMove')}</div>`);
   };
 
   window.openAIArchitecture = function () {
@@ -1959,9 +1959,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function updateProfileImages() {
     const heroImgs = Array.from(document.querySelectorAll('img')).filter(img => /Hyacinth|profile|hero/i.test(img.alt || '') || /profile|hero/i.test(img.src || ''));
-    if (heroImgs[0]) heroImgs[0].src = 'assets/profile/hero-page-profile.png';
+    if (heroImgs[0]) heroImgs[0].src = 'assets/profile/hero-page-profile-optimized.webp';
     const about = document.querySelector('#about img');
-    if (about) about.src = 'assets/profile/about-me-page-profile.png';
+    if (about) about.src = 'assets/profile/about-me-page-profile-optimized.webp';
   }
 
   function wireEndorsementButtons() {
