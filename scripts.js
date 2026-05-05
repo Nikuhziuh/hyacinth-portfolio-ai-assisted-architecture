@@ -1474,12 +1474,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function renderZoomablePageViewer(items, active = 0, fnName = 'phase2PageMove') {
     const item = items[active] || items[0];
+    const caption = item.label || item.caption
+      ? `<figcaption>${safeText(item.label || item.alt || '')}${item.caption ? ` - ${safeText(item.caption)}` : ''}</figcaption>`
+      : '';
     return `<div class="phase2-page-viewer is-zoomable">
       <button class="phase2-page-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous page">&lsaquo;</button>
       <figure class="phase2-page-frame">
         <button class="phase2-page-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full page">
           <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
         </button>
+        ${caption}
       </figure>
       <button class="phase2-page-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next page">&rsaquo;</button>
     </div>`;
@@ -1652,7 +1656,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const config = techDocs[key];
     const current = window.phase2TechIndex || 0;
     const pages = config.pages.map((src, i) => ({ src, alt: `${config.label} page ${i + 1}` }));
-    return `${header('Documentation Sample', 'Technical Writing', '', config.count)}
+    const description = key === 'unesco'
+      ? 'Mock-up only. Names, schedule, venue, and organization details are intentionally redacted.'
+      : '';
+    return `${header('Documentation Sample', 'Technical Writing', description, config.count)}
       ${tabs(techDocs, key, 'phase2SwitchTech')}
       <div class="phase2-gallery-shell">${renderZoomablePageViewer(pages, Math.min(current, pages.length - 1), 'phase2TechMove')}</div>`;
   }
@@ -1709,24 +1716,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
   window.openAIArchitecture = function () {
     window.aiArchitectureInlineIndex = 0;
-    openPhase2Modal(renderAIArchitectureBody(), { htmlWide: true });
+    openPhase2Modal(renderAIArchitectureBody());
   };
 
   function renderAIArchitectureBody() {
     const current = window.aiArchitectureInlineIndex || 0;
-    const item = aiArchitectureProofs[current] || aiArchitectureProofs[0];
+    const pages = aiArchitectureProofs.map((item, i) => ({
+      src: item.src,
+      alt: item.label,
+      label: `${i + 1} of ${aiArchitectureProofs.length} - ${item.label}`,
+      caption: item.caption
+    }));
     return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '13 proof assets')}
       <div class="phase2-gallery-shell">
-        <div class="ai-architecture-carousel">
-          <button class="ai-architecture-inline-arrow prev" type="button" onclick="moveAIArchitectureInline(-1)" aria-label="Previous proof">‹</button>
-          <figure class="ai-architecture-hero-proof">
-            <button class="ai-architecture-image-button" type="button" onclick="openAIArchitectureViewer(${current})" aria-label="View ${safeText(item.label)} clearly">
-              <img src="${safeText(item.src)}" alt="${safeText(item.label)}" loading="eager">
-            </button>
-            <figcaption>${safeText(current + 1)} of ${safeText(aiArchitectureProofs.length)} - ${safeText(item.label)} - ${safeText(item.caption)}</figcaption>
-          </figure>
-          <button class="ai-architecture-inline-arrow next" type="button" onclick="moveAIArchitectureInline(1)" aria-label="Next proof">›</button>
-        </div>
+        ${renderZoomablePageViewer(pages, Math.min(current, pages.length - 1), 'moveAIArchitectureInline')}
         ${current === 3 || current === 5 ? `<div class="ai-architecture-code-panel"><div><h4>HTML Code Excerpt</h4><p>Representative code from the live Sample Works card. The full source is stored in the repository.</p></div><pre><code>${safeText(aiArchitectureCodeExcerpt)}</code></pre></div>` : ''}
       </div>`;
   }
