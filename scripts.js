@@ -1515,7 +1515,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return `${header('Admin & Workflow Systems', config.label, 'Operational samples showing dashboards, templates, planning systems, and client-ready workflow structure.', config.count)}
       ${tabs(admin, key, 'phase2SwitchAdmin')}
       ${link}
-      <div class="phase2-gallery-shell">${renderPageViewer(config.items, Math.min(current, config.items.length - 1), 'phase2AdminMove')}</div>`;
+      <div class="phase2-gallery-shell">${renderZoomablePageViewer(config.items, Math.min(current, config.items.length - 1), 'phase2AdminMove')}</div>`;
   }
 
   window.openWorkflow = function () {
