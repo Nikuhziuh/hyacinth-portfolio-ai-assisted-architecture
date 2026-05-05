@@ -498,14 +498,14 @@ body {
 
 .about-card {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: minmax(320px, 390px) 1fr;
+  gap: 42px;
+  align-items: start;
   background: rgba(255,255,255,0.93);
   border: var(--glass-border);
   box-shadow: var(--glass-inset), var(--card-shadow), 0 0 0 1px rgba(217,124,124,0.08);
   border-radius: 40px;
-  padding: 56px;
+  padding: 48px;
   backdrop-filter: blur(20px);
 }
 
@@ -544,15 +544,18 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
-.about-content { padding: 8px 0; }
+.about-content {
+  min-width: 0;
+  padding: 2px 0;
+}
 
 .about-headline {
   font-family: var(--font-serif);
-  font-size: clamp(36px, 4vw, 52px);
+  font-size: clamp(34px, 3.65vw, 48px);
   font-weight: 600;
   line-height: 1.1;
   color: var(--text-dark);
-  margin-bottom: 28px;
+  margin-bottom: 22px;
   position: relative;
 }
 
@@ -566,14 +569,15 @@ body {
 
 .about-body {
   font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 1.78;
+  font-size: clamp(15px, 1.08vw, 16.5px);
+  line-height: 1.62;
   color: var(--text-dark);
-  max-width: 600px;
-  margin-bottom: 32px;
+  max-width: 720px;
+  margin-bottom: 22px;
+  overflow-wrap: break-word;
 }
 
-.about-body p + p { margin-top: 16px; }
+.about-body p + p { margin-top: 11px; }
 
 .about-badge {
   display: inline-flex;
@@ -594,6 +598,23 @@ body {
   content: '✦';
   font-size: 10px;
   color: var(--rose);
+}
+
+@media (max-width: 1180px) and (min-width: 1021px) {
+  .about-card {
+    grid-template-columns: minmax(280px, 340px) 1fr;
+    gap: 34px;
+    padding: 40px;
+  }
+
+  .about-body {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .about-body p + p {
+    margin-top: 9px;
+  }
 }
 
 /* ============================================================
@@ -3069,6 +3090,88 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     filter: contrast(1.02) saturate(1.02);
   }
 
+  #phase2ModalContent.phase2-content-swap {
+    opacity: .995;
+  }
+
+  .phase2-page-zoom-trigger {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+
+  .phase2-page-zoom-trigger img {
+    margin: 0 auto;
+  }
+
+  .phase2-page-viewer.is-zoomable .phase2-page-frame img {
+    transition: filter .12s ease;
+  }
+
+  .phase2-page-viewer.is-zoomable .phase2-page-frame:hover img {
+    filter: contrast(1.04) saturate(1.03);
+  }
+
+  .phase2-page-zoom-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 100001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 3vw, 28px);
+    background: rgba(45, 38, 38, .68);
+    backdrop-filter: blur(8px);
+  }
+
+  .phase2-page-zoom-backdrop.active {
+    display: flex;
+  }
+
+  .phase2-page-zoom-dialog {
+    position: relative;
+    display: flex;
+    max-width: min(96vw, 1120px);
+    max-height: 92vh;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28px;
+    background: #fff;
+    padding: 18px;
+    box-shadow: 0 28px 80px rgba(37, 27, 27, .28);
+  }
+
+  .phase2-page-zoom-dialog img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: calc(96vw - 48px);
+    max-height: calc(92vh - 52px);
+    object-fit: contain;
+    border-radius: 0;
+  }
+
+  .phase2-page-zoom-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: #faeeee;
+    color: #2f2929;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
   .phase2-page-frame figcaption {
     display: none;
   }
@@ -3632,6 +3735,12 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
 }
 
 @media (max-width: 860px) {
+  .about-body {
+    font-size: 15.5px;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
   .phase2-modal {
     overflow-x: hidden;
   }
@@ -3669,6 +3778,26 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     height: auto;
     margin-inline: auto;
     object-fit: contain;
+  }
+
+  .phase2-page-zoom-trigger {
+    width: 100%;
+  }
+
+  .phase2-page-zoom-backdrop {
+    padding: 10px;
+  }
+
+  .phase2-page-zoom-dialog {
+    width: calc(100vw - 22px);
+    max-height: 88vh;
+    border-radius: 22px;
+    padding: 14px;
+  }
+
+  .phase2-page-zoom-dialog img {
+    max-width: calc(100vw - 50px);
+    max-height: calc(88vh - 44px);
   }
 
   .phase2-page-arrow {

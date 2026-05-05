@@ -1021,6 +1021,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // ============================================================
 (function () {
   const assetExists = {};
+  const preloadedSampleSources = new Set();
   const safeText = value => String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const byId = id => document.getElementById(id);
   const pageRange = (basePath, prefix, count, ext = 'jpg') => Array.from({ length: count }, (_, i) => `${basePath}/${prefix}${String(i + 1).padStart(2, '0')}.${ext}`);
@@ -1344,7 +1345,14 @@ window.addEventListener('DOMContentLoaded', () => {
       if (event.target === modal || event.target.classList.contains('phase2-close')) closePhase2Modal();
     });
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') closePhase2Modal();
+      if (event.key === 'Escape') {
+        const zoom = byId('phase2PageZoom');
+        if (zoom && zoom.classList.contains('active')) {
+          closePhase2PageZoom();
+        } else {
+          closePhase2Modal();
+        }
+      }
     });
     return modal;
   }
@@ -1352,14 +1360,17 @@ window.addEventListener('DOMContentLoaded', () => {
   function openPhase2Modal(html, options = {}) {
     const modal = ensureModal();
     modal.querySelector('.phase2-modal').classList.toggle('phase2-html-modal', !!options.htmlWide);
+    preloadImagesFromHTML(html);
     byId('phase2ModalContent').innerHTML = html;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    primeVisiblePhase2Images();
   }
 
   function closePhase2Modal() {
     const modal = byId('phase2Modal');
     if (!modal) return;
+    closePhase2PageZoom();
     modal.classList.remove('active');
     byId('phase2ModalContent').innerHTML = '';
     document.body.style.overflow = '';
@@ -1370,7 +1381,11 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!target) return;
     const currentHeight = target.getBoundingClientRect().height;
     if (currentHeight > 0) target.style.minHeight = `${currentHeight}px`;
+    preloadImagesFromHTML(html);
+    target.classList.add('phase2-content-swap');
     target.innerHTML = html;
+    primeVisiblePhase2Images();
+    window.requestAnimationFrame(() => target.classList.remove('phase2-content-swap'));
     window.clearTimeout(window.phase2ContentSettleTimer);
     window.phase2ContentSettleTimer = window.setTimeout(() => {
       target.style.minHeight = '';
@@ -1397,7 +1412,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function imageTag(item) {
     const shape = item.shape || '';
     return `<figure class="phase2-item ${shape} ${item.full ? 'full' : ''}">
-      <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="lazy">
+      <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
     </figure>`;
   }
 
@@ -1423,7 +1438,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const slideItems = Array.isArray(slide.items) ? slide.items : [slide];
     const layout = slide.layout || (slideItems.length === 3 ? 'trio' : slideItems.length === 2 ? 'pair' : 'single');
     const group = slideItems.map((item) => `<figure class="phase2-slide-item ${safeText(item.shape || '')}">
-        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager">
+        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
       </figure>`).join('');
     return `<div class="phase2-carousel phase2-mobile-carousel phase2-carousel-${layout}">
       <button class="phase2-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous">←</button>
@@ -1438,9 +1453,22 @@ window.addEventListener('DOMContentLoaded', () => {
     return `<div class="phase2-page-viewer">
       <button class="phase2-page-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous page">‹</button>
       <figure class="phase2-page-frame">
-        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager">
+        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
       </figure>
       <button class="phase2-page-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next page">›</button>
+    </div>`;
+  }
+
+  function renderZoomablePageViewer(items, active = 0, fnName = 'phase2PageMove') {
+    const item = items[active] || items[0];
+    return `<div class="phase2-page-viewer is-zoomable">
+      <button class="phase2-page-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous page">&lsaquo;</button>
+      <figure class="phase2-page-frame">
+        <button class="phase2-page-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full page">
+          <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+        </button>
+      </figure>
+      <button class="phase2-page-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next page">&rsaquo;</button>
     </div>`;
   }
 
@@ -1576,20 +1604,35 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function preloadSampleWorksAssets() {
-    const load = () => {
-      collectSampleSources().forEach((src, index) => {
-        window.setTimeout(() => {
-          const img = new Image();
-          img.decoding = 'async';
-          img.src = src;
-        }, Math.min(index * 10, 700));
-      });
-    };
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(load, { timeout: 1200 });
-    } else {
-      window.setTimeout(load, 250);
-    }
+    collectSampleSources().forEach(preloadSampleImage);
+  }
+
+  function preloadSampleImage(src, priority = 'low') {
+    if (!src || preloadedSampleSources.has(src)) return;
+    preloadedSampleSources.add(src);
+    const img = new Image();
+    img.decoding = 'async';
+    img.loading = 'eager';
+    try { img.fetchPriority = priority; } catch (error) {}
+    img.src = src;
+  }
+
+  function preloadImagesFromHTML(html) {
+    String(html || '').replace(/<img[^>]+src="([^"]+)"/g, (_, src) => {
+      preloadSampleImage(src, 'high');
+      return _;
+    });
+  }
+
+  function primeVisiblePhase2Images() {
+    const modal = byId('phase2Modal');
+    if (!modal) return;
+    modal.querySelectorAll('img').forEach(img => {
+      img.loading = 'eager';
+      img.decoding = 'async';
+      try { img.fetchPriority = 'high'; } catch (error) {}
+      if (img.decode) img.decode().catch(() => {});
+    });
   }
 
   function renderTechBody(key) {
@@ -1598,7 +1641,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const pages = config.pages.map((src, i) => ({ src, alt: `${config.label} page ${i + 1}` }));
     return `${header('Documentation Sample', 'Technical Writing', '', config.count)}
       ${tabs(techDocs, key, 'phase2SwitchTech')}
-      <div class="phase2-gallery-shell">${renderPageViewer(pages, Math.min(current, pages.length - 1), 'phase2TechMove')}</div>`;
+      <div class="phase2-gallery-shell">${renderZoomablePageViewer(pages, Math.min(current, pages.length - 1), 'phase2TechMove')}</div>`;
   }
 
   window.phase2SwitchTech = function (key) {
@@ -1713,6 +1756,35 @@ window.addEventListener('DOMContentLoaded', () => {
   window.closeAIArchitectureViewer = function () {
     const viewer = byId('aiArchitectureViewer');
     if (viewer) viewer.remove();
+  };
+
+  function ensurePhase2PageZoom() {
+    let zoom = byId('phase2PageZoom');
+    if (zoom) return zoom;
+    zoom = document.createElement('div');
+    zoom.id = 'phase2PageZoom';
+    zoom.className = 'phase2-page-zoom-backdrop';
+    zoom.innerHTML = '<div class="phase2-page-zoom-dialog" role="dialog" aria-modal="true" aria-label="Full page preview"><button class="phase2-page-zoom-close" type="button" aria-label="Close full page preview" onclick="closePhase2PageZoom()">×</button><img id="phase2PageZoomImg" alt=""></div>';
+    zoom.addEventListener('click', event => {
+      if (event.target === zoom) closePhase2PageZoom();
+    });
+    document.body.appendChild(zoom);
+    return zoom;
+  }
+
+  window.openPhase2PageZoom = function (src, alt) {
+    const zoom = ensurePhase2PageZoom();
+    const img = byId('phase2PageZoomImg');
+    if (!img) return;
+    preloadSampleImage(src, 'high');
+    img.src = src;
+    img.alt = alt || 'Full page preview';
+    zoom.classList.add('active');
+  };
+
+  window.closePhase2PageZoom = function () {
+    const zoom = byId('phase2PageZoom');
+    if (zoom) zoom.classList.remove('active');
   };
 
   function updateCards() {
