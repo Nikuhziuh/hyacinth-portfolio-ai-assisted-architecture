@@ -1436,6 +1436,38 @@ body {
   font: 500 13px/1.55 Consolas, "Courier New", monospace;
 }
 
+.ai-architecture-actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.ai-architecture-repo-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid rgba(217, 124, 124, .34);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c95f63, #9c2d2f);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(122, 30, 30, .20);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ai-architecture-repo-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(122, 30, 30, .28);
+}
+
 .ai-architecture-viewer {
   position: fixed;
   inset: 0;

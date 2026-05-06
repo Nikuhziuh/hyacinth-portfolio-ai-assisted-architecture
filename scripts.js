@@ -1316,7 +1316,8 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       label: 'GitHub Repository Structure',
       src: 'assets/samples/ai-architecture/ai-architecture-06-github-repository.png',
-      caption: 'Final organized repository with separated code and asset folders.'
+      caption: 'Final organized repository with separated code and asset folders.',
+      repoUrl: 'https://github.com/Nikuhziuh/nikuhziuh.github.io'
     },
     {
       label: 'Revision Direction Log',
@@ -1731,6 +1732,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '13 proof assets')}
       <div class="phase2-gallery-shell">
         ${renderZoomablePageViewer(pages, Math.min(current, pages.length - 1), 'moveAIArchitectureInline')}
+        ${aiArchitectureProofs[current]?.repoUrl ? `<div class="ai-architecture-actions"><a class="ai-architecture-repo-pill" href="${safeText(aiArchitectureProofs[current].repoUrl)}" target="_blank" rel="noopener noreferrer" aria-label="View GitHub repository">View My Repo</a></div>` : ''}
         ${current === 3 || current === 5 ? `<div class="ai-architecture-code-panel"><div><h4>HTML Code Excerpt</h4><p>Representative code from the live Sample Works card. The full source is stored in the repository.</p></div><pre><code>${safeText(aiArchitectureCodeExcerpt)}</code></pre></div>` : ''}
       </div>`;
   }
