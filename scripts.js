@@ -1256,9 +1256,10 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   const credentials = [
-    { title: 'Introduction to SEO', src: 'assets/accreditations/accreditation-01-introduction-to-seo.jpg' },
-    { title: 'Digital Marketing Tools and Techniques', src: 'assets/accreditations/accreditation-02-digital-marketing-tools-and-techniques.jpg' },
-    { title: 'Meta Business Suite for Beginners', src: 'assets/accreditations/accreditation-03-meta-business-suite-for-beginners.jpg' }
+    { title: 'Introduction to SEO', provider: 'Simplilearn SkillUp', src: 'assets/accreditations/accreditation-01-introduction-to-seo.jpg' },
+    { title: 'Digital Marketing Tools and Techniques', provider: 'Simplilearn SkillUp', src: 'assets/accreditations/accreditation-02-digital-marketing-tools-and-techniques.jpg' },
+    { title: 'Meta Business Suite for Beginners', provider: 'Simplilearn SkillUp', src: 'assets/accreditations/accreditation-03-meta-business-suite-for-beginners.jpg' },
+    { title: 'Content Marketing Certified', provider: 'HubSpot Academy', src: 'assets/accreditations/accreditation-04-hubspot-content-marketing-certified.png' }
   ];
 
   const aiArchitectureProofs = [
@@ -1679,8 +1680,8 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   window.openCredential = function (src, title) {
-    const found = credentials.find(item => item.src === src) || { src, title };
-    openPhase2Modal(`${header('Simplilearn SkillUp - Certification', found.title, '', 'Verified credential')}
+    const found = credentials.find(item => item.src === src) || { src, title, provider: 'Certification' };
+    openPhase2Modal(`${header(`${found.provider} - Certification`, found.title, '', 'Verified credential')}
       <div class="phase2-gallery-shell"><figure class="phase2-doc-page"><img src="${safeText(found.src)}" alt="${safeText(found.title)} credential certificate"></figure></div>`);
   };
 
