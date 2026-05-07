@@ -85,7 +85,7 @@
       <div class="hero-ctas">
         <a href="#footer" class="btn-hire">Hire Me</a>
         <a href="#portfolio" class="btn-portfolio">View Portfolio</a>
-        <a href="assets/profile/BAJUYO_RESUME.pdf" class="btn-portfolio" target="_blank" rel="noopener">View Resume</a>
+        <button type="button" class="btn-portfolio" onclick="openPopup('resumePopup')">View Resume</button>
       </div>
     </div>
 
@@ -586,6 +586,23 @@
     </div>
   </div>
 </footer>
+
+<!-- ============================================================
+     POPUP: Resume Viewer
+     ============================================================ -->
+<div class="popup-backdrop" id="resumePopup" role="dialog" aria-modal="true" aria-label="Resume viewer">
+  <div class="popup-shell resume-popup-shell">
+    <button class="popup-close" onclick="closePopup('resumePopup')" aria-label="Close">&times;</button>
+    <div class="popup-body">
+      <p class="popup-category">Resume</p>
+      <h3 class="popup-title">Hyacinth Kaye Bajuyo</h3>
+      <div class="resume-frame">
+        <iframe src="assets/profile/BAJUYO_RESUME.pdf#toolbar=0" title="Hyacinth Kaye Bajuyo resume"></iframe>
+      </div>
+      <a class="resume-open-link" href="assets/profile/BAJUYO_RESUME.pdf" target="_blank" rel="noopener">Open PDF</a>
+    </div>
+  </div>
+</div>
 
 <!-- ============================================================
      POPUP: Credential Viewer (single image)
