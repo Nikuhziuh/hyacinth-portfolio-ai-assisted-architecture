@@ -452,6 +452,53 @@ function openCredential(imgSrc, title) {
   openPopup('credentialPopup');
 }
 
+// --- Resume Popup --------------------------------------------
+const resumePages = [
+  { src: 'assets/profile/resume-page-01.jpg', alt: 'Hyacinth Kaye Bajuyo resume page 1' },
+  { src: 'assets/profile/resume-page-02.jpg', alt: 'Hyacinth Kaye Bajuyo resume page 2' }
+];
+let resumeIdx = 0;
+
+function renderResumePage() {
+  const page = resumePages[resumeIdx];
+  const img = document.getElementById('resumePageImg');
+  const info = document.getElementById('resumePageInfo');
+  const dots = document.getElementById('resumeDots');
+  const prev = document.getElementById('resumePrev');
+  const next = document.getElementById('resumeNext');
+
+  if (img) {
+    img.src = page.src;
+    img.alt = page.alt;
+  }
+  if (info) info.textContent = `${resumeIdx + 1} of ${resumePages.length}`;
+  if (prev) prev.classList.toggle('hidden', resumeIdx === 0);
+  if (next) next.classList.toggle('hidden', resumeIdx === resumePages.length - 1);
+  if (dots) {
+    dots.innerHTML = resumePages.map((_, i) => `<button class="popup-dot ${i === resumeIdx ? 'active' : ''}" onclick="resumeNav(${i - resumeIdx})" aria-label="Resume page ${i + 1}"></button>`).join('');
+  }
+}
+
+function openResumePopup() {
+  resumeIdx = 0;
+  renderResumePage();
+  openPopup('resumePopup');
+}
+
+function resumeNav(dir) {
+  resumeIdx = Math.max(0, Math.min(resumePages.length - 1, resumeIdx + dir));
+  renderResumePage();
+}
+
+function openResumePageZoom() {
+  const page = resumePages[resumeIdx];
+  if (typeof window.openPhase2PageZoom === 'function') {
+    window.openPhase2PageZoom(page.src, page.alt);
+    return;
+  }
+  window.open(page.src, '_blank', 'noopener');
+}
+
 // --- Letter Popup --------------------------------------------
 const letterPages = [
   { src: 'assets/samples/endorsements/endorsement-credential-letter-01.jpg', alt: 'Credential Letter Page 1' },

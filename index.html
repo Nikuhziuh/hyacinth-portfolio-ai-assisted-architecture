@@ -85,7 +85,7 @@
       <div class="hero-ctas">
         <a href="#footer" class="btn-hire">Hire Me</a>
         <a href="#portfolio" class="btn-portfolio">View Portfolio</a>
-        <button type="button" class="btn-portfolio" onclick="openPopup('resumePopup')">View Resume</button>
+        <button type="button" class="btn-portfolio" onclick="openResumePopup()">View Resume</button>
       </div>
     </div>
 
@@ -607,10 +607,19 @@
     <div class="popup-body">
       <p class="popup-category">Resume</p>
       <h3 class="popup-title">Hyacinth Kaye Bajuyo</h3>
-      <div class="resume-frame">
-        <iframe src="assets/profile/BAJUYO_RESUME.pdf#toolbar=0" title="Hyacinth Kaye Bajuyo resume"></iframe>
+      <p class="popup-desc">Two-page resume preview. Use the arrows to move between pages, or click the page to enlarge it.</p>
+      <div class="resume-page-meta">
+        <strong>Resume Page</strong>
+        <span id="resumePageInfo">1 of 2</span>
       </div>
-      <a class="resume-open-link" href="assets/profile/BAJUYO_RESUME.pdf" target="_blank" rel="noopener">Open PDF</a>
+      <div class="resume-frame" id="resumeFrame">
+        <button class="popup-arrow prev" id="resumePrev" onclick="resumeNav(-1)" aria-label="Previous resume page">&#8592;</button>
+        <button class="resume-page-zoom-trigger" type="button" onclick="openResumePageZoom()" aria-label="View full resume page">
+          <img id="resumePageImg" src="assets/profile/resume-page-01.jpg" alt="Resume page 1">
+        </button>
+        <button class="popup-arrow next" id="resumeNext" onclick="resumeNav(1)" aria-label="Next resume page">&#8594;</button>
+      </div>
+      <div class="popup-dots" id="resumeDots" role="tablist"></div>
     </div>
   </div>
 </div>
