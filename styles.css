@@ -1137,6 +1137,17 @@ body {
   object-fit: contain;
 }
 
+.accred-provider-logo-square {
+  width: 48px;
+  border-radius: 12px;
+}
+
+.accred-cert-badge {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+}
+
 .accred-verify-logo {
   height: 32px;
   width: auto;
