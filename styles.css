@@ -295,11 +295,18 @@ body {
   font-size: clamp(12px, 1.05vw, 14px);
   font-weight: 500;
   color: var(--text-mid);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   line-height: 1.45;
-  text-transform: uppercase;
+  text-transform: none;
   max-width: 620px;
   margin-bottom: 18px;
+}
+
+.hero-role span {
+  display: block;
+  margin-top: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .hero-divider {

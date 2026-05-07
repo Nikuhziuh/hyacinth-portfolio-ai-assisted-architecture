@@ -1859,9 +1859,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'Post scheduling and publishing support',
           'Content planning and campaign coordination',
           'Community engagement and inquiry tracking',
-          'Canva graphics and branded content support',
-          'Approval workflows and content organization',
-          'Social media reports and performance tracking'
+          'Canva graphics and branded content support'
         ].map(item => `<li>${item}</li>`).join('');
       }
     }
@@ -1898,7 +1896,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'Brand Identity & Logo Mockups',
           'Product and Food Poster Design',
           'Book Cover and Story Visuals',
-          'HTML Case Study Presentation',
+          'Social Media Strategy Case Studies',
           'AI-Assisted Creative Direction'
         ].map(item => `<li>${item}</li>`).join('')}</ul>`;
       }
@@ -2013,7 +2011,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'Brand Identity & Logo Mockups',
       'Product and Food Poster Design',
       'Book Cover and Story Visuals',
-      'HTML Case Study Presentation',
+      'Social Media Strategy Case Studies',
       'AI-Assisted Creative Direction'
     ].map(item => `<div class="skill-capsule">${item}</div>`).join('');
   });
