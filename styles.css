@@ -2061,24 +2061,26 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 0 18px;
+  min-height: 44px;
+  padding: 0 24px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--rose), var(--burgundy));
+  background: var(--burgundy);
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 4px 16px rgba(122,30,30,0.16);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid rgba(122,30,30,0.2);
+  box-shadow: 0 8px 24px rgba(122,30,30,0.24);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .resume-download-pill:hover {
+  background: #5f1618;
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(122,30,30,0.22);
+  box-shadow: 0 12px 28px rgba(122,30,30,0.30);
 }
 
 .resume-frame {
