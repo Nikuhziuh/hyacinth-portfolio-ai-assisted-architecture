@@ -112,8 +112,8 @@ function preloadToolLogos() {
   tools.forEach(tool => {
     const img = new Image();
     img.decoding = 'async';
-    img.loading = 'eager';
-    if ('fetchPriority' in img) img.fetchPriority = 'high';
+    img.loading = 'lazy';
+    if ('fetchPriority' in img) img.fetchPriority = 'low';
     img.src = tool.file;
   });
 }
@@ -126,12 +126,11 @@ function buildMarquee() {
     const bubble = document.createElement('div');
     bubble.className = 'tool-bubble';
     bubble.setAttribute('role', 'listitem');
-    bubble.innerHTML = `<div class="tool-logo-wrap"><img src="${tool.file}" alt="${tool.label} logo" loading="eager" decoding="async" fetchpriority="high"></div><span class="tool-label">${tool.label}</span>`;
+    bubble.innerHTML = `<div class="tool-logo-wrap"><img src="${tool.file}" alt="${tool.label} logo" loading="lazy" decoding="async" fetchpriority="low"></div><span class="tool-label">${tool.label}</span>`;
     track.appendChild(bubble);
   });
   track.dataset.toolsReady = 'true';
 }
-preloadToolLogos();
 buildMarquee();
 
 // --- Popup Helpers -------------------------------------------
@@ -1758,8 +1757,19 @@ window.addEventListener('DOMContentLoaded', () => {
     return [...sources];
   }
 
+  function collectWarmSampleSources() {
+    return [
+      'assets/samples/published-work/published-work-sorel-the-destined-mortal-book-display.png',
+      'assets/samples/graphics/graphic-email-01-romand-gloss-moderne-layout.jpg',
+      'assets/samples/technical-writing/technical-writing-01-unesco-mun-master-rapporteur-log-page-01.jpg',
+      'assets/samples/workflows/workflow-01-trello-board-overview.png',
+      'assets/samples/ai-architecture/ai-architecture-06-github-repository.png',
+      'assets/samples/endorsements/endorsement-imun-event-photo.jpg'
+    ];
+  }
+
   function preloadSampleWorksAssets() {
-    collectSampleSources().forEach(preloadSampleImage);
+    collectWarmSampleSources().forEach(src => preloadSampleImage(src, 'low'));
   }
 
   function preloadSampleImage(src, priority = 'low') {
@@ -1767,14 +1777,14 @@ window.addEventListener('DOMContentLoaded', () => {
     preloadedSampleSources.add(src);
     const img = new Image();
     img.decoding = 'async';
-    img.loading = 'eager';
+    img.loading = 'lazy';
     try { img.fetchPriority = priority; } catch (error) {}
     img.src = src;
   }
 
   function preloadImagesFromHTML(html) {
     String(html || '').replace(/<img[^>]+src="([^"]+)"/g, (_, src) => {
-      preloadSampleImage(src, 'high');
+      preloadSampleImage(src, 'low');
       return _;
     });
   }
@@ -1786,7 +1796,6 @@ window.addEventListener('DOMContentLoaded', () => {
       img.loading = 'eager';
       img.decoding = 'async';
       try { img.fetchPriority = 'high'; } catch (error) {}
-      if (img.decode) img.decode().catch(() => {});
     });
   }
 
@@ -2077,7 +2086,7 @@ window.addEventListener('DOMContentLoaded', () => {
       ['assets/tool-logos/tool-logo-google-meet.png', 'Google Meet'],
       ['assets/tool-logos/tool-logo-zoom.png', 'Zoom']
     ];
-    track.innerHTML = [...tools, ...tools].map(([file, label]) => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${file}" alt="${label} logo" loading="eager" decoding="async" fetchpriority="high"></div><span class="tool-label">${label}</span></div>`).join('');
+    track.innerHTML = [...tools, ...tools].map(([file, label]) => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${file}" alt="${label} logo" loading="lazy" decoding="async" fetchpriority="low"></div><span class="tool-label">${label}</span></div>`).join('');
     track.dataset.toolsReady = 'true';
   }
 
@@ -2132,7 +2141,8 @@ window.addEventListener('DOMContentLoaded', () => {
     updateTools();
     updateProfileImages();
     wireEndorsementButtons();
-    preloadSampleWorksAssets();
+    window.setTimeout(preloadSampleWorksAssets, 1200);
+    window.setTimeout(preloadToolLogos, 1800);
     fixMojibake();
   });
 })();
