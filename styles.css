@@ -3196,6 +3196,83 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     border-color: #d56d70;
   }
 
+  .phase2-email-showcase {
+    width: min(980px, 100%);
+    margin: 0 auto;
+  }
+
+  .phase2-email-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 2px 54px 14px;
+    color: #6f6969;
+    font: 700 .88rem/1.3 var(--font-sans);
+  }
+
+  .phase2-email-meta strong {
+    color: #302929;
+    font: 600 1.15rem/1.2 var(--font-serif);
+  }
+
+  .phase2-email-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    padding: 0 54px;
+  }
+
+  .phase2-email-scroll {
+    width: min(760px, 100%);
+    max-height: 64vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid rgba(217, 124, 124, .14);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(122, 30, 30, .08);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(217, 124, 124, .38) transparent;
+  }
+
+  .phase2-email-scroll img,
+  .phase2-email-single img,
+  .phase2-email-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .phase2-email-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: min(920px, 100%);
+    align-items: center;
+  }
+
+  .phase2-email-item,
+  .phase2-email-single {
+    margin: 0;
+    background: #fff;
+  }
+
+  .phase2-email-single {
+    width: min(920px, 100%);
+  }
+
+  .phase2-email-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
   .phase2-doc-stack {
     display: flex;
     max-height: 64vh;
@@ -3577,6 +3654,10 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     .phase2-modal { width: 98vw; padding: 14px; }
     .phase2-head { margin-right: 46px; }
     .phase2-gallery-shell.is-graphic { padding-top: 0; }
+    .phase2-email-meta { align-items: flex-start; flex-direction: column; margin-inline: 38px; }
+    .phase2-email-stage { padding: 0 38px; }
+    .phase2-email-pair { grid-template-columns: 1fr; }
+    .phase2-email-scroll { max-height: 62vh; }
     .phase2-carousel-only .phase2-carousel { min-height: 0; padding-inline: 0; }
     .phase2-carousel-only .phase2-carousel img { max-height: none; border-radius: 0; }
     .phase2-arrow { width: 38px; height: 38px; font-size: 19px; }

@@ -174,6 +174,10 @@ function openGraphicDesign() {
 
 function openEmailMarketing() {
   closePopup('graphicDesignPopup');
+  if (typeof window.phase2SwitchGraphic === 'function') {
+    window.openGraphicDesign();
+    return;
+  }
   openPopup('emailMarketingPopup');
 }
 
@@ -580,10 +584,14 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       key: 'email',
       label: 'Email Marketing Ads',
-      note: '2 scrollable email campaign layouts',
+      note: '6 email and social campaign assets',
       mode: 'scroll',
       items: [
         img('assets/samples/graphics/graphic-email-01-romand-gloss-moderne-layout.jpg', 'Romand Gloss Moderne email marketing layout'),
+        img('assets/samples/graphics/graphic-email-06-sweet-serendipitea-newsletter.png', 'Sweet SerendipiTea newsletter'),
+        img('assets/samples/graphics/graphic-email-03-rosette-product-launch-email-campaign.png', 'Rosette Beauty product launch email campaign'),
+        img('assets/samples/graphics/graphic-email-04-rosette-social-media-carousel.png', 'Rosette Beauty social media carousel'),
+        img('assets/samples/graphics/graphic-email-05-lune-studio-welcome-email.png', 'Lune Learning Studio welcome email'),
         img('assets/samples/graphics/graphic-email-02-international-model-united-nations-layout.jpg', 'International Model United Nations email marketing layout')
       ]
     },
@@ -737,9 +745,9 @@ window.addEventListener('DOMContentLoaded', () => {
   function updateWorkCards() {
     const cards = document.querySelectorAll('.works-grid .work-card');
     if (cards[1]) {
-      cards[1].setAttribute('aria-label', 'View Graphic Design samples - 39 visual samples');
+      cards[1].setAttribute('aria-label', 'View Graphic Design samples - 43 visual samples');
       const badge = cards[1].querySelector('.work-card-badge');
-      if (badge) badge.textContent = '39 Samples';
+      if (badge) badge.textContent = '43 Samples';
       const cat = cards[1].querySelector('.work-category');
       if (cat) cat.textContent = 'Design - Campaigns, Covers & Brand Visuals';
       const desc = cards[1].querySelector('.work-desc');
@@ -1097,12 +1105,51 @@ window.addEventListener('DOMContentLoaded', () => {
   const graphics = {
     email: {
       label: 'Email Marketing Ads',
-      count: '2 scrollable email campaign layouts',
-      mode: 'scroll',
-      type: 'vertical',
+      count: '5 email and social campaign pages',
+      mode: 'email-showcase',
+      type: 'mixed',
       items: [
-        { src: 'assets/samples/graphics/graphic-email-01-romand-gloss-moderne-layout.jpg', alt: 'Romand Gloss Moderne email marketing layout' },
-        { src: 'assets/samples/graphics/graphic-email-02-international-model-united-nations-layout.jpg', alt: 'International Model United Nations email marketing layout' }
+        {
+          title: 'Rom&nd Gloss Moderne',
+          label: 'Scrollable Email',
+          layout: 'scroll',
+          items: [
+            { src: 'assets/samples/graphics/graphic-email-01-romand-gloss-moderne-layout.jpg', alt: 'Rom&nd Gloss Moderne email marketing layout' }
+          ]
+        },
+        {
+          title: 'Sweet SerendipiTea',
+          label: 'Newsletter',
+          layout: 'scroll',
+          items: [
+            { src: 'assets/samples/graphics/graphic-email-06-sweet-serendipitea-newsletter.png', alt: 'Sweet SerendipiTea cafe newsletter design' }
+          ]
+        },
+        {
+          title: 'Rosette Beauty',
+          label: 'Product Launch Email Campaign',
+          layout: 'pair',
+          items: [
+            { src: 'assets/samples/graphics/graphic-email-03-rosette-product-launch-email-campaign.png', alt: 'Rosette Beauty product launch email campaign' },
+            { src: 'assets/samples/graphics/graphic-email-04-rosette-social-media-carousel.png', alt: 'Rosette Beauty social media carousel' }
+          ]
+        },
+        {
+          title: 'Lune Learning Studio',
+          label: 'Welcome Email',
+          layout: 'single',
+          items: [
+            { src: 'assets/samples/graphics/graphic-email-05-lune-studio-welcome-email.png', alt: 'Lune Learning Studio welcome email' }
+          ]
+        },
+        {
+          title: 'International Model United Nations',
+          label: 'Email Layout',
+          layout: 'scroll',
+          items: [
+            { src: 'assets/samples/graphics/graphic-email-02-international-model-united-nations-layout.jpg', alt: 'International Model United Nations email marketing layout' }
+          ]
+        }
       ]
     },
     promo: {
@@ -1550,13 +1597,43 @@ window.addEventListener('DOMContentLoaded', () => {
     </div>`;
   }
 
+  function renderEmailShowcase(config, active = 0) {
+    const slide = config.items[active] || config.items[0];
+    const body = slide.layout === 'scroll'
+      ? `<div class="phase2-email-scroll">
+          <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
+        </div>`
+      : slide.layout === 'pair'
+        ? `<div class="phase2-email-pair">
+            ${slide.items.map((item) => `<figure class="phase2-email-item"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high"></figure>`).join('')}
+          </div>`
+        : `<figure class="phase2-email-single">
+            <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
+          </figure>`;
+
+    return `<div class="phase2-email-showcase">
+      <div class="phase2-email-meta">
+        <strong>${safeText(slide.title)}</strong>
+        <span>${safeText(slide.label)} - ${active + 1} of ${config.items.length}</span>
+      </div>
+      <div class="phase2-email-stage">
+        <button class="phase2-arrow prev" type="button" onclick="phase2GraphicMove(-1)" aria-label="Previous email sample">&larr;</button>
+        ${body}
+        <button class="phase2-arrow next" type="button" onclick="phase2GraphicMove(1)" aria-label="Next email sample">&rarr;</button>
+      </div>
+      <div class="phase2-email-dots">${config.items.map((_, i) => `<button class="phase2-dot ${i === active ? 'active' : ''}" type="button" onclick="phase2GraphicMove(${i - active})" aria-label="View email sample ${i + 1}"></button>`).join('')}</div>
+    </div>`;
+  }
+
   function renderGraphicBody(key) {
     const config = graphics[key];
     const current = window.phase2GraphicIndex || 0;
     const graphicSlides = getGraphicSlides(config);
     const note = config.note ? `<p class="phase2-proof">${safeText(config.note)}</p>` : '';
     const carousel = renderMobileCarousel(config, Math.min(current, graphicSlides.length - 1), 'phase2GraphicMove');
-    const content = config.mode === 'scroll'
+    const content = config.mode === 'email-showcase'
+      ? renderEmailShowcase(config, Math.min(current, config.items.length - 1))
+      : config.mode === 'scroll'
       ? renderPageViewer(config.items, Math.min(current, config.items.length - 1), 'phase2GraphicMove')
       : config.carouselOnly
         ? `<div class="phase2-carousel-only">${carousel}</div>`
