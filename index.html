@@ -100,10 +100,8 @@
         <h2 class="about-headline">The person behind<br>the <em>work</em></h2>
         <div class="about-body">
           <p>I’m Hyacinth, an Executive Virtual Assistant specializing in operations, content, and social media support—helping businesses stay organized, consistent, and easy to manage.</p>
-          <p>I focus on simplifying day-to-day operations through organized systems, structured content workflows, and consistent communication support. From managing publishing schedules to coordinating international events, I&rsquo;ve worked on projects that required precision, adaptability, and attention to detail.</p>
-          <p>With experience in digital publishing, social media management, and international event coordination, I’ve handled projects that require both precision and adaptability. From delivering high-volume written content on time to supporting operations for global conferences with 400+ participants, I’ve learned how to manage details without losing sight of the bigger picture.</p>
-          <p>At the core of my work is reliability, clarity, and consistency. I take ownership of what I do and aim to make things easier for the people I work with.</p>
-          <p>If you’re looking for someone who can bring structure to your operations and clarity to your content, I’d be glad to support your work.</p>
+          <p>I simplify day-to-day operations through structured systems, content workflows, and communication support. With experience in digital publishing, social media management, and international event coordination, I’ve handled projects requiring precision, adaptability, and attention to detail—including supporting global conferences with 400+ participants.</p>
+          <p>At the core of my work are reliability, clarity, and consistency. I aim to bring structure to operations and make things easier for the people I work with.</p>
         </div>
         <div class="about-badge-row">
           <div class="about-badge">8+ Years Professional Writing Experience</div>
@@ -775,7 +773,9 @@
       <div class="popup-viewer">
         <div class="popup-img-frame workflow-img-wrap" style="min-height:300px; padding: 0 28px;">
           <button class="popup-arrow prev" id="workflowPrev" onclick="workflowNav(-1)" aria-label="Previous workflow">&#8592;</button>
-          <img id="workflowImg" src="assets/samples/workflows/workflow-01-trello-board-overview.png" alt="Trello workflow board" loading="lazy" style="width:100%;height:auto;border-radius:14px; display:block;">
+          <button class="resume-page-zoom-trigger" type="button" onclick="openPhase2PageZoom(document.getElementById('workflowImg').src, document.getElementById('workflowImg').alt)" aria-label="View full workflow screenshot">
+            <img id="workflowImg" src="assets/samples/workflows/workflow-01-trello-board-overview.png" alt="Trello workflow board" loading="lazy" style="width:100%;height:auto;border-radius:14px; display:block;">
+          </button>
           <button class="popup-arrow next" id="workflowNext" onclick="workflowNav(1)" aria-label="Next workflow">&#8594;</button>
         </div>
         <div class="popup-dots" id="workflowDots" role="tablist"></div>

@@ -2250,6 +2250,26 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
 
 .work-card:hover .work-card-hover-overlay { opacity: 1; }
 
+.work-card .work-thumb::after {
+  content: "More inside";
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 4;
+  border: 1px solid rgba(255,255,255,0.46);
+  border-radius: 999px;
+  background: rgba(122,30,30,0.82);
+  color: #fff;
+  padding: 6px 12px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(122,30,30,0.22);
+  pointer-events: none;
+}
+
 .work-card-hover-cue {
   display: flex;
   align-items: center;
@@ -3237,6 +3257,7 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     box-shadow: 0 8px 24px rgba(122, 30, 30, .08);
     scrollbar-width: thin;
     scrollbar-color: rgba(217, 124, 124, .38) transparent;
+    cursor: zoom-in;
   }
 
   .phase2-email-scroll img,
@@ -3272,6 +3293,28 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     justify-content: center;
     gap: 8px;
     margin-top: 14px;
+  }
+
+  .phase2-design-zoom-trigger {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+  }
+
+  [data-sync-images="true"] img {
+    opacity: 1;
+    transition: opacity .24s ease;
+  }
+
+  [data-sync-images="true"].phase2-sync-loading img {
+    opacity: 0;
+  }
+
+  [data-sync-images="true"].phase2-sync-ready img {
+    opacity: 1;
   }
 
   .phase2-doc-stack {

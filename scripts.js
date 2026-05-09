@@ -1485,6 +1485,7 @@ window.addEventListener('DOMContentLoaded', () => {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     primeVisiblePhase2Images();
+    syncPhase2ImageGroups();
   }
 
   function closePhase2Modal() {
@@ -1505,6 +1506,7 @@ window.addEventListener('DOMContentLoaded', () => {
     target.classList.add('phase2-content-swap');
     target.innerHTML = html;
     primeVisiblePhase2Images();
+    syncPhase2ImageGroups();
     window.requestAnimationFrame(() => target.classList.remove('phase2-content-swap'));
     window.clearTimeout(window.phase2ContentSettleTimer);
     window.phase2ContentSettleTimer = window.setTimeout(() => {
@@ -1532,13 +1534,16 @@ window.addEventListener('DOMContentLoaded', () => {
   function imageTag(item) {
     const shape = item.shape || '';
     return `<figure class="phase2-item ${shape} ${item.full ? 'full' : ''}">
-      <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+      <button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design">
+        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+      </button>
     </figure>`;
   }
 
   function renderDesktopGrid(config) {
     const cls = config.type === 'vertical' ? 'is-vertical' : config.type === 'logo' ? 'is-logo' : config.type === 'book' ? 'is-book' : config.type === 'wide' ? 'is-wide' : 'is-mixed';
-    return `<div class="phase2-grid phase2-desktop-grid ${cls}">${config.items.map(imageTag).join('')}</div>`;
+    const sync = config.items.length > 1 ? 'data-sync-images="true"' : '';
+    return `<div class="phase2-grid phase2-desktop-grid ${cls}" ${sync}>${config.items.map(imageTag).join('')}</div>`;
   }
 
   function isPhase2Mobile() {
@@ -1558,11 +1563,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const slideItems = Array.isArray(slide.items) ? slide.items : [slide];
     const layout = slide.layout || (slideItems.length === 3 ? 'trio' : slideItems.length === 2 ? 'pair' : 'single');
     const group = slideItems.map((item) => `<figure class="phase2-slide-item ${safeText(item.shape || '')}">
-        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+        <button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design">
+          <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+        </button>
       </figure>`).join('');
     return `<div class="phase2-carousel phase2-mobile-carousel phase2-carousel-${layout}">
       <button class="phase2-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous">←</button>
-      <div class="phase2-slide-group ${layout}">${group}</div>
+      <div class="phase2-slide-group ${layout}" ${slideItems.length > 1 ? 'data-sync-images="true"' : ''}>${group}</div>
       <button class="phase2-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next">→</button>
       <div class="phase2-dots">${slides.map((_, i) => `<button class="phase2-dot ${i === active ? 'active' : ''}" type="button" onclick="${fnName}(${i - active})" aria-label="View ${i + 1}"></button>`).join('')}</div>
     </div>`;
@@ -1573,7 +1580,9 @@ window.addEventListener('DOMContentLoaded', () => {
     return `<div class="phase2-page-viewer">
       <button class="phase2-page-arrow prev" type="button" onclick="${fnName}(-1)" aria-label="Previous page">‹</button>
       <figure class="phase2-page-frame">
-        <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+        <button class="phase2-page-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full page">
+          <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+        </button>
       </figure>
       <button class="phase2-page-arrow next" type="button" onclick="${fnName}(1)" aria-label="Next page">›</button>
     </div>`;
@@ -1599,15 +1608,17 @@ window.addEventListener('DOMContentLoaded', () => {
   function renderEmailShowcase(config, active = 0) {
     const slide = config.items[active] || config.items[0];
     const body = slide.layout === 'scroll'
-      ? `<div class="phase2-email-scroll">
+      ? `<div class="phase2-email-scroll" data-src="${safeText(slide.items[0].src)}" data-alt="${safeText(slide.items[0].alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" role="button" tabindex="0" aria-label="View full email design">
           <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
         </div>`
       : slide.layout === 'pair'
-        ? `<div class="phase2-email-pair">
-            ${slide.items.map((item) => `<figure class="phase2-email-item"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high"></figure>`).join('')}
+        ? `<div class="phase2-email-pair" data-sync-images="true">
+            ${slide.items.map((item) => `<figure class="phase2-email-item"><button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high"></button></figure>`).join('')}
           </div>`
         : `<figure class="phase2-email-single">
-            <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
+            <button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(slide.items[0].src)}" data-alt="${safeText(slide.items[0].alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design">
+              <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
+            </button>
           </figure>`;
 
     return `<div class="phase2-email-showcase">
@@ -1784,7 +1795,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function preloadImagesFromHTML(html) {
     String(html || '').replace(/<img[^>]+src="([^"]+)"/g, (_, src) => {
-      preloadSampleImage(src, 'low');
+      preloadSampleImage(src, 'high');
       return _;
     });
   }
@@ -1796,6 +1807,34 @@ window.addEventListener('DOMContentLoaded', () => {
       img.loading = 'eager';
       img.decoding = 'async';
       try { img.fetchPriority = 'high'; } catch (error) {}
+    });
+  }
+
+  function syncPhase2ImageGroups() {
+    const modal = byId('phase2Modal');
+    if (!modal) return;
+    modal.querySelectorAll('[data-sync-images="true"]').forEach(group => {
+      const images = Array.from(group.querySelectorAll('img'));
+      if (images.length < 2) return;
+      group.classList.add('phase2-sync-loading');
+      let remaining = images.filter(img => !img.complete).length;
+      const reveal = () => {
+        group.classList.remove('phase2-sync-loading');
+        group.classList.add('phase2-sync-ready');
+      };
+      if (!remaining) {
+        window.requestAnimationFrame(reveal);
+        return;
+      }
+      const done = () => {
+        remaining -= 1;
+        if (remaining <= 0) reveal();
+      };
+      images.forEach(img => {
+        if (img.complete) return;
+        img.addEventListener('load', done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      });
     });
   }
 
