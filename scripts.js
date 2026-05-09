@@ -1379,6 +1379,17 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
+  const aiArchitectureDocs = [
+    {
+      label: 'View Master Blueprint',
+      url: 'assets/samples/ai-architecture/final-master-blueprint-with-comment.txt'
+    },
+    {
+      label: 'View Revised Description',
+      url: 'assets/samples/ai-architecture/final-revised-description.md'
+    }
+  ];
+
   const aiArchitectureCodeExcerpt = `<!-- Sample Works card -->
 <div class="work-card fade-up"
      onclick="openAIArchitecture()"
@@ -1771,16 +1782,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function renderAIArchitectureBody() {
     const current = window.aiArchitectureInlineIndex || 0;
+    const docLinks = aiArchitectureDocs.map((doc) =>
+      `<a class="ai-architecture-repo-pill" href="${safeText(doc.url)}" target="_blank" rel="noopener noreferrer">${safeText(doc.label)}</a>`
+    ).join('');
+    const repoLink = aiArchitectureProofs[current]?.repoUrl
+      ? `<a class="ai-architecture-repo-pill" href="${safeText(aiArchitectureProofs[current].repoUrl)}" target="_blank" rel="noopener noreferrer" aria-label="View GitHub repository">View My Repo</a>`
+      : '';
     const pages = aiArchitectureProofs.map((item, i) => ({
       src: item.src,
       alt: item.label,
       label: `${i + 1} of ${aiArchitectureProofs.length} - ${item.label}`,
       caption: item.caption
     }));
-    return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '13 proof assets')}
+    return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '13 proof assets + 2 docs')}
       <div class="phase2-gallery-shell">
         ${renderZoomablePageViewer(pages, Math.min(current, pages.length - 1), 'moveAIArchitectureInline')}
-        ${aiArchitectureProofs[current]?.repoUrl ? `<div class="ai-architecture-actions"><a class="ai-architecture-repo-pill" href="${safeText(aiArchitectureProofs[current].repoUrl)}" target="_blank" rel="noopener noreferrer" aria-label="View GitHub repository">View My Repo</a></div>` : ''}
+        <div class="ai-architecture-actions">${repoLink}${docLinks}</div>
         ${current === 3 || current === 5 ? `<div class="ai-architecture-code-panel"><div><h4>HTML Code Excerpt</h4><p>Representative code from the live Sample Works card. The full source is stored in the repository.</p></div><pre><code>${safeText(aiArchitectureCodeExcerpt)}</code></pre></div>` : ''}
       </div>`;
   }
