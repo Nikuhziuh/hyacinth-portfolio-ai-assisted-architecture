@@ -2864,8 +2864,9 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
   .popup-body { padding: 32px 24px 28px; }
   .resume-page-meta { align-items: flex-start; flex-direction: column; }
   .resume-meta-actions { justify-content: flex-start; }
-  .resume-frame { min-height: 60vh; padding: 0 34px; }
-  .resume-page-zoom-trigger img { max-height: 60vh; }
+  .resume-frame { min-height: 64vh; padding: 0 18px; }
+  .resume-page-zoom-trigger { width: 100%; }
+  .resume-page-zoom-trigger img { max-height: 64vh; }
   :root { --section-pad: var(--section-pad-mobile); }
 }
 
