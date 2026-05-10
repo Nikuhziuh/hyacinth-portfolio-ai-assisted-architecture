@@ -1103,8 +1103,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const graphics = {
     email: {
-      label: 'Email Marketing Ads',
-      count: '5 email and social campaign pages',
+      label: 'Email Marketing Designs',
+      count: '5 email ad layouts',
       mode: 'email-showcase',
       type: 'mixed',
       items: [
@@ -1125,6 +1125,14 @@ window.addEventListener('DOMContentLoaded', () => {
           ]
         },
         {
+          title: 'International Model United Nations',
+          label: 'Email Ad',
+          layout: 'scroll',
+          items: [
+            { src: 'assets/samples/graphics/graphic-email-02-international-model-united-nations-layout.jpg', alt: 'International Model United Nations email marketing layout' }
+          ]
+        },
+        {
           title: 'Rosette Beauty',
           label: 'Product Launch Email Campaign',
           layout: 'pair',
@@ -1140,40 +1148,12 @@ window.addEventListener('DOMContentLoaded', () => {
           items: [
             { src: 'assets/samples/graphics/graphic-email-05-lune-studio-welcome-email.png', alt: 'Lune Learning Studio welcome email' }
           ]
-        },
-        {
-          title: 'International Model United Nations',
-          label: 'Email Layout',
-          layout: 'scroll',
-          items: [
-            { src: 'assets/samples/graphics/graphic-email-02-international-model-united-nations-layout.jpg', alt: 'International Model United Nations email marketing layout' }
-          ]
         }
       ]
     },
     promo: {
       label: 'Promotional Posters',
-      count: '2 event and travel promotion posters',
-      mode: 'gallery',
-      type: 'vertical',
-      items: [
-        { src: 'assets/samples/graphics/graphic-promotional-01-imun-vietnam-poster.png', alt: 'IMUN Vietnam promotional poster' },
-        { src: 'assets/samples/graphics/graphic-promotional-02-tripcom-world-tour-sale-poster.png', alt: 'Trip.com world tour sale poster' }
-      ]
-    },
-    beauty: {
-      label: 'Beauty Posters',
-      count: '2 beauty and product poster concepts',
-      mode: 'gallery',
-      type: 'vertical',
-      items: [
-        { src: 'assets/samples/graphics/graphic-beauty-01-lucky-beauty-product-poster.png', alt: 'Lucky Beauty product poster' },
-        { src: 'assets/samples/graphics/graphic-beauty-02-care-line-product-poster.png', alt: 'Careline product poster' }
-      ]
-    },
-    food: {
-      label: 'Standalone Food Posters',
-      count: '3 food and beverage poster concepts',
+      count: '3 poster boards',
       mode: 'gallery',
       type: 'mixed',
       carouselOnly: true,
@@ -1181,21 +1161,21 @@ window.addEventListener('DOMContentLoaded', () => {
         {
           layout: 'single',
           items: [
-            { src: 'assets/samples/graphics/graphic-food-01-smokehouse-rib-platter.png', alt: 'Smokehouse rib platter food poster', shape: 'wide' }
+            { src: 'assets/samples/graphics/graphic-promotional-new-01-food-specials.png', alt: 'Smokehouse rib platter promotional poster', shape: 'wide' }
           ]
         },
         {
           layout: 'pair',
           items: [
-            { src: 'assets/samples/graphics/graphic-food-02-boba-flavors-poster.png', alt: 'Boba flavors poster', shape: 'vertical' },
-            { src: 'assets/samples/graphics/graphic-food-03-chocolate-chip-cookie-poster.png', alt: 'Chocolate chip cookie poster', shape: 'vertical' }
+            { src: 'assets/samples/graphics/graphic-promotional-new-02-imun-trip.png', alt: 'IMUN Vietnam and Trip.com promotional posters', shape: 'wide' },
+            { src: 'assets/samples/graphics/graphic-promotional-new-03-beauty-posters.png', alt: 'Lucky Beauty and Careline promotional posters', shape: 'wide' }
           ]
         }
       ]
     },
     sst: {
       label: 'Sweet SerendipiTea Designs',
-      count: '14 brand, product, menu, and campaign visuals',
+      count: '7 brand, product, menu, and campaign boards',
       mode: 'gallery',
       type: 'mixed',
       carouselOnly: true,
@@ -1203,89 +1183,66 @@ window.addEventListener('DOMContentLoaded', () => {
         {
           layout: 'single',
           items: [
-            { src: 'assets/samples/graphics/graphic-sst-01-menu-board.png', alt: 'Sweet SerendipiTea gourmet menu board', shape: 'wide' }
+            { src: 'assets/samples/graphics/graphic-sst-new-01-menu-board.png', alt: 'Sweet SerendipiTea gourmet menu board', shape: 'wide' }
           ]
         },
         {
           layout: 'pair',
           items: [
-            { src: 'assets/samples/graphics/graphic-sst-02-menu-poster.png', alt: 'Sweet SerendipiTea menu poster', shape: 'vertical' },
-            { src: 'assets/samples/graphics/graphic-sst-05-crowd-favorites-poster.png', alt: 'Crowd favorites poster', shape: 'wide' }
-          ]
-        },
-        {
-          layout: 'trio',
-          items: [
-            { src: 'assets/samples/graphics/graphic-sst-04-wintermelon-milktea-poster.png', alt: 'Wintermelon milktea poster', shape: 'vertical' },
-            { src: 'assets/samples/graphics/graphic-sst-03-holiday-treats-promo.png', alt: 'Holiday treats promotional poster', shape: 'vertical' },
-            { src: 'assets/samples/graphics/graphic-sst-13-combo-deals-poster.png', alt: 'Holiday bundle deals poster', shape: 'vertical' }
+            { src: 'assets/samples/graphics/graphic-sst-new-02-menu-launch.png', alt: 'Menu and launch social media designs', shape: 'wide' },
+            { src: 'assets/samples/graphics/graphic-sst-new-03-holiday-combo-drink.png', alt: 'Holiday treats, combo deals, and Blackpink special posters', shape: 'wide' }
           ]
         },
         {
           layout: 'pair',
           items: [
-            { src: 'assets/samples/graphics/graphic-sst-06-brand-stationery-mockup.png', alt: 'Business card and letterhead design mock-up', shape: 'wide' },
-            { src: 'assets/samples/graphics/graphic-sst-14-launch-poster.png', alt: 'Sweet SerendipiTea launch poster', shape: 'vertical' }
+            { src: 'assets/samples/graphics/graphic-sst-new-04-calendar-packaging.png', alt: 'Calendar journal and packaging campaign designs', shape: 'wide' },
+            { src: 'assets/samples/graphics/graphic-sst-new-05-mugs.png', alt: 'Limited mugs campaign designs', shape: 'wide' }
           ]
         },
         {
           layout: 'pair',
           items: [
-            { src: 'assets/samples/graphics/graphic-sst-07-paper-bag-mockup.png', alt: 'Paper bag branding mock-up', shape: 'vertical' },
-            { src: 'assets/samples/graphics/graphic-sst-11-limited-mugs-model-promo.png', alt: 'Sweet SerendipiTea limited mugs model promo', shape: 'vertical' }
+            { src: 'assets/samples/graphics/graphic-sst-new-06-tumblers.png', alt: 'Tumbler promotional designs', shape: 'wide' },
+            { src: 'assets/samples/graphics/graphic-sst-new-07-stationery-bag.png', alt: 'Stationery and paper bag branding mockups', shape: 'wide' }
           ]
-        },
-        {
-          layout: 'pair',
-          items: [
-            { src: 'assets/samples/graphics/graphic-sst-10-packaging-teaser.png', alt: 'Eco-friendly bag and cup teaser', shape: 'square' },
-            { src: 'assets/samples/graphics/graphic-sst-12-calendar-journal-promo.png', alt: 'Calendar and journal planning promo', shape: 'square' }
-          ]
-        },
-        {
-          layout: 'pair',
-          items: [
-            { src: 'assets/samples/graphics/graphic-sst-08-limited-mugs-promo.png', alt: 'Limited mugs promotion without model', shape: 'vertical' },
-            { src: 'assets/samples/graphics/graphic-sst-09-tumbler-promo.png', alt: 'Tumbler model promo poster', shape: 'vertical' }
-          ]
-        },
+        }
       ]
     },
     logos: {
       label: 'Logos',
-      count: '4 logo marks and brand marks',
+      count: '2 logo concept boards',
       mode: 'gallery',
       type: 'logo',
+      carouselOnly: true,
       items: [
-        { src: 'assets/samples/graphics/graphic-logo-01-sweet-serendipitea-gold-mark.png', alt: 'Sweet SerendipiTea gold logo mark' },
-        { src: 'assets/samples/graphics/graphic-logo-02-sweet-serendipitea-rose-mark.png', alt: 'Sweet SerendipiTea rose logo mark' },
-        { src: 'assets/samples/graphics/graphic-logo-03-sweet-tea-logo-mark.png', alt: 'Sweet tea logo mark' },
-        { src: 'assets/samples/graphics/graphic-logo-04-sweet-serendipitea-dark-mark.png', alt: 'Sweet SerendipiTea dark logo mark' }
+        {
+          layout: 'single',
+          items: [
+            { src: 'assets/samples/graphics/graphic-logo-new-01-teapot-variants.jpg', alt: 'Teapot logo color variant board', shape: 'vertical' }
+          ]
+        },
+        {
+          layout: 'single',
+          items: [
+            { src: 'assets/samples/graphics/graphic-logo-new-02-serendipitea-marks.png', alt: 'Sweet SerendipiTea logo mark board', shape: 'wide' }
+          ]
+        }
       ]
     },
     books: {
       label: 'Book Covers',
-      count: '12 story-linked original and published fiction visuals',
+      count: '3 story-linked cover boards',
       mode: 'gallery',
       type: 'book',
       items: [
-        { src: 'assets/samples/graphics/graphic-book-cover-01-the-river-that-grants-wishes-cover.png', alt: 'The River That Grants Wishes cover', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-02-the-river-that-grants-wishes-book-display.png', alt: 'The River That Grants Wishes book display', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-03-natures-wildest-creatures-cover.png', alt: "Nature's Wildest Creatures cover", shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-04-natures-wildest-creatures-book-display.png', alt: "Nature's Wildest Creatures book display", shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-05-wretched-fate-cover.png', alt: 'Wretched Fate cover', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-06-wretched-fate-book-display.png', alt: 'Wretched Fate book display', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-07-clairvoyants-fate-cover.png', alt: "Clairvoyant's Fate cover", shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-08-clairvoyants-fate-book-display.png', alt: "Clairvoyant's Fate book display", shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-09-aurelian-secrets-of-selene-cover.png', alt: 'Aurelian Secrets of Selene cover', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-10-aurelian-secrets-of-selene-book-display.png', alt: 'Aurelian Secrets of Selene book display', shape: 'vertical' },
-        { src: 'assets/samples/graphics/graphic-book-cover-11-aurelian-secrets-of-selene-full-wrap.png', alt: 'Aurelian Secrets of Selene full wrap cover', shape: 'wide', full: true },
-        { src: 'assets/samples/graphics/graphic-book-cover-12-clairvoyants-fate-full-wrap.png', alt: "Clairvoyant's Fate full wrap cover", shape: 'wide', full: true }
+        { src: 'assets/samples/graphics/graphic-book-cover-new-01-aurelian-secrets.png', alt: 'Aurelian Secrets of Selene book cover board', shape: 'wide', full: true },
+        { src: 'assets/samples/graphics/graphic-book-cover-new-02-river-clairvoyants.png', alt: 'The River That Grants Wishes and Clairvoyants Fate cover board', shape: 'wide', full: true },
+        { src: 'assets/samples/graphics/graphic-book-cover-new-03-wretched-nature.png', alt: "Wretched Fate and Nature's Wildest Creatures cover board", shape: 'wide', full: true }
       ],
-      note: 'These are not random mockups: the featured covers are tied to original written stories. The River That Grants Wishes and Nature’s Wildest Creatures were award-winning senior high school writing pieces, while Aurelian Secrets of Selene continues the published Sorel story world.'
+      note: 'Original story-linked covers and display boards for fiction concepts, built around mood, typography, and genre fit.'
     }
   };
-
   const admin = {
     weekly: {
       label: 'Weekly Progress Report',
@@ -1388,30 +1345,10 @@ window.addEventListener('DOMContentLoaded', () => {
       caption: 'Final GitHub-ready HTML source after revision, cleanup, and organization.'
     },
     {
-      label: 'Final Master Blueprint',
-      src: 'assets/samples/ai-architecture/ai-architecture-02-blueprint-design-dna.png',
-      caption: 'Design DNA from the final master blueprint: palette, typography, glass treatment, and consistency.'
-    },
-    {
-      label: 'Final Master Blueprint: Layout Tokens',
-      src: 'assets/samples/ai-architecture/ai-architecture-03-blueprint-layout-tokens.png',
-      caption: 'Source-of-truth spacing, width, radius, and layout rhythm.'
-    },
-    {
-      label: 'Final Master Blueprint: Navigation + Motion',
-      src: 'assets/samples/ai-architecture/ai-architecture-04-blueprint-navigation-motion.png',
-      caption: 'Navigation behavior and motion direction before implementation.'
-    },
-    {
-      label: 'Final Master Blueprint: Accessibility + Motion',
-      src: 'assets/samples/ai-architecture/ai-architecture-05-blueprint-accessibility.png',
-      caption: 'Focus, contrast, touch-target, and reduced-motion requirements.'
-    },
-    {
       label: 'GitHub Repository Structure',
       src: 'assets/samples/ai-architecture/ai-architecture-06-github-repository.png',
       caption: 'Final organized repository with separated code and asset folders.',
-      repoUrl: 'https://github.com/Nikuhziuh/nikuhziuh.github.io'
+      repoUrl: 'https://github.com/hyacinthkaye/portfolio'
     },
     {
       label: 'Revision Direction Log',
@@ -1424,7 +1361,6 @@ window.addEventListener('DOMContentLoaded', () => {
       caption: 'Annotation-driven verification pass confirming organized asset references.'
     }
   ];
-
   const aiArchitectureDocs = [
     {
       label: 'View Master Blueprint',
@@ -1536,6 +1472,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return `<figure class="phase2-item ${shape} ${item.full ? 'full' : ''}">
       <button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design">
         <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+        <span class="phase2-preview-hint">Tap to preview full photo</span>
       </button>
     </figure>`;
   }
@@ -1565,6 +1502,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const group = slideItems.map((item) => `<figure class="phase2-slide-item ${safeText(item.shape || '')}">
         <button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design">
           <img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high">
+          <span class="phase2-preview-hint">Tap to preview</span>
         </button>
       </figure>`).join('');
     return `<div class="phase2-carousel phase2-mobile-carousel phase2-carousel-${layout}">
@@ -1610,14 +1548,16 @@ window.addEventListener('DOMContentLoaded', () => {
     const body = slide.layout === 'scroll'
       ? `<div class="phase2-email-scroll" data-src="${safeText(slide.items[0].src)}" data-alt="${safeText(slide.items[0].alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" role="button" tabindex="0" aria-label="View full email design">
           <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
+          <span class="phase2-preview-hint">Tap to preview full photo</span>
         </div>`
       : slide.layout === 'pair'
         ? `<div class="phase2-email-pair" data-sync-images="true">
-            ${slide.items.map((item) => `<figure class="phase2-email-item"><button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high"></button></figure>`).join('')}
+            ${slide.items.map((item) => `<figure class="phase2-email-item"><button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(item.src)}" data-alt="${safeText(item.alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design"><img src="${safeText(item.src)}" alt="${safeText(item.alt)}" loading="eager" decoding="async" fetchpriority="high"><span class="phase2-preview-hint">Tap to preview</span></button></figure>`).join('')}
           </div>`
         : `<figure class="phase2-email-single">
             <button class="phase2-design-zoom-trigger" type="button" data-src="${safeText(slide.items[0].src)}" data-alt="${safeText(slide.items[0].alt)}" onclick="openPhase2PageZoom(this.dataset.src, this.dataset.alt)" aria-label="View full design">
               <img src="${safeText(slide.items[0].src)}" alt="${safeText(slide.items[0].alt)}" loading="eager" decoding="async" fetchpriority="high">
+              <span class="phase2-preview-hint">Tap to preview full photo</span>
             </button>
           </figure>`;
 
@@ -1648,7 +1588,7 @@ window.addEventListener('DOMContentLoaded', () => {
       : config.carouselOnly
         ? `<div class="phase2-carousel-only">${carousel}</div>`
         : `${renderDesktopGrid(config)}${carousel}`;
-    return `${header('Graphic Design', config.label, 'Portfolio visuals focused on layout, hierarchy, color balance, and brand-ready presentation.', config.count)}
+    return `${header('Graphic Design', config.label, 'Clean visual samples arranged by purpose, with full-photo previews available on tap.', config.count)}
       ${tabs(graphics, key, 'phase2SwitchGraphic')}
       <div class="phase2-gallery-shell is-graphic is-${safeText(key)}">${content}${note}</div>`;
   }
@@ -1773,7 +1713,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'assets/samples/published-work/published-work-sorel-the-destined-mortal-book-display.png',
       'assets/samples/graphics/graphic-email-01-romand-gloss-moderne-layout.jpg',
       'assets/samples/technical-writing/technical-writing-01-unesco-mun-master-rapporteur-log-page-01.jpg',
-      'assets/samples/workflows/workflow-01-trello-board-overview.png',
+      'assets/samples/workflows/workflow-01-sst-social-media-management-hub-board.png',
       'assets/samples/ai-architecture/ai-architecture-06-github-repository.png',
       'assets/samples/endorsements/endorsement-imun-event-photo.jpg'
     ];
@@ -1908,7 +1848,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function renderAIArchitectureBody() {
     const current = window.aiArchitectureInlineIndex || 0;
     const docLinks = aiArchitectureDocs.map((doc) =>
-      `<a class="ai-architecture-repo-pill" href="${safeText(doc.url)}" target="_blank" rel="noopener noreferrer">${safeText(doc.label)}</a>`
+      `<button class="ai-architecture-repo-pill" type="button" data-url="${safeText(doc.url)}" data-label="${safeText(doc.label)}" onclick="openAIArchitectureDoc(this.dataset.url, this.dataset.label)">${safeText(doc.label)}</button>`
     ).join('');
     const repoLink = aiArchitectureProofs[current]?.repoUrl
       ? `<a class="ai-architecture-repo-pill" href="${safeText(aiArchitectureProofs[current].repoUrl)}" target="_blank" rel="noopener noreferrer" aria-label="View GitHub repository">View My Repo</a>`
@@ -1919,7 +1859,7 @@ window.addEventListener('DOMContentLoaded', () => {
       label: `${i + 1} of ${aiArchitectureProofs.length} - ${item.label}`,
       caption: item.caption
     }));
-    return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '13 proof assets + 2 docs')}
+    return `${header('AI-Assisted Architecture', 'Portfolio Website Build', 'A documented workflow showing how the site moved from AI-generated draft to blueprint-guided, GitHub-ready implementation.', '9 proof assets + 2 docs')}
       <div class="phase2-gallery-shell">
         ${renderZoomablePageViewer(pages, Math.min(current, pages.length - 1), 'moveAIArchitectureInline')}
         <div class="ai-architecture-actions">${repoLink}${docLinks}</div>
@@ -1930,6 +1870,18 @@ window.addEventListener('DOMContentLoaded', () => {
   window.moveAIArchitectureInline = function (delta) {
     window.aiArchitectureInlineIndex = (window.aiArchitectureInlineIndex + delta + aiArchitectureProofs.length) % aiArchitectureProofs.length;
     updatePhase2Content(renderAIArchitectureBody());
+  };
+
+  window.openAIArchitectureDoc = async function (url, label) {
+    try {
+      const response = await fetch(url);
+      const text = await response.text();
+      openPhase2Modal(`${header('AI-Assisted Architecture', label, 'View-only documentation, opened inside the portfolio.', '')}
+        <div class="phase2-doc-text-panel"><pre>${safeText(text)}</pre></div>`);
+    } catch (error) {
+      openPhase2Modal(`${header('AI-Assisted Architecture', label, 'The document preview could not load here. Please try again after the site is published.', '')}
+        <div class="phase2-doc-text-panel"><pre>Document preview unavailable.</pre></div>`);
+    }
   };
 
   window.openAIArchitectureViewer = function (index) {
@@ -2013,7 +1965,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const graphic = cards.find(card => /Graphic Design/i.test(card.textContent));
     if (graphic) {
       const desc = graphic.querySelector('.work-desc, p:not(.work-category)');
-      if (desc) desc.textContent = 'Categorized email, poster, logo, brand, food, and book-cover visuals arranged by context.';
+      if (desc) desc.textContent = 'Five focused design sections: email marketing, posters, Sweet SerendipiTea visuals, logos, and book covers.';
       const preview = graphic.querySelector('.work-preview, .preview-window, .work-image');
       if (preview) preview.innerHTML = '<img src="assets/samples/graphics/graphic-email-01-romand-gloss-moderne-layout.jpg" alt="Graphic design thumbnail" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;">';
     }
