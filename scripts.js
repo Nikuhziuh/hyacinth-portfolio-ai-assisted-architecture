@@ -6,6 +6,8 @@ if (typeof pdfjsLib !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
 // --- PHT Clock -----------------------------------------------
 function updateClock() {
   const now = new Date();
@@ -32,6 +34,7 @@ const navLinks = document.querySelectorAll('[data-view-link]');
 const navPill = document.getElementById('navPill');
 const navLinksList = document.querySelector('.nav-links');
 const viewSections = document.querySelectorAll('[data-view-section]');
+const chapterRevealSelector = '.fade-up, .section-heading, .about-headline, .footer-heading, .hero-name';
 
 function movePill(el) {
   if (!navPill || !navLinksList || !el.closest('.nav-links')) return;
@@ -49,6 +52,8 @@ function getViewFromHash() {
 
 function activatePortfolioView(view, options = {}) {
   const activeView = portfolioViews.includes(view) ? view : 'home';
+  const shouldAnimate = !options.instant && !reducedMotionQuery.matches;
+  if (shouldAnimate) document.body.classList.add('chapter-turning');
 
   viewSections.forEach(section => {
     const isVisible = section.dataset.viewSection === activeView;
@@ -56,7 +61,15 @@ function activatePortfolioView(view, options = {}) {
     section.toggleAttribute('inert', !isVisible);
     section.setAttribute('aria-hidden', String(!isVisible));
     if (isVisible) {
-      section.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+      section.querySelectorAll(chapterRevealSelector).forEach(el => el.classList.add('visible'));
+      if (shouldAnimate) {
+        section.classList.remove('chapter-enter');
+        void section.offsetWidth;
+        section.classList.add('chapter-enter');
+        window.setTimeout(() => section.classList.remove('chapter-enter'), 900);
+      }
+    } else {
+      section.classList.remove('chapter-enter');
     }
   });
 
@@ -76,6 +89,10 @@ function activatePortfolioView(view, options = {}) {
 
   if (!options.preserveScroll) {
     window.scrollTo({ top: 0, behavior: options.instant ? 'auto' : 'smooth' });
+  }
+
+  if (shouldAnimate) {
+    window.setTimeout(() => document.body.classList.remove('chapter-turning'), 900);
   }
 }
 
@@ -107,6 +124,62 @@ window.addEventListener('load', () => {
 
 activatePortfolioView(getViewFromHash(), { skipHash: true, instant: true, preserveScroll: true });
 
+// --- Editorial Book Intro + Motion ---------------------------
+function initEditorialIntro() {
+  const intro = document.getElementById('bookIntro');
+  const openButton = document.getElementById('openPortfolioBook');
+  if (!intro) return;
+  if (!openButton) {
+    window.setTimeout(initEditorialIntro, 50);
+    return;
+  }
+  const startsOnHome = getViewFromHash() === 'home' || window.location.hash === '' || window.location.hash === '#home';
+  if (!startsOnHome || reducedMotionQuery.matches) {
+    intro.remove();
+    document.body.classList.remove('book-intro-active');
+    return;
+  }
+
+  document.body.classList.add('book-intro-active');
+  window.requestAnimationFrame(() => intro.classList.add('is-visible'));
+
+  openButton.addEventListener('click', () => {
+    openButton.disabled = true;
+    intro.classList.add('is-opening');
+    document.querySelectorAll('#hero .hero-name, #hero .fade-up, #hero .hero-text > *').forEach((el, i) => {
+      window.setTimeout(() => el.classList.add('visible'), 140 + i * 60);
+    });
+    window.setTimeout(() => {
+      intro.classList.add('is-complete');
+      document.body.classList.remove('book-intro-active');
+    }, 1150);
+    window.setTimeout(() => intro.remove(), 1900);
+  }, { once: true });
+}
+
+function initEditorialParallax() {
+  if (reducedMotionQuery.matches || window.innerWidth < 760) return;
+  document.body.classList.add('motion-ready');
+  let raf = null;
+  let nextX = 0;
+  let nextY = 0;
+
+  function applyMotion() {
+    document.body.style.setProperty('--motion-x', `${nextX.toFixed(2)}px`);
+    document.body.style.setProperty('--motion-y', `${nextY.toFixed(2)}px`);
+    raf = null;
+  }
+
+  window.addEventListener('mousemove', event => {
+    nextX = ((event.clientX / window.innerWidth) - 0.5) * 18;
+    nextY = ((event.clientY / window.innerHeight) - 0.5) * 18;
+    if (!raf) raf = window.requestAnimationFrame(applyMotion);
+  }, { passive: true });
+}
+
+initEditorialIntro();
+initEditorialParallax();
+
 // --- Scroll Fade-Up Animations -------------------------------
 const fadeEls = document.querySelectorAll('.fade-up');
 const fadeObserver = new IntersectionObserver((entries) => {
@@ -118,6 +191,17 @@ const fadeObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12 });
 fadeEls.forEach(el => fadeObserver.observe(el));
+
+const revealEls = document.querySelectorAll('.section-heading, .about-headline, .footer-heading, .hero-name');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.18 });
+revealEls.forEach(el => revealObserver.observe(el));
 
 // --- Tool Marquee ---------------------------------------------
 const tools = [
