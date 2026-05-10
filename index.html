@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/profile/hero-page-profile-optimized.webp" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=20260510-section-pages">
+<link rel="stylesheet" href="styles.css?v=20260510-view-groups">
 </head>
 <body>
 
@@ -18,18 +18,17 @@
      NAVIGATION
      ============================================================ -->
 <nav id="navbar" role="navigation" aria-label="Main navigation">
-  <a href="#hero" class="nav-brand">
+  <a href="#home" class="nav-brand" data-view-link="home">
     <div class="nav-monogram" aria-hidden="true">HKB</div>
     <span class="nav-wordmark">Virtual Assistant</span>
   </a>
   <ul class="nav-links" role="list">
     <div class="nav-pill-indicator" id="navPill" aria-hidden="true"></div>
-    <li><a href="#hero" class="active">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#home" class="active" data-view-link="home">Home</a></li>
+    <li><a href="#services" data-view-link="services">Services</a></li>
+    <li><a href="#portfolio" data-view-link="portfolio">Portfolio</a></li>
+    <li><a href="#credentials" data-view-link="credentials">Credentials</a></li>
+    <li><a href="#contact" data-view-link="contact">Contact</a></li>
   </ul>
   <div class="nav-status" aria-live="polite">
     <span class="nav-dot" aria-hidden="true"></span>
@@ -40,7 +39,7 @@
 <!-- ============================================================
      HERO (Page 1)
      ============================================================ -->
-<section id="hero" aria-label="Hero">
+<section id="hero" data-view-section="home" aria-label="Hero">
   <div class="bloom hero-bloom-tl" aria-hidden="true"></div>
   <div class="bloom hero-bloom-br" aria-hidden="true"></div>
   <div class="bloom hero-bloom-tc" aria-hidden="true"></div>
@@ -57,8 +56,8 @@
       <div class="hero-divider" aria-hidden="true"></div>
       <p class="hero-desc">Virtual assistant specializing in organized operations, content coordination, and structured social media workflows for modern remote teams.</p>
       <div class="hero-ctas">
-        <a href="#footer" class="btn-hire">Hire Me</a>
-        <a href="#portfolio" class="btn-portfolio">View Portfolio</a>
+        <a href="#contact" class="btn-hire" data-view-link="contact">Hire Me</a>
+        <a href="#portfolio" class="btn-portfolio" data-view-link="portfolio">View Portfolio</a>
         <button type="button" class="btn-portfolio" onclick="openResumePopup()">View Resume</button>
       </div>
     </div>
@@ -81,7 +80,7 @@
 <!-- ============================================================
      ABOUT ME (Page 2)
      ============================================================ -->
-<section id="about" aria-label="About Me">
+<section id="about" data-view-section="home" aria-label="About Me">
   <div class="bloom about-bloom-1" aria-hidden="true"></div>
   <div class="bloom about-bloom-2" aria-hidden="true"></div>
 
@@ -115,7 +114,7 @@
 <!-- ============================================================
      EXPERIENCE (Page 3)
      ============================================================ -->
-<section id="experience" aria-label="Relevant Experience">
+<section id="experience" data-view-section="credentials" aria-label="Relevant Experience" hidden aria-hidden="true" inert>
   <div class="bloom exp-bloom-1" aria-hidden="true"></div>
 
   <div class="experience-inner">
@@ -150,7 +149,7 @@
 <!-- ============================================================
      SERVICES (Page 4)
      ============================================================ -->
-<section id="services" aria-label="Services I Provide">
+<section id="services" data-view-section="services" aria-label="Services I Provide" hidden aria-hidden="true" inert>
   <div class="bloom svc-bloom-tr" aria-hidden="true"></div>
 
   <div class="services-inner">
@@ -176,7 +175,7 @@
           <li>Meeting, event, and travel coordination</li>
           <li>Progress reports and process documentation</li>
         </ul>
-        <a href="#footer" class="btn-get-started">Get Started</a>
+        <a href="#contact" class="btn-get-started" data-view-link="contact">Get Started</a>
       </div>
       <div class="svc-card fade-up">
         <div class="svc-number">02</div>
@@ -191,7 +190,7 @@
           <li>Copywriting &amp; brand content</li>
           <li>Professional reports</li>
         </ul>
-        <a href="#footer" class="btn-get-started">Get Started</a>
+        <a href="#contact" class="btn-get-started" data-view-link="contact">Get Started</a>
       </div>
       <div class="svc-card fade-up">
         <div class="svc-number">03</div>
@@ -206,12 +205,12 @@
           <li>Community engagement and inquiry tracking</li>
           <li>Canva graphics and branded content support</li>
         </ul>
-        <a href="#footer" class="btn-get-started">Get Started</a>
+        <a href="#contact" class="btn-get-started" data-view-link="contact">Get Started</a>
       </div>
     </div>
 
     <div class="svc-work-btn-wrap">
-      <a href="#footer" class="btn-work-with-me">Work With Me →</a>
+      <a href="#contact" class="btn-work-with-me" data-view-link="contact">Work With Me →</a>
     </div>
   </div>
 </section>
@@ -219,7 +218,7 @@
 <!-- ============================================================
      CORE SKILLS (Page 5)
      ============================================================ -->
-<section id="skills" aria-label="Core Skills">
+<section id="skills" data-view-section="credentials" aria-label="Core Skills" hidden aria-hidden="true" inert>
   <div class="bloom skills-bloom-bl" aria-hidden="true"></div>
   <div class="bloom skills-bloom-tr" aria-hidden="true"></div>
 
@@ -283,7 +282,7 @@
 <!-- ============================================================
      TOOLS I USE (Page 6)
      ============================================================ -->
-<section id="tools" aria-label="Tools I Use">
+<section id="tools" data-view-section="services" aria-label="Tools I Use" hidden aria-hidden="true" inert>
   <div class="tools-inner">
     <div class="tools-header">
       <div class="section-eyebrow"><span>Tech Stack</span></div>
@@ -301,7 +300,7 @@
 <!-- ============================================================
      PROFESSIONAL ACCREDITATIONS (Page 6.5)
      ============================================================ -->
-<section id="accreditations" aria-label="Professional Accreditations">
+<section id="accreditations" data-view-section="credentials" aria-label="Professional Accreditations" hidden aria-hidden="true" inert>
   <div class="bloom accred-bloom" aria-hidden="true"></div>
 
   <div class="accred-inner">
@@ -368,7 +367,7 @@
 <!-- ============================================================
      SAMPLE WORKS (Page 7)
      ============================================================ -->
-<section id="portfolio" aria-label="Sample Works">
+<section id="portfolio" data-view-section="portfolio" aria-label="Sample Works" hidden aria-hidden="true" inert>
   <div class="bloom portfolio-bloom" aria-hidden="true"></div>
 
   <div class="portfolio-inner">
@@ -475,7 +474,7 @@
 <!-- ============================================================
      EXECUTIVE ENDORSEMENT (Page 8)
      ============================================================ -->
-<section id="endorsement" aria-label="Executive Endorsement">
+<section id="endorsement" data-view-section="credentials" aria-label="Executive Endorsement" hidden aria-hidden="true" inert>
   <div class="bloom endorse-bloom" aria-hidden="true"></div>
 
   <div class="endorsement-inner">
@@ -522,7 +521,7 @@
 <!-- ============================================================
      FOOTER (Page 9)
      ============================================================ -->
-<footer id="footer" aria-label="Contact and footer">
+<footer id="footer" data-view-section="contact" aria-label="Contact and footer" hidden aria-hidden="true" inert>
   <div class="footer-glow-line" aria-hidden="true"></div>
   <div class="footer-content">
     <div class="footer-heading-wrap">
@@ -842,6 +841,6 @@
 <!-- ============================================================
      JAVASCRIPT
      ============================================================ -->
-<script src="scripts.js?v=20260510-section-pages" defer></script>
+<script src="scripts.js?v=20260510-view-groups" defer></script>
 </body>
 </html>

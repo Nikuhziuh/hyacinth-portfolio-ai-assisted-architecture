@@ -29,7 +29,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
-  scroll-snap-type: y mandatory;
   font-size: 16px;
 }
 
@@ -43,10 +42,11 @@ body {
 
 section[id],
 footer[id] {
-  min-height: 100svh;
   scroll-margin-top: 88px;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+}
+
+[data-view-section][hidden] {
+  display: none !important;
 }
 
 .container {
