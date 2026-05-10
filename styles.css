@@ -49,7 +49,7 @@ footer[id] {
   display: none !important;
 }
 
-[data-view-section]:not(#footer)::after {
+.view-copyright-end::after {
   content: '© 2026 Hyacinth Kaye Bajuyo. All Rights Reserved.';
   display: block;
   width: min(var(--max-w), calc(100vw - 48px));
@@ -666,21 +666,14 @@ footer[id] {
 }
 
 /* ============================================================
-   HOME SUPPORT SNAPSHOT
+   HOME PROOF + BEST FIT
    ============================================================ */
-.home-extra-section,
 .home-proof-section,
 .home-fit-section {
   position: relative;
   overflow: hidden;
 }
 
-.home-extra-section {
-  padding: 96px 0 32px;
-  background: linear-gradient(180deg, var(--bg) 0%, rgba(246,177,177,0.08) 100%);
-}
-
-.home-extra-inner,
 .home-fit-inner {
   width: min(var(--max-w), calc(100vw - 48px));
   margin: 0 auto;
@@ -688,60 +681,8 @@ footer[id] {
   z-index: 1;
 }
 
-.home-extra-header {
-  display: grid;
-  grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1fr);
-  align-items: end;
-  gap: 48px;
-  margin-bottom: 38px;
-}
-
-.home-snapshot-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.home-snapshot-card {
-  min-height: 250px;
-  padding: 30px 26px;
-  border-radius: 28px;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid rgba(217,124,124,0.14);
-  box-shadow: var(--card-shadow);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.home-snapshot-kicker {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(122,30,30,0.08);
-  color: var(--burgundy);
-  font: 600 13px/1 var(--font-serif);
-  margin-bottom: 34px;
-}
-
-.home-snapshot-card h3 {
-  font-family: var(--font-serif);
-  font-size: 24px;
-  line-height: 1.1;
-  color: var(--text-dark);
-  margin-bottom: 12px;
-}
-
-.home-snapshot-card p {
-  font: 400 14px/1.55 var(--font-sans);
-  color: var(--text-mid);
-}
-
 .home-proof-section {
-  padding: 54px 0 28px;
+  padding: 76px 0 34px;
 }
 
 .home-proof-inner {
@@ -783,25 +724,34 @@ footer[id] {
 
 .home-fit-inner {
   display: grid;
-  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 64px;
+  gap: 26px;
   padding: 46px;
   border-radius: 34px;
   background: linear-gradient(135deg, rgba(255,255,255,0.88), rgba(248,198,198,0.18));
   border: 1px solid rgba(217,124,124,0.16);
   box-shadow: var(--card-shadow);
+  text-align: center;
+}
+
+.home-fit-inner .section-eyebrow {
+  justify-content: center;
 }
 
 .home-fit-copy p {
   font: 400 17px/1.65 var(--font-sans);
   color: var(--text-mid);
   margin-bottom: 24px;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .home-fit-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
 }
 
@@ -3143,13 +3093,11 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
   .hero-photo-frame { width: 320px; height: 420px; }
   .about-card { grid-template-columns: 1fr; padding: 36px; }
   .about-photo-container { aspect-ratio: 4/3; max-width: 380px; margin: 0 auto; }
-  .home-extra-header,
   .home-fit-inner,
   .contact-page-grid,
   .contact-support-grid {
     grid-template-columns: 1fr;
   }
-  .home-snapshot-grid,
   .home-proof-inner {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3190,7 +3138,6 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     letter-spacing: 0.07em;
   }
   .works-grid { grid-template-columns: 1fr; }
-  .home-snapshot-grid,
   .home-proof-inner,
   .contact-checklist {
     grid-template-columns: 1fr;
@@ -3201,7 +3148,6 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     border-bottom: 1px solid rgba(217,124,124,0.12);
   }
   .home-proof-item:last-child { border-bottom: 0; }
-  .home-extra-section { padding-top: 72px; }
   .home-fit-inner,
   .contact-hero-card,
   .contact-detail-card,
