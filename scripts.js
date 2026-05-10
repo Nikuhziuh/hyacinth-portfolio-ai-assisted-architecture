@@ -143,18 +143,43 @@ function initEditorialIntro() {
   document.body.classList.add('book-intro-active');
   window.requestAnimationFrame(() => intro.classList.add('is-visible'));
 
-  openButton.addEventListener('click', () => {
-    openButton.disabled = true;
-    intro.classList.add('is-opening');
+  let introFinished = false;
+  let safetyTimer = null;
+
+  function revealHomepage(delay = 0) {
     document.querySelectorAll('#hero .hero-name, #hero .fade-up, #hero .hero-text > *').forEach((el, i) => {
-      window.setTimeout(() => el.classList.add('visible'), 140 + i * 60);
+      window.setTimeout(() => el.classList.add('visible'), delay + i * 90);
     });
-    window.setTimeout(() => {
-      intro.classList.add('is-complete');
-      document.body.classList.remove('book-intro-active');
-    }, 1150);
-    window.setTimeout(() => intro.remove(), 1900);
+  }
+
+  function finishIntro() {
+    if (introFinished) return;
+    introFinished = true;
+    if (safetyTimer) window.clearTimeout(safetyTimer);
+    intro.classList.add('is-complete');
+    document.body.classList.remove('book-intro-active');
+    revealHomepage();
+    window.setTimeout(() => intro.remove(), 900);
+  }
+
+  function openIntro() {
+    if (introFinished) return;
+    openButton.disabled = true;
+    intro.classList.add('is-pressing');
+    window.setTimeout(() => intro.classList.add('is-opening'), 220);
+    revealHomepage(1500);
+    window.setTimeout(finishIntro, 2750);
+  }
+
+  openButton.addEventListener('click', openIntro, { once: true });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') finishIntro();
   }, { once: true });
+
+  safetyTimer = window.setTimeout(() => {
+    openButton.disabled = false;
+    intro.classList.add('is-ready');
+  }, 3200);
 }
 
 function initEditorialParallax() {
