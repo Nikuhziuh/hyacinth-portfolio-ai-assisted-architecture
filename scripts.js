@@ -67,6 +67,95 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 sections.forEach(s => observer.observe(s));
 
+// --- Section-by-section navigation ---------------------------
+const sectionPages = Array.from(document.querySelectorAll('section[id], footer[id]'));
+let sectionScrollLocked = false;
+let sectionTouchStartY = null;
+
+function hasOpenViewer() {
+  return Boolean(document.querySelector('.popup-backdrop.active, .phase2-modal-backdrop.active, .phase2-page-zoom-backdrop.active, .ai-architecture-viewer'));
+}
+
+function isInsideScrollableArea(target, direction) {
+  let node = target;
+  while (node && node !== document.body && node !== document.documentElement) {
+    const style = window.getComputedStyle(node);
+    const canScroll = /(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 1;
+    if (canScroll) {
+      if (direction > 0 && node.scrollTop + node.clientHeight < node.scrollHeight - 2) return true;
+      if (direction < 0 && node.scrollTop > 2) return true;
+    }
+    node = node.parentElement;
+  }
+  return false;
+}
+
+function currentSectionIndex() {
+  const anchor = window.scrollY + window.innerHeight * 0.5;
+  let index = 0;
+  let distance = Number.POSITIVE_INFINITY;
+
+  sectionPages.forEach((section, i) => {
+    const sectionCenter = section.offsetTop + section.offsetHeight * 0.5;
+    const nextDistance = Math.abs(sectionCenter - anchor);
+    if (nextDistance < distance) {
+      distance = nextDistance;
+      index = i;
+    }
+  });
+
+  return index;
+}
+
+function goToSection(index) {
+  const section = sectionPages[index];
+  if (!section) return;
+  sectionScrollLocked = true;
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.setTimeout(() => {
+    sectionScrollLocked = false;
+  }, 850);
+}
+
+function stepSection(direction) {
+  const index = currentSectionIndex();
+  const next = Math.max(0, Math.min(sectionPages.length - 1, index + (direction > 0 ? 1 : -1)));
+  if (next !== index) goToSection(next);
+}
+
+window.addEventListener('wheel', event => {
+  if (
+    sectionScrollLocked ||
+    hasOpenViewer() ||
+    event.ctrlKey ||
+    event.metaKey ||
+    Math.abs(event.deltaY) < 20 ||
+    isInsideScrollableArea(event.target, event.deltaY)
+  ) {
+    return;
+  }
+
+  event.preventDefault();
+  stepSection(event.deltaY);
+}, { passive: false });
+
+window.addEventListener('touchstart', event => {
+  if (hasOpenViewer() || event.touches.length !== 1) return;
+  sectionTouchStartY = event.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchend', event => {
+  if (sectionTouchStartY === null || sectionScrollLocked || hasOpenViewer()) {
+    sectionTouchStartY = null;
+    return;
+  }
+
+  const deltaY = sectionTouchStartY - event.changedTouches[0].clientY;
+  sectionTouchStartY = null;
+  if (Math.abs(deltaY) < 42 || isInsideScrollableArea(event.target, deltaY)) return;
+  stepSection(deltaY);
+}, { passive: true });
+
 // --- Scroll Fade-Up Animations -------------------------------
 const fadeEls = document.querySelectorAll('.fade-up');
 const fadeObserver = new IntersectionObserver((entries) => {
