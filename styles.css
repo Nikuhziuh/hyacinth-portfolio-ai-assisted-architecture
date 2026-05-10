@@ -1684,6 +1684,43 @@ body.motion-ready .hero-text {
 
 .btn-view-credential:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 24px rgba(122,30,30,0.30); }
 
+@media (hover: hover) and (pointer: fine) {
+  .accred-card {
+    cursor: none;
+  }
+
+  .accred-card .btn-view-credential {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.credential-view-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9998;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(122,30,30,0.94);
+  color: #fff8ef;
+  font: 700 12px/1 var(--font-sans);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  box-shadow: 0 18px 44px rgba(122,30,30,0.22);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-80px, -80px, 0) scale(.86);
+  transition: opacity .22s cubic-bezier(.22,.84,.2,1);
+}
+
+.credential-view-cursor.is-visible {
+  opacity: 1;
+}
+
 /* ============================================================
    SAMPLE WORKS (Page 7)
    ============================================================ */

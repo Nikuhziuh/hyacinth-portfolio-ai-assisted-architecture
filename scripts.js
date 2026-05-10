@@ -205,6 +205,80 @@ function initEditorialParallax() {
 initEditorialIntro();
 initEditorialParallax();
 
+function initCredentialViewCursor() {
+  const cards = Array.from(document.querySelectorAll('#accreditations .accred-card'));
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    const button = card.querySelector('.btn-view-credential');
+    if (!button) return;
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    if (!card.getAttribute('aria-label')) {
+      card.setAttribute('aria-label', button.getAttribute('aria-label') || 'View credential');
+    }
+    card.addEventListener('click', event => {
+      if (event.target.closest('button, a')) return;
+      button.click();
+    });
+    card.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      button.click();
+    });
+  });
+
+  const canUseCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reducedMotionQuery.matches;
+  if (!canUseCursor) return;
+
+  const cursor = document.createElement('div');
+  cursor.className = 'credential-view-cursor';
+  cursor.textContent = 'View';
+  cursor.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(cursor);
+
+  let active = false;
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let raf = null;
+
+  function renderCursor() {
+    currentX += (targetX - currentX) * 0.18;
+    currentY += (targetY - currentY) * 0.18;
+    cursor.style.transform = `translate3d(${currentX - 34}px, ${currentY - 34}px, 0) scale(${active ? 1 : .86})`;
+    raf = active ? window.requestAnimationFrame(renderCursor) : null;
+  }
+
+  function showCursor(event) {
+    active = true;
+    targetX = currentX = event.clientX;
+    targetY = currentY = event.clientY;
+    cursor.classList.add('is-visible');
+    if (!raf) raf = window.requestAnimationFrame(renderCursor);
+  }
+
+  function moveCursor(event) {
+    targetX = event.clientX;
+    targetY = event.clientY;
+  }
+
+  function hideCursor() {
+    active = false;
+    cursor.classList.remove('is-visible');
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', showCursor);
+    card.addEventListener('mousemove', moveCursor);
+    card.addEventListener('mouseleave', hideCursor);
+    card.addEventListener('blur', hideCursor);
+  });
+}
+
+initCredentialViewCursor();
+
 // --- Scroll Fade-Up Animations -------------------------------
 const fadeEls = document.querySelectorAll('.fade-up');
 const fadeObserver = new IntersectionObserver((entries) => {
