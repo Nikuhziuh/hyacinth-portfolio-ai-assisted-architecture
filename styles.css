@@ -327,14 +327,71 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
 }
 
 .editorial-book__page--left {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: clamp(22px, 4vw, 46px);
+  text-align: center;
   border-right: 1px solid rgba(122,30,30,.12);
   box-shadow: inset -18px 0 34px rgba(122,30,30,.06);
+  color: rgba(122,30,30,.58);
 }
 
 .book-intro.is-opening .editorial-book__page--left {
   background:
     linear-gradient(90deg, rgba(122,30,30,.04), transparent 20%, rgba(255,255,255,.36) 92%, rgba(122,30,30,.08)),
     #fffaf1;
+}
+
+.editorial-book__page--left span,
+.editorial-book__page--left small {
+  opacity: .12;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition:
+    opacity 1s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1),
+    filter 1s;
+}
+
+.editorial-book__page--left span {
+  font: 700 clamp(10px, 1.3vw, 12px)/1 var(--font-sans);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.editorial-book__page--left small {
+  max-width: 16em;
+  font: 500 clamp(13px, 1.7vw, 18px)/1.35 var(--font-serif);
+  color: rgba(122,30,30,.44);
+}
+
+.book-intro.is-opening .editorial-book__page--left span,
+.book-intro.is-opening .editorial-book__page--left small {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.book-intro.is-opening .editorial-book__page--left span {
+  transition-delay: .92s;
+}
+
+.book-intro.is-opening .editorial-book__page--left small {
+  transition-delay: 1.06s;
+}
+
+.book-intro.is-title-fading .editorial-book__page--left span,
+.book-intro.is-title-fading .editorial-book__page--left small {
+  opacity: 0;
+  transform: translateY(-12px) scale(.985);
+  filter: blur(6px);
+  transition:
+    opacity .72s cubic-bezier(.22,.84,.2,1),
+    transform .72s cubic-bezier(.22,.84,.2,1),
+    filter .72s;
+  transition-delay: 0s;
 }
 
 .book-intro.is-opening .editorial-book__page--right {
@@ -347,20 +404,47 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
   display: grid;
   align-content: center;
   justify-items: center;
+  gap: clamp(12px, 2vw, 18px);
   padding: clamp(22px, 4vw, 46px);
   text-align: center;
   color: var(--burgundy);
 }
 
-.editorial-book__page--right span {
-  font: 600 10px/1 var(--font-sans);
-  letter-spacing: .2em;
+.editorial-book__availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(122,30,30,.13);
+  background: rgba(255,255,255,.58);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.42) inset,
+    0 12px 30px rgba(246,177,177,.16),
+    0 0 18px rgba(246,177,177,.16);
+  font: 700 clamp(8px, 1.2vw, 10px)/1 var(--font-sans);
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(122,30,30,.42);
+  color: rgba(122,30,30,.72);
   opacity: .15;
   transform: translateY(14px);
   filter: blur(6px);
-  transition: opacity .95s cubic-bezier(.16,1,.3,1), transform .95s cubic-bezier(.16,1,.3,1), filter .95s;
+  transition:
+    opacity .95s cubic-bezier(.16,1,.3,1),
+    transform .95s cubic-bezier(.16,1,.3,1),
+    filter .95s;
+}
+
+.editorial-book__availability-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--rose);
+  box-shadow:
+    0 0 0 5px rgba(217,124,124,.11),
+    0 0 14px rgba(217,124,124,.72);
+  animation: contact-availability-glow 2.4s ease-in-out infinite;
 }
 
 .editorial-book__page--right strong {
@@ -378,7 +462,7 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
     filter 1.05s;
 }
 
-.book-intro.is-opening .editorial-book__page--right span {
+.book-intro.is-opening .editorial-book__availability {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
@@ -400,6 +484,17 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
     opacity .9s cubic-bezier(.22,.84,.2,1),
     transform .9s cubic-bezier(.22,.84,.2,1),
     filter .9s;
+  transition-delay: 0s;
+}
+
+.book-intro.is-title-fading .editorial-book__availability {
+  opacity: 0;
+  transform: translateY(-12px) scale(.985);
+  filter: blur(6px);
+  transition:
+    opacity .72s cubic-bezier(.22,.84,.2,1),
+    transform .72s cubic-bezier(.22,.84,.2,1),
+    filter .72s;
   transition-delay: 0s;
 }
 
