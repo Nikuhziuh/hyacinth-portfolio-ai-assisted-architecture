@@ -1662,15 +1662,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const currentHeight = target.getBoundingClientRect().height;
     if (currentHeight > 0) target.style.minHeight = `${currentHeight}px`;
     preloadImagesFromHTML(html);
-    target.classList.add('phase2-content-swap');
     target.innerHTML = html;
     primeVisiblePhase2Images();
     syncPhase2ImageGroups();
-    window.requestAnimationFrame(() => target.classList.remove('phase2-content-swap'));
     window.clearTimeout(window.phase2ContentSettleTimer);
     window.phase2ContentSettleTimer = window.setTimeout(() => {
       target.style.minHeight = '';
-    }, 140);
+    }, 260);
   }
 
   function header(kicker, title, desc, count) {
@@ -1979,10 +1977,8 @@ window.addEventListener('DOMContentLoaded', () => {
     modal.querySelectorAll('[data-sync-images="true"]').forEach(group => {
       const images = Array.from(group.querySelectorAll('img'));
       if (images.length < 2) return;
-      group.classList.add('phase2-sync-loading');
       let remaining = images.filter(img => !img.complete).length;
       const reveal = () => {
-        group.classList.remove('phase2-sync-loading');
         group.classList.add('phase2-sync-ready');
       };
       if (!remaining) {
