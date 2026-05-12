@@ -64,9 +64,10 @@ function activatePortfolioView(view, options = {}) {
       section.querySelectorAll(chapterRevealSelector).forEach(el => el.classList.add('visible'));
       if (shouldAnimate) {
         section.classList.remove('chapter-enter');
-        void section.offsetWidth;
-        section.classList.add('chapter-enter');
-        window.setTimeout(() => section.classList.remove('chapter-enter'), 900);
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => section.classList.add('chapter-enter'));
+        });
+        window.setTimeout(() => section.classList.remove('chapter-enter'), 760);
       }
     } else {
       section.classList.remove('chapter-enter');
@@ -92,7 +93,7 @@ function activatePortfolioView(view, options = {}) {
   }
 
   if (shouldAnimate) {
-    window.setTimeout(() => document.body.classList.remove('chapter-turning'), 900);
+    window.setTimeout(() => document.body.classList.remove('chapter-turning'), 760);
   }
 }
 
@@ -148,18 +149,28 @@ function initEditorialIntro() {
 
   function revealHomepage(delay = 0) {
     document.querySelectorAll('#hero .hero-name, #hero .fade-up, #hero .hero-text > *').forEach((el, i) => {
-      window.setTimeout(() => el.classList.add('visible'), delay + i * 90);
+      window.setTimeout(() => el.classList.add('visible'), delay + i * 140);
     });
+  }
+
+  function beginHomepageReveal() {
+    document.body.classList.add('book-reveal-home');
+    revealHomepage(320);
   }
 
   function finishIntro() {
     if (introFinished) return;
     introFinished = true;
     if (safetyTimer) window.clearTimeout(safetyTimer);
-    intro.classList.add('is-complete');
-    document.body.classList.remove('book-intro-active');
-    revealHomepage();
-    window.setTimeout(() => intro.remove(), 900);
+    intro.classList.add('is-title-fading');
+    beginHomepageReveal();
+    intro.classList.add('is-revealing-home');
+    window.setTimeout(() => intro.classList.add('is-complete'), 620);
+    window.setTimeout(() => {
+      intro.remove();
+      document.body.classList.remove('book-intro-active');
+      document.body.classList.remove('book-reveal-home');
+    }, 2100);
   }
 
   function openIntro() {
@@ -167,8 +178,13 @@ function initEditorialIntro() {
     openButton.disabled = true;
     intro.classList.add('is-pressing');
     window.setTimeout(() => intro.classList.add('is-opening'), 220);
-    revealHomepage(1500);
-    window.setTimeout(finishIntro, 2750);
+    window.setTimeout(() => intro.classList.add('is-title-fading'), 2450);
+    window.setTimeout(() => {
+      intro.classList.add('is-revealing-home');
+      beginHomepageReveal();
+    }, 3150);
+    window.setTimeout(() => intro.classList.add('is-complete'), 3700);
+    window.setTimeout(finishIntro, 5400);
   }
 
   openButton.addEventListener('click', openIntro, { once: true });
