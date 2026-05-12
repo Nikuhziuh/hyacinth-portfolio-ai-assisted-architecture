@@ -61,7 +61,10 @@ function activatePortfolioView(view, options = {}) {
     section.toggleAttribute('inert', !isVisible);
     section.setAttribute('aria-hidden', String(!isVisible));
     if (isVisible) {
-      section.querySelectorAll(chapterRevealSelector).forEach(el => el.classList.add('visible'));
+      const shouldPreReveal = activeView !== 'home' || section.id === 'hero';
+      if (shouldPreReveal) {
+        section.querySelectorAll(chapterRevealSelector).forEach(el => el.classList.add('visible'));
+      }
       if (shouldAnimate) {
         section.classList.remove('chapter-enter');
         window.requestAnimationFrame(() => {
@@ -218,8 +221,139 @@ function initEditorialParallax() {
   }, { passive: true });
 }
 
+function initHomeEditorialMotion() {
+  const section = document.querySelector('.home-editorial-section');
+  if (!section || reducedMotionQuery.matches) return;
+
+  const fragments = Array.from(section.querySelectorAll('.workflow-fragment'));
+  const metrics = Array.from(section.querySelectorAll('.home-metric-item'));
+  const calmCopy = section.querySelector('.home-calm-copy');
+  const glows = Array.from(section.querySelectorAll('.home-editorial-glow'));
+  const canUseScrollMotion = window.matchMedia('(min-width: 761px)').matches;
+  if (!canUseScrollMotion) return;
+
+  let raf = null;
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateEditorialMotion() {
+    const rect = section.getBoundingClientRect();
+    const viewport = window.innerHeight || document.documentElement.clientHeight;
+    const progress = clamp((viewport - rect.top) / (viewport + rect.height), 0, 1);
+    const centered = progress - 0.5;
+
+    fragments.forEach((fragment, index) => {
+      const depth = Number(fragment.dataset.depth || 0);
+      const itemProgress = clamp((progress - 0.18 - index * 0.055) / 0.34, 0, 1);
+      const x = (1 - itemProgress) * (index % 2 === 0 ? 14 : -14) + centered * depth * 26;
+      const y = (1 - itemProgress) * 10 + centered * depth * -36;
+      fragment.style.setProperty('--fragment-scroll-x', `${x.toFixed(2)}px`);
+      fragment.style.setProperty('--fragment-scroll-y', `${y.toFixed(2)}px`);
+      fragment.style.setProperty('--fragment-scale', (0.96 + itemProgress * 0.04).toFixed(3));
+    });
+
+    metrics.forEach((metric, index) => {
+      const depth = Number(metric.dataset.depth || 0);
+      const itemProgress = clamp((progress - 0.1 - index * 0.08) / 0.26, 0, 1);
+      const y = (1 - itemProgress) * 22 + centered * depth * -36;
+      metric.style.setProperty('--metric-scroll-y', `${y.toFixed(2)}px`);
+    });
+
+    if (calmCopy) {
+      calmCopy.style.setProperty('--calm-scroll-y', `${(centered * -18).toFixed(2)}px`);
+    }
+
+    section.style.setProperty('--workflow-line-scale', clamp((progress - 0.32) / 0.38, 0.2, 1).toFixed(3));
+    section.style.setProperty('--workflow-line-opacity', clamp((progress - 0.24) / 0.38, 0.25, 0.72).toFixed(3));
+
+    glows.forEach((glow, index) => {
+      const drift = centered * (index === 0 ? -34 : 24);
+      glow.style.setProperty('--editorial-glow-y', `${drift.toFixed(2)}px`);
+    });
+
+    raf = null;
+  }
+
+  function requestMotionFrame() {
+    if (!raf) raf = window.requestAnimationFrame(updateEditorialMotion);
+  }
+
+  updateEditorialMotion();
+  window.addEventListener('scroll', requestMotionFrame, { passive: true });
+  window.addEventListener('resize', requestMotionFrame, { passive: true });
+
+  const sceneObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      section.classList.toggle('is-scene-active', entry.isIntersecting);
+    });
+  }, { threshold: 0.24 });
+  sceneObserver.observe(section);
+}
+
+function initHomeScrollStory() {
+  const hero = document.getElementById('hero');
+  const about = document.getElementById('about');
+  const aboutCard = document.querySelector('.about-card');
+  if (!hero || !about || reducedMotionQuery.matches) return;
+
+  const canUseScrollMotion = window.matchMedia('(min-width: 761px)').matches;
+  if (!canUseScrollMotion) return;
+
+  let raf = null;
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateHomeStory() {
+    const heroRect = hero.getBoundingClientRect();
+    const viewport = window.innerHeight || document.documentElement.clientHeight;
+    const heroProgress = clamp((0 - heroRect.top) / Math.max(heroRect.height * 0.58, 1), 0, 1);
+    const heroLift = heroProgress * -118;
+    const heroDepth = heroProgress * 72;
+    const heroOpacity = 1 - heroProgress * 0.82;
+    const heroScale = 1 - heroProgress * 0.045;
+
+    document.body.style.setProperty('--hero-scroll-y', `${heroLift.toFixed(2)}px`);
+    document.body.style.setProperty('--hero-visual-scroll-y', `${heroDepth.toFixed(2)}px`);
+    document.body.style.setProperty('--hero-scroll-opacity', heroOpacity.toFixed(3));
+    document.body.style.setProperty('--hero-scroll-scale', heroScale.toFixed(4));
+
+    if (aboutCard) {
+      const aboutRect = about.getBoundingClientRect();
+      const aboutProgress = clamp((viewport - aboutRect.top) / Math.max(viewport * 0.78, 1), 0, 1);
+      const aboutReveal = clamp((aboutProgress - 0.08) / 0.42, 0, 1);
+      const aboutY = (1 - aboutReveal) * 96;
+      const aboutScale = 0.94 + aboutReveal * 0.06;
+      const aboutBlur = (1 - aboutReveal) * 12;
+      aboutCard.style.setProperty('--about-scroll-y', `${aboutY.toFixed(2)}px`);
+      aboutCard.style.setProperty('--about-scroll-scale', aboutScale.toFixed(4));
+      aboutCard.style.setProperty('--about-card-opacity', aboutReveal.toFixed(3));
+      aboutCard.style.setProperty('--about-card-blur', `${aboutBlur.toFixed(2)}px`);
+      aboutCard.style.setProperty('--about-photo-y', `${((1 - aboutReveal) * 34).toFixed(2)}px`);
+      aboutCard.style.setProperty('--about-copy-y', `${((1 - aboutReveal) * 48).toFixed(2)}px`);
+      aboutCard.style.setProperty('--about-child-opacity', aboutReveal.toFixed(3));
+    }
+
+    raf = null;
+  }
+
+  function requestStoryFrame() {
+    if (!raf) raf = window.requestAnimationFrame(updateHomeStory);
+  }
+
+  document.body.classList.add('home-scroll-story');
+  updateHomeStory();
+  window.addEventListener('scroll', requestStoryFrame, { passive: true });
+  window.addEventListener('resize', requestStoryFrame, { passive: true });
+}
+
 initEditorialIntro();
 initEditorialParallax();
+initHomeEditorialMotion();
+initHomeScrollStory();
 
 function initCredentialViewCursor() {
   const cards = Array.from(document.querySelectorAll('#accreditations .accred-card'));
@@ -1652,12 +1786,48 @@ window.addEventListener('DOMContentLoaded', () => {
     return modal;
   }
 
+  function setPhase2OpenOrigin(source) {
+    const root = document.documentElement;
+    let rect = null;
+
+    if (source && typeof source.getBoundingClientRect === 'function') {
+      rect = source.getBoundingClientRect();
+    }
+
+    if (!rect) {
+      const activeCard = document.activeElement && document.activeElement.closest
+        ? document.activeElement.closest('.works-grid .work-card')
+        : null;
+      if (activeCard) rect = activeCard.getBoundingClientRect();
+    }
+
+    const x = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+    const y = rect ? rect.top + rect.height / 2 : window.innerHeight * 0.58;
+    root.style.setProperty('--phase2-origin-x', `${x}px`);
+    root.style.setProperty('--phase2-origin-y', `${y}px`);
+  }
+
+  document.addEventListener('pointerdown', event => {
+    const card = event.target.closest && event.target.closest('.works-grid .work-card');
+    if (card) setPhase2OpenOrigin(card);
+  }, { passive: true });
+
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest && event.target.closest('.works-grid .work-card');
+    if (card) setPhase2OpenOrigin(card);
+  });
+
   function openPhase2Modal(html, options = {}) {
     const modal = ensureModal();
+    setPhase2OpenOrigin(options.source);
     modal.querySelector('.phase2-modal').classList.toggle('phase2-html-modal', !!options.htmlWide);
     preloadImagesFromHTML(html);
     byId('phase2ModalContent').innerHTML = html;
+    byId('phase2ModalContent').classList.remove('phase2-content-swap');
+    modal.classList.remove('phase2-modal-ready');
     modal.classList.add('active');
+    window.requestAnimationFrame(() => modal.classList.add('phase2-modal-ready'));
     document.body.style.overflow = 'hidden';
     primeVisiblePhase2Images();
     syncPhase2ImageGroups();
@@ -1668,6 +1838,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!modal) return;
     closePhase2PageZoom();
     modal.classList.remove('active');
+    modal.classList.remove('phase2-modal-ready');
     byId('phase2ModalContent').innerHTML = '';
     document.body.style.overflow = '';
   }
@@ -1678,13 +1849,17 @@ window.addEventListener('DOMContentLoaded', () => {
     const currentHeight = target.getBoundingClientRect().height;
     if (currentHeight > 0) target.style.minHeight = `${currentHeight}px`;
     preloadImagesFromHTML(html);
+    target.classList.remove('phase2-content-swap');
+    void target.offsetWidth;
     target.innerHTML = html;
+    target.classList.add('phase2-content-swap');
     primeVisiblePhase2Images();
     syncPhase2ImageGroups();
     window.clearTimeout(window.phase2ContentSettleTimer);
     window.phase2ContentSettleTimer = window.setTimeout(() => {
       target.style.minHeight = '';
-    }, 260);
+      target.classList.remove('phase2-content-swap');
+    }, 440);
   }
 
   function header(kicker, title, desc, count) {
