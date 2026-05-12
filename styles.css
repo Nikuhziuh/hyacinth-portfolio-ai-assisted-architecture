@@ -275,6 +275,7 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
 }
 
 .editorial-book__pages {
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
@@ -508,8 +509,9 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
 }
 
 .editorial-book__cover {
+  z-index: 8;
   transform-origin: left center;
-  transform: rotateY(0deg);
+  transform: translateZ(32px) rotateY(0deg);
   width: 100%;
   background:
     linear-gradient(135deg, rgba(255,255,255,.16), transparent 28%),
@@ -531,7 +533,7 @@ body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
 
 .book-intro.is-opening .editorial-book__cover {
   width: 50%;
-  transform: rotateY(-176deg);
+  transform: translateZ(32px) rotateY(-176deg);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.1), 24px 30px 72px rgba(122,30,30,.18);
   transition-duration: 1.9s;
 }
