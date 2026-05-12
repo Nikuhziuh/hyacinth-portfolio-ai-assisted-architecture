@@ -178,13 +178,13 @@ function initEditorialIntro() {
     openButton.disabled = true;
     intro.classList.add('is-pressing');
     window.setTimeout(() => intro.classList.add('is-opening'), 220);
-    window.setTimeout(() => intro.classList.add('is-title-fading'), 2450);
+    window.setTimeout(() => intro.classList.add('is-title-fading'), 3300);
     window.setTimeout(() => {
       intro.classList.add('is-revealing-home');
       beginHomepageReveal();
-    }, 3150);
-    window.setTimeout(() => intro.classList.add('is-complete'), 3700);
-    window.setTimeout(finishIntro, 5400);
+    }, 4100);
+    window.setTimeout(() => intro.classList.add('is-complete'), 4700);
+    window.setTimeout(finishIntro, 6400);
   }
 
   openButton.addEventListener('click', openIntro, { once: true });
