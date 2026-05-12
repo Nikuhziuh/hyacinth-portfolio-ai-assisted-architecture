@@ -2576,6 +2576,10 @@ body.motion-ready .hero-text {
   margin: 0 auto;
 }
 
+#footer[data-view-section="contact"] .footer-content {
+  padding-top: clamp(112px, 11vh, 136px);
+}
+
 .footer-heading-wrap {
   text-align: center;
   margin-bottom: clamp(24px, 3.6vw, 32px);
@@ -3859,6 +3863,9 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
     padding-top: 76px;
     width: min(100%, calc(100vw - 32px));
   }
+  #footer[data-view-section="contact"] .footer-content {
+    padding-top: 112px;
+  }
   .footer-heading-wrap {
     margin-bottom: 24px;
     padding-bottom: 22px;
@@ -3918,6 +3925,9 @@ a.footer-contact-value:hover { color: #fff; text-decoration: underline; }
   .footer-content {
     padding-top: 68px;
     width: min(100%, calc(100vw - 24px));
+  }
+  #footer[data-view-section="contact"] .footer-content {
+    padding-top: 104px;
   }
   .footer-heading-wrap {
     margin-bottom: 20px;
