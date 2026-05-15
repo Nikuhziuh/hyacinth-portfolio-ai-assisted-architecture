@@ -830,8 +830,8 @@ function openCredential(imgSrc, title) {
 
 // --- Resume Popup --------------------------------------------
 const resumePages = [
-  { src: 'assets/profile/resume-page-01.jpg?v=20260509-resume-pages', alt: 'Hyacinth Kaye Bajuyo resume page 1' },
-  { src: 'assets/profile/resume-page-02.jpg?v=20260509-resume-pages', alt: 'Hyacinth Kaye Bajuyo resume page 2' }
+  { src: 'assets/profile/resume-page-01.jpg?v=20260515-resume-update', alt: 'Hyacinth Kaye Bajuyo resume page 1' },
+  { src: 'assets/profile/resume-page-02.jpg?v=20260515-resume-update', alt: 'Hyacinth Kaye Bajuyo resume page 2' }
 ];
 let resumeIdx = 0;
 
