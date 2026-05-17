@@ -50,8 +50,16 @@ function getViewFromHash() {
   return portfolioViews.includes(hash) ? hash : 'home';
 }
 
+function clearBookIntroOverlay() {
+  const intro = document.getElementById('bookIntro');
+  if (intro) intro.remove();
+  document.body.classList.remove('book-intro-active');
+  document.body.classList.remove('book-reveal-home');
+}
+
 function activatePortfolioView(view, options = {}) {
   const activeView = portfolioViews.includes(view) ? view : 'home';
+  if (activeView !== 'home') clearBookIntroOverlay();
   const shouldAnimate = !options.instant && !reducedMotionQuery.matches;
   if (shouldAnimate) document.body.classList.add('chapter-turning');
 
@@ -139,8 +147,7 @@ function initEditorialIntro() {
   }
   const startsOnHome = getViewFromHash() === 'home' || window.location.hash === '' || window.location.hash === '#home';
   if (!startsOnHome || reducedMotionQuery.matches) {
-    intro.remove();
-    document.body.classList.remove('book-intro-active');
+    clearBookIntroOverlay();
     return;
   }
 
@@ -170,9 +177,7 @@ function initEditorialIntro() {
     intro.classList.add('is-revealing-home');
     window.setTimeout(() => intro.classList.add('is-complete'), 620);
     window.setTimeout(() => {
-      intro.remove();
-      document.body.classList.remove('book-intro-active');
-      document.body.classList.remove('book-reveal-home');
+      clearBookIntroOverlay();
     }, 2100);
   }
 
@@ -1058,12 +1063,12 @@ window.addEventListener('DOMContentLoaded', () => {
     {
       label: 'UNESCO MUN Rapporteur Log',
       title: 'UNESCO MUN Master Rapporteur Log',
-      pages: Array.from({ length: 10 }, (_, i) => img(`technical-writing-01-unesco-mun-master-rapporteur-log-page-${String(i + 1).padStart(2, '0')}.jpg`, `UNESCO MUN Rapporteur Log page ${i + 1}`))
+      pages: Array.from({ length: 10 }, (_, i) => img(`assets/samples/technical-writing/technical-writing-01-unesco-mun-master-rapporteur-log-page-${String(i + 1).padStart(2, '0')}.jpg`, `UNESCO MUN Rapporteur Log page ${i + 1}`))
     },
     {
       label: 'Secure Client Onboarding',
       title: 'Secure Client Onboarding Case Study',
-      pages: Array.from({ length: 3 }, (_, i) => img(`technical-writing-02-secure-client-onboarding-case-study-page-${String(i + 1).padStart(2, '0')}.jpg`, `Secure Client Onboarding page ${i + 1}`))
+      pages: Array.from({ length: 3 }, (_, i) => img(`assets/samples/technical-writing/technical-writing-02-secure-client-onboarding-case-study-page-${String(i + 1).padStart(2, '0')}.jpg`, `Secure Client Onboarding page ${i + 1}`))
     }
   ];
 
