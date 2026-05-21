@@ -355,10 +355,75 @@ function initHomeScrollStory() {
   window.addEventListener('resize', requestStoryFrame, { passive: true });
 }
 
+function initServicesScrollStory() {
+  const services = document.getElementById('services');
+  const tools = document.getElementById('tools');
+  const serviceCards = Array.from(document.querySelectorAll('#services .svc-card'));
+  const toolsInner = document.querySelector('#tools .tools-inner');
+  if (!services || !tools || !serviceCards.length || reducedMotionQuery.matches) return;
+
+  const canUseScrollMotion = window.matchMedia('(min-width: 761px)').matches;
+  if (!canUseScrollMotion) return;
+
+  let raf = null;
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateServicesStory() {
+    const viewport = window.innerHeight || document.documentElement.clientHeight;
+    const toolsRect = tools.getBoundingClientRect();
+    const toolsProgress = clamp((viewport - toolsRect.top) / Math.max(viewport * 0.78, 1), 0, 1);
+    const toolsReveal = clamp((toolsProgress - 0.06) / 0.5, 0, 1);
+    const servicesLift = toolsReveal * -24;
+    const servicesOpacity = 1;
+
+    services.style.setProperty('--services-scroll-y', `${servicesLift.toFixed(2)}px`);
+    services.style.setProperty('--services-scroll-opacity', servicesOpacity.toFixed(3));
+
+    serviceCards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const cardProgress = clamp((viewport * 0.82 - rect.top) / Math.max(viewport * 0.56, 1), 0, 1);
+      const settleY = (1 - cardProgress) * 34;
+      const settleScale = 0.978 + cardProgress * 0.022;
+      const settleOpacity = 0.92 + cardProgress * 0.08;
+      const settleBlur = 0;
+      card.style.setProperty('--svc-card-y', `${settleY.toFixed(2)}px`);
+      card.style.setProperty('--svc-card-scale', settleScale.toFixed(4));
+      card.style.setProperty('--svc-card-opacity', settleOpacity.toFixed(3));
+      card.style.setProperty('--svc-card-blur', `${settleBlur.toFixed(2)}px`);
+      card.style.setProperty('--svc-card-delay', `${(index * 0.04).toFixed(2)}s`);
+    });
+
+    if (toolsInner) {
+      const toolsY = (1 - toolsReveal) * 52;
+      const toolsScale = 0.94 + toolsReveal * 0.06;
+      const toolsBlur = 0;
+      toolsInner.style.setProperty('--tools-scroll-y', `${toolsY.toFixed(2)}px`);
+      toolsInner.style.setProperty('--tools-scroll-scale', toolsScale.toFixed(4));
+      toolsInner.style.setProperty('--tools-scroll-opacity', toolsReveal.toFixed(3));
+      toolsInner.style.setProperty('--tools-scroll-blur', `${toolsBlur.toFixed(2)}px`);
+    }
+
+    raf = null;
+  }
+
+  function requestServicesFrame() {
+    if (!raf) raf = window.requestAnimationFrame(updateServicesStory);
+  }
+
+  document.body.classList.add('services-scroll-story');
+  updateServicesStory();
+  window.addEventListener('scroll', requestServicesFrame, { passive: true });
+  window.addEventListener('resize', requestServicesFrame, { passive: true });
+}
+
 initEditorialIntro();
 initEditorialParallax();
 initHomeEditorialMotion();
 initHomeScrollStory();
+initServicesScrollStory();
 
 function initCredentialViewCursor() {
   const cards = Array.from(document.querySelectorAll('#accreditations .accred-card'));
@@ -499,14 +564,13 @@ function preloadToolLogos() {
 function buildMarquee() {
   const track = document.getElementById('marqueeTrack');
   if (!track || track.dataset.toolsReady === 'true') return;
-  const doubled = [...tools, ...tools];
-  doubled.forEach(tool => {
-    const bubble = document.createElement('div');
-    bubble.className = 'tool-bubble';
-    bubble.setAttribute('role', 'listitem');
-    bubble.innerHTML = `<div class="tool-logo-wrap"><img src="${tool.file}" alt="${tool.label} logo" loading="lazy" decoding="async" fetchpriority="low"></div><span class="tool-label">${tool.label}</span>`;
-    track.appendChild(bubble);
-  });
+  const makeBubble = tool => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${tool.file}" alt="${tool.label} logo" loading="lazy" decoding="async" fetchpriority="low"></div><span class="tool-label">${tool.label}</span></div>`;
+  const firstRow = tools.filter((_, index) => index % 2 === 0);
+  const secondRow = tools.filter((_, index) => index % 2 === 1);
+  track.innerHTML = `
+    <div class="marquee-row marquee-row-one">${[...firstRow, ...firstRow].map(makeBubble).join('')}</div>
+    <div class="marquee-row marquee-row-two">${[...secondRow, ...secondRow].map(makeBubble).join('')}</div>
+  `;
   track.dataset.toolsReady = 'true';
 }
 buildMarquee();
@@ -2492,7 +2556,13 @@ window.addEventListener('DOMContentLoaded', () => {
       ['assets/tool-logos/tool-logo-google-meet.png', 'Google Meet'],
       ['assets/tool-logos/tool-logo-zoom.png', 'Zoom']
     ];
-    track.innerHTML = [...tools, ...tools].map(([file, label]) => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${file}" alt="${label} logo" loading="lazy" decoding="async" fetchpriority="low"></div><span class="tool-label">${label}</span></div>`).join('');
+    const makeBubble = ([file, label]) => `<div class="tool-bubble" role="listitem"><div class="tool-logo-wrap"><img src="${file}" alt="${label} logo" loading="lazy" decoding="async" fetchpriority="low"></div><span class="tool-label">${label}</span></div>`;
+    const firstRow = tools.filter((_, index) => index % 2 === 0);
+    const secondRow = tools.filter((_, index) => index % 2 === 1);
+    track.innerHTML = `
+      <div class="marquee-row marquee-row-one">${[...firstRow, ...firstRow].map(makeBubble).join('')}</div>
+      <div class="marquee-row marquee-row-two">${[...secondRow, ...secondRow].map(makeBubble).join('')}</div>
+    `;
     track.dataset.toolsReady = 'true';
   }
 
