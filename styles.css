@@ -134,8 +134,8 @@ body.book-reveal-home {
   pointer-events: none;
   visibility: visible;
   transition:
-    opacity 1.55s cubic-bezier(.22,.84,.2,1),
-    visibility 0s linear 1.55s;
+    opacity .55s cubic-bezier(.22,.84,.2,1),
+    visibility 0s linear .55s;
 }
 
 .book-intro.is-visible.is-complete {
@@ -162,14 +162,14 @@ body.book-reveal-home #navbar,
 body.book-reveal-home #hero .hero-text > *,
 body.book-reveal-home #hero .hero-visual {
   transition:
-    opacity 1.15s cubic-bezier(.22,.84,.2,1),
-    transform 1.15s cubic-bezier(.22,.84,.2,1);
+    opacity .42s cubic-bezier(.22,.84,.2,1),
+    transform .42s cubic-bezier(.22,.84,.2,1);
 }
 
 body.book-reveal-home #navbar {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-  transition-delay: .05s;
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
+  transition-delay: 0s;
 }
 
 body.book-reveal-home #hero .hero-text > *,
@@ -185,6 +185,11 @@ body.book-reveal-home #hero .hero-divider { transition-delay: .58s; }
 body.book-reveal-home #hero .hero-desc { transition-delay: .72s; }
 body.book-reveal-home #hero .hero-ctas { transition-delay: .86s; }
 body.book-reveal-home #hero .hero-visual { transition-delay: .62s; }
+
+body:not(.book-intro-active) #navbar {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 .book-intro__veil {
   position: absolute;
@@ -5512,6 +5517,20 @@ body.home-scroll-story .about-card.fade-up {
     filter 1s cubic-bezier(.22,.84,.2,1),
     transform 1s cubic-bezier(.22,.84,.2,1),
     box-shadow .65s cubic-bezier(.22,.84,.2,1);
+}
+
+body.services-scroll-story .svc-card.fade-up.visible {
+  opacity: var(--svc-card-opacity, 1);
+  transform: translate3d(0, var(--svc-card-y, 0px), 0) scale(var(--svc-card-scale, 1));
+  filter: blur(var(--svc-card-blur, 0px));
+}
+
+body.services-scroll-story .svc-card.fade-up {
+  transition:
+    opacity .65s cubic-bezier(.22,.84,.2,1),
+    filter .65s cubic-bezier(.22,.84,.2,1),
+    transform .65s cubic-bezier(.22,.84,.2,1),
+    box-shadow .45s cubic-bezier(.22,.84,.2,1);
 }
 
 .fade-up:nth-child(2) { transition-delay: 0.1s; }
