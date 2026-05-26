@@ -61,8 +61,6 @@ function activatePortfolioView(view, options = {}) {
   const activeView = portfolioViews.includes(view) ? view : 'home';
   if (activeView !== 'home') clearBookIntroOverlay();
   const shouldAnimate = !options.instant && !reducedMotionQuery.matches;
-  const isSmallScreen = window.matchMedia('(max-width: 760px)').matches;
-  const chapterDuration = isSmallScreen ? 430 : 760;
   if (shouldAnimate) document.body.classList.add('chapter-turning');
 
   viewSections.forEach(section => {
@@ -80,7 +78,7 @@ function activatePortfolioView(view, options = {}) {
         window.requestAnimationFrame(() => {
           window.requestAnimationFrame(() => section.classList.add('chapter-enter'));
         });
-        window.setTimeout(() => section.classList.remove('chapter-enter'), chapterDuration);
+        window.setTimeout(() => section.classList.remove('chapter-enter'), 760);
       }
     } else {
       section.classList.remove('chapter-enter');
@@ -102,13 +100,11 @@ function activatePortfolioView(view, options = {}) {
   }
 
   if (!options.preserveScroll) {
-    window.scrollTo({ top: 0, behavior: options.instant || isSmallScreen ? 'auto' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: options.instant ? 'auto' : 'smooth' });
   }
 
-  window.dispatchEvent(new CustomEvent('portfolio-view-change', { detail: { view: activeView } }));
-
   if (shouldAnimate) {
-    window.setTimeout(() => document.body.classList.remove('chapter-turning'), chapterDuration);
+    window.setTimeout(() => document.body.classList.remove('chapter-turning'), 760);
   }
 }
 
@@ -154,12 +150,12 @@ function initEditorialIntro() {
     clearBookIntroOverlay();
     return;
   }
+
   document.body.classList.add('book-intro-active');
   window.requestAnimationFrame(() => intro.classList.add('is-visible'));
 
   let introFinished = false;
   let safetyTimer = null;
-  let autoFinishTimer = null;
 
   function revealHomepage(delay = 0) {
     document.querySelectorAll('#hero .hero-name, #hero .fade-up, #hero .hero-text > *').forEach((el, i) => {
@@ -169,38 +165,34 @@ function initEditorialIntro() {
 
   function beginHomepageReveal() {
     document.body.classList.add('book-reveal-home');
-    document.body.classList.remove('book-intro-active');
-    revealHomepage(160);
+    revealHomepage(320);
   }
 
   function finishIntro() {
     if (introFinished) return;
     introFinished = true;
     if (safetyTimer) window.clearTimeout(safetyTimer);
-    if (autoFinishTimer) window.clearTimeout(autoFinishTimer);
     intro.classList.add('is-title-fading');
     beginHomepageReveal();
     intro.classList.add('is-revealing-home');
-    window.setTimeout(() => intro.classList.add('is-complete'), 420);
-    const clearDelay = window.matchMedia('(max-width: 760px)').matches ? 720 : 1000;
+    window.setTimeout(() => intro.classList.add('is-complete'), 620);
     window.setTimeout(() => {
       clearBookIntroOverlay();
-    }, clearDelay);
+    }, 2100);
   }
 
   function openIntro() {
     if (introFinished) return;
-    if (autoFinishTimer) window.clearTimeout(autoFinishTimer);
     openButton.disabled = true;
     intro.classList.add('is-pressing');
-    window.setTimeout(() => intro.classList.add('is-opening'), 120);
-    window.setTimeout(() => intro.classList.add('is-title-fading'), 1350);
+    window.setTimeout(() => intro.classList.add('is-opening'), 220);
+    window.setTimeout(() => intro.classList.add('is-title-fading'), 4500);
     window.setTimeout(() => {
       intro.classList.add('is-revealing-home');
       beginHomepageReveal();
-    }, 1700);
-    window.setTimeout(() => intro.classList.add('is-complete'), 2200);
-    window.setTimeout(finishIntro, 2850);
+    }, 5300);
+    window.setTimeout(() => intro.classList.add('is-complete'), 5900);
+    window.setTimeout(finishIntro, 7600);
   }
 
   openButton.addEventListener('click', openIntro, { once: true });
@@ -211,9 +203,7 @@ function initEditorialIntro() {
   safetyTimer = window.setTimeout(() => {
     openButton.disabled = false;
     intro.classList.add('is-ready');
-  }, 900);
-
-  autoFinishTimer = window.setTimeout(finishIntro, 1200);
+  }, 3200);
 }
 
 function initEditorialParallax() {
@@ -404,9 +394,6 @@ function initServicesScrollStory() {
       card.style.setProperty('--svc-card-opacity', settleOpacity.toFixed(3));
       card.style.setProperty('--svc-card-blur', `${settleBlur.toFixed(2)}px`);
       card.style.setProperty('--svc-card-delay', `${(index * 0.04).toFixed(2)}s`);
-      card.style.transform = `translate3d(0, ${settleY.toFixed(2)}px, 0) scale(${settleScale.toFixed(4)})`;
-      card.style.opacity = settleOpacity.toFixed(3);
-      card.style.filter = `blur(${settleBlur.toFixed(2)}px)`;
     });
 
     if (toolsInner) {
@@ -430,100 +417,6 @@ function initServicesScrollStory() {
   updateServicesStory();
   window.addEventListener('scroll', requestServicesFrame, { passive: true });
   window.addEventListener('resize', requestServicesFrame, { passive: true });
-  window.addEventListener('portfolio-view-change', event => {
-    if (event.detail?.view !== 'services') return;
-    window.requestAnimationFrame(requestServicesFrame);
-    window.setTimeout(requestServicesFrame, 120);
-  });
-}
-
-function initCredentialsScrollStory() {
-  if (reducedMotionQuery.matches) return;
-
-  const canUseScrollMotion = window.matchMedia('(min-width: 761px)').matches;
-  if (!canUseScrollMotion) return;
-
-  const sections = [
-    { section: document.getElementById('experience'), inner: document.querySelector('#experience .experience-inner') },
-    { section: document.getElementById('skills'), inner: document.querySelector('#skills .skills-inner') },
-    { section: document.getElementById('accreditations'), inner: document.querySelector('#accreditations .accred-inner') },
-    { section: document.getElementById('endorsement'), inner: document.querySelector('#endorsement .endorsement-inner') }
-  ].filter(item => item.section && item.inner);
-  const experienceCards = Array.from(document.querySelectorAll('#experience .exp-card'));
-  const experienceGrid = document.querySelector('#experience .exp-grid');
-
-  if (sections.length < 2) return;
-
-  let raf = null;
-
-  function clamp(value, min, max) {
-    return Math.min(Math.max(value, min), max);
-  }
-
-  function revealFor(section, viewport) {
-    const rect = section.getBoundingClientRect();
-    const progress = clamp((viewport - rect.top) / Math.max(viewport * 1.04, 1), 0, 1);
-    return clamp((progress - 0.08) / 0.68, 0, 1);
-  }
-
-  function updateCredentialsStory() {
-    const viewport = window.innerHeight || document.documentElement.clientHeight;
-    const reveals = sections.map(item => revealFor(item.section, viewport));
-
-    sections.forEach((item, index) => {
-      const reveal = reveals[index];
-      const enterY = (1 - reveal) * 76;
-      const scale = 0.94 + reveal * 0.06;
-
-      item.inner.style.setProperty('--credential-section-y', `${enterY.toFixed(2)}px`);
-      item.inner.style.setProperty('--credential-section-scale', scale.toFixed(4));
-      item.inner.style.setProperty('--credential-section-opacity', '1');
-      item.inner.style.setProperty('--credential-section-blur', '0px');
-    });
-
-    const experienceReveal = reveals[0] || 0;
-    const skillsReveal = reveals[1] || 0;
-    if (experienceGrid) {
-      const gridY = skillsReveal * -118;
-      const gridScale = 1 - skillsReveal * 0.035;
-      const gridOpacity = 1 - skillsReveal * 0.16;
-      experienceGrid.style.setProperty('--exp-grid-y', `${gridY.toFixed(2)}px`);
-      experienceGrid.style.setProperty('--exp-grid-scale', gridScale.toFixed(4));
-      experienceGrid.style.setProperty('--exp-grid-opacity', gridOpacity.toFixed(3));
-    }
-
-    experienceCards.forEach((card, index) => {
-      const cardReveal = clamp((experienceReveal - index * 0.05) / 0.48, 0, 1);
-      const direction = index === 0 ? -1 : index === 2 ? 1 : 0;
-      const cardX = (1 - cardReveal) * direction * 22;
-      const cardY = (1 - cardReveal) * 78 - skillsReveal * (index === 1 ? 16 : 4);
-      const cardScale = 0.965 + cardReveal * 0.035 - skillsReveal * 0.012;
-      const cardOpacity = Math.max(0.72, cardReveal - skillsReveal * 0.08);
-      const cardBlur = (1 - cardReveal) * 7;
-
-      card.style.setProperty('--exp-card-x', `${cardX.toFixed(2)}px`);
-      card.style.setProperty('--exp-card-y', `${cardY.toFixed(2)}px`);
-      card.style.setProperty('--exp-card-scale', cardScale.toFixed(4));
-      card.style.setProperty('--exp-card-opacity', cardOpacity.toFixed(3));
-      card.style.setProperty('--exp-card-blur', `${cardBlur.toFixed(2)}px`);
-    });
-
-    raf = null;
-  }
-
-  function requestCredentialsFrame() {
-    if (!raf) raf = window.requestAnimationFrame(updateCredentialsStory);
-  }
-
-  document.body.classList.add('credentials-scroll-story');
-  updateCredentialsStory();
-  window.addEventListener('scroll', requestCredentialsFrame, { passive: true });
-  window.addEventListener('resize', requestCredentialsFrame, { passive: true });
-  window.addEventListener('portfolio-view-change', event => {
-    if (event.detail?.view !== 'credentials') return;
-    window.requestAnimationFrame(requestCredentialsFrame);
-    window.setTimeout(requestCredentialsFrame, 420);
-  });
 }
 
 initEditorialIntro();
@@ -531,10 +424,9 @@ initEditorialParallax();
 initHomeEditorialMotion();
 initHomeScrollStory();
 initServicesScrollStory();
-initCredentialsScrollStory();
 
 function initCredentialViewCursor() {
-  const cards = Array.from(document.querySelectorAll('#accreditations .accred-card:not([aria-hidden="true"])'));
+  const cards = Array.from(document.querySelectorAll('#accreditations .accred-card'));
   if (!cards.length) return;
 
   cards.forEach(card => {
@@ -605,48 +497,6 @@ function initCredentialViewCursor() {
   });
 }
 
-function initAccreditationCarousel() {
-  const grid = document.querySelector('#accreditations .accred-grid');
-  if (!grid || grid.dataset.carouselReady === 'true') return;
-
-  const descriptions = {
-    'Introduction to SEO': 'Covers search visibility foundations, keyword strategy, and practical ways to make digital content easier to find.',
-    'Digital Marketing Tools and Techniques': 'Focuses on digital marketing workflows, campaign tools, and the systems used to plan and monitor online activity.',
-    'Meta Business Suite for Beginners': 'Supports social media management through Meta tools, including content publishing, page handling, and audience workflow basics.',
-    'Content Marketing Certified': 'Builds content strategy, storytelling, audience planning, and publishing systems for consistent brand communication.',
-    'Google Analytics Certification': 'Validates analytics knowledge for tracking website activity, reading user behavior, and measuring digital performance.'
-  };
-
-  const cards = Array.from(grid.querySelectorAll('.accred-card'));
-  cards.forEach(card => {
-    const button = card.querySelector('.btn-view-credential');
-    const title = card.querySelector('.accred-title')?.textContent.trim() || 'Certification';
-    const match = button?.getAttribute('onclick')?.match(/openCredential\('([^']+)'/);
-    const src = match?.[1];
-
-    if (src && !card.querySelector('.accred-certificate-frame')) {
-      const frame = document.createElement('figure');
-      frame.className = 'accred-certificate-frame';
-      frame.innerHTML = `<img src="${src}" alt="${title} certificate preview" loading="lazy" decoding="async">`;
-      card.insertBefore(frame, card.firstElementChild);
-    }
-
-    if (!card.querySelector('.accred-desc')) {
-      const desc = document.createElement('p');
-      desc.className = 'accred-desc';
-      desc.textContent = descriptions[title] || 'A verified credential that supports practical remote work, content, and digital operations skills.';
-      card.querySelector('.accred-title')?.insertAdjacentElement('afterend', desc);
-    }
-  });
-
-  const track = document.createElement('div');
-  track.className = 'accred-carousel-track';
-  cards.forEach(card => track.appendChild(card));
-  grid.appendChild(track);
-  grid.dataset.carouselReady = 'true';
-}
-
-initAccreditationCarousel();
 initCredentialViewCursor();
 
 // --- Scroll Fade-Up Animations -------------------------------
@@ -1571,6 +1421,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function rebuildLetterPopup() {
     const buttons = document.querySelector('.endorse-card .btn-view-letter');
+    if (buttons && !document.querySelector('.endorse-card .btn-view-certificates')) {
+      buttons.insertAdjacentHTML('afterend', '<button class="btn-view-letter btn-view-certificates" onclick="openRecognitionPopup()" aria-label="View certificates">View Certificates</button>');
+    }
     if (!$('recognitionPopup')) {
       document.body.insertAdjacentHTML('beforeend', `
         <div class="popup-backdrop" id="recognitionPopup" role="dialog" aria-modal="true" aria-label="Recognition certificates viewer">
@@ -2343,7 +2196,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'assets/samples/technical-writing/technical-writing-01-unesco-mun-master-rapporteur-log-page-01.jpg',
       'assets/samples/workflows/workflow-01-sst-social-media-management-hub-board.png',
       'assets/samples/ai-architecture/ai-architecture-06-github-repository.png',
-      'assets/samples/endorsements/endorsement-imun-registration-photo.jpg'
+      'assets/samples/endorsements/endorsement-imun-event-photo.jpg'
     ];
   }
 
@@ -2749,6 +2602,12 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.setAttribute('onclick', 'openLetterPopup(); return false;');
       }
     });
+    const endorsement = document.querySelector('#endorsement, #executive-endorsement, section[aria-label*="Endorsement"], section');
+    const existing = buttons.find(btn => /View Certificates/i.test(btn.textContent));
+    const letterBtn = buttons.find(btn => /View Full Credential Letter/i.test(btn.textContent));
+    if (letterBtn && !existing) {
+      letterBtn.insertAdjacentHTML('afterend', '<button class="btn-view-letter btn-view-certificates" type="button" onclick="openRecognitionPopup()">View Certificates</button>');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {
